@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using IMS.Data.Models;
+using Models = IMS.Data.Models;
 
-namespace IMS.RazorWebApp.Pages.Mentors
+namespace IMS.RazorWebApp.Pages.Company
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
         }
 
         [BindProperty]
-        public Mentor Mentor { get; set; } = default!;
+        public Models.Company Company { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,13 +29,12 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor =  await _context.Mentors.FirstOrDefaultAsync(m => m.MentorId == id);
-            if (mentor == null)
+            var company =  await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);
+            if (company == null)
             {
                 return NotFound();
             }
-            Mentor = mentor;
-           ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Address");
+            Company = company;
             return Page();
         }
 
@@ -43,12 +42,12 @@ namespace IMS.RazorWebApp.Pages.Mentors
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-            _context.Attach(Mentor).State = EntityState.Modified;
+            _context.Attach(Company).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +55,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MentorExists(Mentor.MentorId))
+                if (!CompanyExists(Company.CompanyId))
                 {
                     return NotFound();
                 }
@@ -69,9 +68,9 @@ namespace IMS.RazorWebApp.Pages.Mentors
             return RedirectToPage("./Index");
         }
 
-        private bool MentorExists(int id)
+        private bool CompanyExists(int id)
         {
-            return _context.Mentors.Any(e => e.MentorId == id);
+            return _context.Companies.Any(e => e.CompanyId == id);
         }
     }
 }

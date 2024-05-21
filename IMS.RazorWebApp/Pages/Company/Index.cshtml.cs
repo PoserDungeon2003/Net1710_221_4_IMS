@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 
-namespace IMS.RazorWebApp.Pages.Mentors
+namespace IMS.RazorWebApp.Pages.Company
 {
     public class IndexModel : PageModel
     {
@@ -18,12 +18,11 @@ namespace IMS.RazorWebApp.Pages.Mentors
             _context = context;
         }
 
-        public IList<Models.Mentor> Mentor { get;set; } = default!;
+        public IList<Models.Company> Company { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Mentor = await _context.Mentors
-                .Include(m => m.Company).ToListAsync();
+            Company = await _context.Companies.ToListAsync();
         }
     }
 }

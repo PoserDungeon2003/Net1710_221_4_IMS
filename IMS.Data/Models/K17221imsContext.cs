@@ -48,19 +48,12 @@ public partial class K17221imsContext : DbContext
         {
             entity.ToTable("Company");
 
-            entity.Property(e => e.CompanyId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("company_id");
+            entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.Address).HasMaxLength(100);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.Phone)
                 .HasMaxLength(10)
                 .IsFixedLength();
-
-            entity.HasOne(d => d.CompanyNavigation).WithOne(p => p.Company)
-                .HasForeignKey<Company>(d => d.CompanyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Company_Intern");
         });
 
         modelBuilder.Entity<Intern>(entity =>
@@ -70,6 +63,7 @@ public partial class K17221imsContext : DbContext
             entity.ToTable("Intern");
 
             entity.Property(e => e.InternId).HasColumnName("intern_id");
+            entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.EducationBackground).HasColumnName("education_background");
             entity.Property(e => e.Experiences).HasColumnName("experiences");
             entity.Property(e => e.JobPosition)
@@ -86,6 +80,11 @@ public partial class K17221imsContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("university");
             entity.Property(e => e.WorkingTasks).HasColumnName("working_tasks");
+
+            entity.HasOne(d => d.Company).WithMany(p => p.Interns)
+                .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Intern_Company");
 
             entity.HasOne(d => d.Mentor).WithMany(p => p.Interns)
                 .HasForeignKey(d => d.MentorId)
@@ -143,6 +142,7 @@ public partial class K17221imsContext : DbContext
 
             entity.HasOne(d => d.Company).WithMany(p => p.Mentors)
                 .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Mentor_Company");
         });
 

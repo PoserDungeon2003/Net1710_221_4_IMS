@@ -1,0 +1,67 @@
+﻿@page
+@model IMS.RazorWebApp.Pages.Intern.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Intern</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.University)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.University)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.Major)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.Major)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.JobPosition)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.JobPosition)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.EducationBackground)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.EducationBackground)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.Experiences)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.Experiences)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.WorkingTasks)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.WorkingTasks)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Intern.Mentor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Intern.Mentor.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Intern.InternId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

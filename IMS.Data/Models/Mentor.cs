@@ -15,9 +15,9 @@ public partial class Mentor
 
     public string JobPosition { get; set; } = null!;
 
-    public int? CompanyId { get; set; }
+    public int CompanyId { get; set; }
 
-    public virtual Company? Company { get; set; }
+    public virtual Company Company { get; set; } = null!;
 
     public virtual ICollection<Intern> Interns { get; set; } = new List<Intern>();
 

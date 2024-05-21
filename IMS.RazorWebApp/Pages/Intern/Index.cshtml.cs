@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
+using Task = System.Threading.Tasks.Task;
 
-namespace IMS.RazorWebApp.Pages.Mentors
+namespace IMS.RazorWebApp.Pages.Intern
 {
     public class IndexModel : PageModel
     {
@@ -18,12 +19,12 @@ namespace IMS.RazorWebApp.Pages.Mentors
             _context = context;
         }
 
-        public IList<Models.Mentor> Mentor { get;set; } = default!;
+        public IList<Models.Intern> Intern { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Mentor = await _context.Mentors
-                .Include(m => m.Company).ToListAsync();
+            Intern = await _context.Interns
+                .Include(i => i.Mentor).ToListAsync();
         }
     }
 }

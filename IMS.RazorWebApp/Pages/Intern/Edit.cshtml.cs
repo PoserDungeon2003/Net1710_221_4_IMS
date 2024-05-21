@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using IMS.Data.Models;
+using Models = IMS.Data.Models;
 
-namespace IMS.RazorWebApp.Pages.Mentors
+namespace IMS.RazorWebApp.Pages.Intern
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
         }
 
         [BindProperty]
-        public Mentor Mentor { get; set; } = default!;
+        public Models.Intern Intern { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,13 +29,13 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor =  await _context.Mentors.FirstOrDefaultAsync(m => m.MentorId == id);
-            if (mentor == null)
+            var intern =  await _context.Interns.FirstOrDefaultAsync(m => m.InternId == id);
+            if (intern == null)
             {
                 return NotFound();
             }
-            Mentor = mentor;
-           ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Address");
+            Intern = intern;
+           ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
             //    return Page();
             //}
 
-            _context.Attach(Mentor).State = EntityState.Modified;
+            _context.Attach(Intern).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MentorExists(Mentor.MentorId))
+                if (!InternExists(Intern.InternId))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace IMS.RazorWebApp.Pages.Mentors
             return RedirectToPage("./Index");
         }
 
-        private bool MentorExists(int id)
+        private bool InternExists(int id)
         {
-            return _context.Mentors.Any(e => e.MentorId == id);
+            return _context.Interns.Any(e => e.InternId == id);
         }
     }
 }

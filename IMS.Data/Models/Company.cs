@@ -15,7 +15,7 @@ public partial class Company
 
     public string Description { get; set; } = null!;
 
-    public virtual Intern CompanyNavigation { get; set; } = null!;
+    public virtual ICollection<Intern> Interns { get; set; } = new List<Intern>();
 
     public virtual ICollection<Mentor> Mentors { get; set; } = new List<Mentor>();
 }

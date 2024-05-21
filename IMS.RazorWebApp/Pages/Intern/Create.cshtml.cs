@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using IMS.Data.Models;
+using Models = IMS.Data.Models;
 
-namespace IMS.RazorWebApp.Pages.Mentors
+namespace IMS.RazorWebApp.Pages.Intern
 {
     public class CreateModel : PageModel
     {
@@ -20,23 +20,22 @@ namespace IMS.RazorWebApp.Pages.Mentors
 
         public IActionResult OnGet()
         {
-        ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Name");
+        ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
             return Page();
         }
 
         [BindProperty]
-        public Mentor Mentor { get; set; } = default!;
+        public Models.Intern Intern { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             //if (!ModelState.IsValid)
             //{
-            //    OnGet();
             //    return Page();
             //}
 
-            _context.Mentors.Add(Mentor);
+            _context.Interns.Add(Intern);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

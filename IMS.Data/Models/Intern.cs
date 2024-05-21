@@ -23,7 +23,9 @@ public partial class Intern
 
     public string Name { get; set; } = null!;
 
-    public virtual Company? Company { get; set; }
+    public int CompanyId { get; set; }
+
+    public virtual Company Company { get; set; } = null!;
 
     public virtual ICollection<InterviewsInfo> InterviewsInfos { get; set; } = new List<InterviewsInfo>();
 
