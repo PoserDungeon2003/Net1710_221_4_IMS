@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace IMS.RazorWebApp.Pages.Mentors
 {
@@ -20,7 +21,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
 
         public IList<Mentor> Mentor { get;set; } = default!;
 
-        public async System.Threading.Tasks.Task OnGetAsync()
+        public async Task OnGetAsync()
         {
             Mentor = await _context.Mentors
                 .Include(m => m.Company).ToListAsync();
