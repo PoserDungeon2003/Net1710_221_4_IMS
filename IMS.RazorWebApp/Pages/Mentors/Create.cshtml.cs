@@ -11,9 +11,9 @@ namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class CreateModel : PageModel
     {
-        private readonly IMS.Data.Models.K17221imsContext _context;
+        private readonly IMS.Data.Models.Net1710_221_4_IMSContext _context;
 
-        public CreateModel(IMS.Data.Models.K17221imsContext context)
+        public CreateModel(IMS.Data.Models.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }

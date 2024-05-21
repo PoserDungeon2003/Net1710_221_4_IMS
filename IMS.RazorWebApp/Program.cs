@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<K17221imsContext>(options =>
+builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnectionStringDB")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

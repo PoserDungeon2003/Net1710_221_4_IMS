@@ -11,9 +11,9 @@ namespace IMS.RazorWebApp.Pages.Company
 {
     public class DetailsModel : PageModel
     {
-        private readonly IMS.Data.Models.K17221imsContext _context;
+        private readonly IMS.Data.Models.Net1710_221_4_IMSContext _context;
 
-        public DetailsModel(IMS.Data.Models.K17221imsContext context)
+        public DetailsModel(IMS.Data.Models.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }

@@ -5,13 +5,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace IMS.Data.Models;
 
-public partial class K17221imsContext : DbContext
+public partial class Net1710_221_4_IMSContext : DbContext
 {
-    public K17221imsContext()
+    public Net1710_221_4_IMSContext()
     {
     }
 
-    public K17221imsContext(DbContextOptions<K17221imsContext> options)
+    public Net1710_221_4_IMSContext(DbContextOptions<Net1710_221_4_IMSContext> options)
         : base(options)
     {
     }
