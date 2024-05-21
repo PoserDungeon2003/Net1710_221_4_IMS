@@ -6,14 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-var app = builder.Build();
-
 // Configure the connection string
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionStringDB");
+var connectionString = builder.Configuration.GetConnectionString("Net1710_221_4_IMSContext");
 
-builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Net1710_221_4_IMSContext")));
 
-app = builder.Build();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
