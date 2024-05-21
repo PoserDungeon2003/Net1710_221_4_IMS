@@ -10,10 +10,11 @@ namespace IMS.Data.Repository;
 
 public partial class Net1710_221_4_IMSContext : DbContext
 {
-    public Net1710_221_4_IMSContext(DbContextOptions<Net1710_221_4_IMSContext> options)
-        : base(options)
+    public Net1710_221_4_IMSContext(DbContextOptions options) : base(options)
     {
+
     }
+
 
     public virtual DbSet<Company> Companies { get; set; }
 
@@ -32,17 +33,12 @@ public partial class Net1710_221_4_IMSContext : DbContext
              .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", true, true)
                     .Build();
-        var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+        var strConn = config["ConnectionStrings:Net1710_221_4_IMSContext"];
 
         return strConn;
     }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(GetConnectionString());
-        base.OnConfiguring(optionsBuilder);
-    }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
