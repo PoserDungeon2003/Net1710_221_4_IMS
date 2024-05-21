@@ -1,9 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using IMS.Data.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+// Configure the connection string
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionStringDB");
+
+builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options => options.UseSqlServer(connectionString));
+
+app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

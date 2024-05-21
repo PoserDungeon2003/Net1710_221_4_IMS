@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using IMS.Data.Models;
 
-namespace IMS.Data.Models;
+namespace IMS.Data.Repository;
 
 public partial class Net1710_221_4_IMSContext : DbContext
 {
@@ -22,7 +23,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
 
     public virtual DbSet<Mentor> Mentors { get; set; }
 
-    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<Models.Task> Tasks { get; set; }
 
     public virtual DbSet<WorkingResult> WorkingResults { get; set; }
     private string GetConnectionString()
@@ -168,7 +169,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
                 .HasConstraintName("FK_Mentor_Company");
         });
 
-        modelBuilder.Entity<Task>(entity =>
+        modelBuilder.Entity<Models.Task>(entity =>
         {
             entity.ToTable("Task");
 
