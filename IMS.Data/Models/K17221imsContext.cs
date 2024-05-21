@@ -26,7 +26,7 @@ public partial class K17221imsContext : DbContext
 
     public virtual DbSet<Task> Tasks { get; set; }
 
-    public virtual DbSet<WorkingResult> WorkingResults { get; set; }\
+    public virtual DbSet<WorkingResult> WorkingResults { get; set; }
 
     private string GetConnectionString()
     {
