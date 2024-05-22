@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
+using IMS.Data.Repository;
 
 namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class DetailsModel : PageModel
     {
-        private readonly IMS.Data.Models.Net1710_221_4_IMSContext _context;
+        private readonly Net1710_221_4_IMSContext _context;
 
-        public DetailsModel(IMS.Data.Models.Net1710_221_4_IMSContext context)
+        public DetailsModel(Net1710_221_4_IMSContext context)
         {
             _context = context;
         }

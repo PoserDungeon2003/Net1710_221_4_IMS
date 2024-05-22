@@ -1,0 +1,58 @@
+﻿@page
+@model IMS.RazorWebApp.Pages.Interviews.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>InterviewsInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Time" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Time" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Location" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Location" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Result" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Result" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Result" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Name" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Name" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Content" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Content" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.InternId" class="control-label"></label>
+                <select asp-for="InterviewsInfo.InternId" class ="form-control" asp-items="ViewBag.InternId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

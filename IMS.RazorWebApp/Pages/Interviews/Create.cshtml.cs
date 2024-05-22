@@ -8,36 +8,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using IMS.Data.Models;
 using IMS.Data.Repository;
 
-namespace IMS.RazorWebApp.Pages.Mentors
+namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class CreateModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public CreateModel(Net1710_221_4_IMSContext context)
+        public CreateModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Name");
+        ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
             return Page();
         }
 
         [BindProperty]
-        public Mentor Mentor { get; set; } = default!;
+        public InterviewsInfo InterviewsInfo { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
+           // if (!ModelState.IsValid)
             //{
-            //    OnGet();
-            //    return Page();
-            //}
+              //  return Page();
+           // }
 
-            _context.Mentors.Add(Mentor);
+            _context.InterviewsInfos.Add(InterviewsInfo);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
+using IMS.Data.Repository;
 
 namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class EditModel : PageModel
     {
-        private readonly IMS.Data.Models.Net1710_221_4_IMSContext _context;
+        private readonly Net1710_221_4_IMSContext _context;
 
-        public EditModel(IMS.Data.Models.Net1710_221_4_IMSContext context)
+        public EditModel(Net1710_221_4_IMSContext context)
         {
             _context = context;
         }

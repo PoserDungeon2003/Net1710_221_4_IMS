@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using IMS.Data.Models;
 
-namespace IMS.Data.Models;
+namespace IMS.Data.Repository;
 
 public partial class Net1710_221_4_IMSContext : DbContext
 {
+
     public Net1710_221_4_IMSContext()
     {
     }
@@ -14,7 +16,9 @@ public partial class Net1710_221_4_IMSContext : DbContext
     public Net1710_221_4_IMSContext(DbContextOptions<Net1710_221_4_IMSContext> options)
         : base(options)
     {
+
     }
+
 
     public virtual DbSet<Company> Companies { get; set; }
 
@@ -24,7 +28,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
 
     public virtual DbSet<Mentor> Mentors { get; set; }
 
-    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<Models.Task> Tasks { get; set; }
 
     public virtual DbSet<WorkingResult> WorkingResults { get; set; }
 
@@ -32,15 +36,15 @@ public partial class Net1710_221_4_IMSContext : DbContext
     {
         IConfiguration config = new ConfigurationBuilder()
              .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", true, true)
+                    .AddJsonFile("appsettings.Development.json", true, true)
                     .Build();
-        var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+        var strConn = config["ConnectionStrings:DefaultConnection"];
 
         return strConn;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+    => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -146,7 +150,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
                 .HasConstraintName("FK_Mentor_Company");
         });
 
-        modelBuilder.Entity<Task>(entity =>
+        modelBuilder.Entity<Models.Task>(entity =>
         {
             entity.ToTable("Task");
 

@@ -6,22 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Models = IMS.Data.Models;
+using IMS.Data.Models;
 using IMS.Data.Repository;
 
-namespace IMS.RazorWebApp.Pages.Company
+namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class EditModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public EditModel(Net1710_221_4_IMSContext context)
+        public EditModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Models.Company Company { get; set; } = default!;
+        public InterviewsInfo InterviewsInfo { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,13 @@ namespace IMS.RazorWebApp.Pages.Company
                 return NotFound();
             }
 
-            var company =  await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);
-            if (company == null)
+            var interviewsinfo =  await _context.InterviewsInfos.FirstOrDefaultAsync(m => m.InterviewinfoId == id);
+            if (interviewsinfo == null)
             {
                 return NotFound();
             }
-            Company = company;
+            InterviewsInfo = interviewsinfo;
+           ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
             return Page();
         }
 
@@ -43,12 +44,12 @@ namespace IMS.RazorWebApp.Pages.Company
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
-            _context.Attach(Company).State = EntityState.Modified;
+            _context.Attach(InterviewsInfo).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +57,7 @@ namespace IMS.RazorWebApp.Pages.Company
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompanyExists(Company.CompanyId))
+                if (!InterviewsInfoExists(InterviewsInfo.InterviewinfoId))
                 {
                     return NotFound();
                 }
@@ -69,9 +70,9 @@ namespace IMS.RazorWebApp.Pages.Company
             return RedirectToPage("./Index");
         }
 
-        private bool CompanyExists(int id)
+        private bool InterviewsInfoExists(int id)
         {
-            return _context.Companies.Any(e => e.CompanyId == id);
+            return _context.InterviewsInfos.Any(e => e.InterviewinfoId == id);
         }
     }
 }

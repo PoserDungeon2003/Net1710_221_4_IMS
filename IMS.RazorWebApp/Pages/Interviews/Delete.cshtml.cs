@@ -5,22 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Models = IMS.Data.Models;
+using IMS.Data.Models;
 using IMS.Data.Repository;
 
-namespace IMS.RazorWebApp.Pages.Company
+namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class DeleteModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public DeleteModel(Net1710_221_4_IMSContext context)
+        public DeleteModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Models.Company Company { get; set; } = default!;
+        public InterviewsInfo InterviewsInfo { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace IMS.RazorWebApp.Pages.Company
                 return NotFound();
             }
 
-            var company = await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);
+            var interviewsinfo = await _context.InterviewsInfos.FirstOrDefaultAsync(m => m.InterviewinfoId == id);
 
-            if (company == null)
+            if (interviewsinfo == null)
             {
                 return NotFound();
             }
             else
             {
-                Company = company;
+                InterviewsInfo = interviewsinfo;
             }
             return Page();
         }
@@ -49,11 +49,11 @@ namespace IMS.RazorWebApp.Pages.Company
                 return NotFound();
             }
 
-            var company = await _context.Companies.FindAsync(id);
-            if (company != null)
+            var interviewsinfo = await _context.InterviewsInfos.FindAsync(id);
+            if (interviewsinfo != null)
             {
-                Company = company;
-                _context.Companies.Remove(Company);
+                InterviewsInfo = interviewsinfo;
+                _context.InterviewsInfos.Remove(InterviewsInfo);
                 await _context.SaveChangesAsync();
             }
 

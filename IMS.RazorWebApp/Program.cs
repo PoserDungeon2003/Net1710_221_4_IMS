@@ -1,16 +1,17 @@
-using IMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
+using IMS.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnectionStringDB")));
+// Configure the connection string
+var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnection");
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options =>
+    options.UseSqlServer(connectionString));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
