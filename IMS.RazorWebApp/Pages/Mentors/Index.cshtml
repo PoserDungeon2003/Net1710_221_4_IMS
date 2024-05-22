@@ -1,0 +1,60 @@
+﻿@page
+@model IMS.RazorWebApp.Pages.Mentors.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].JobPosition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].Company)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Mentor) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.Address)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.MentorId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.MentorId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.MentorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
