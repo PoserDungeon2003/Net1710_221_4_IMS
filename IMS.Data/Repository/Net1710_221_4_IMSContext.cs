@@ -36,11 +36,11 @@ public partial class Net1710_221_4_IMSContext : DbContext
     {
         IConfiguration config = new ConfigurationBuilder()
              .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", true, true)
+                    .AddJsonFile("appsettings.Development.json", true, true)
                     .Build();
-        var strConn = config["ConnectionStrings:Net1710_221_4_IMSContext"];
+        var strConn = config["ConnectionStrings:DefaultConnection"];
 
-        return strConn ?? throw new Exception("Can not get Connection string");
+        return strConn;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -14,10 +14,10 @@ namespace IMS.Data.Repository
         {
             var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Development.json")
                 .Build();
             var optionsBuilder = new DbContextOptionsBuilder<Net1710_221_4_IMSContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DatabaseConnection"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("ConnectionStrings:DefaultConnection"));
             
             return new Net1710_221_4_IMSContext(optionsBuilder.Options);
         }
