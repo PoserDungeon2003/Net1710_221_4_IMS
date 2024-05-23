@@ -1,0 +1,60 @@
+﻿@page
+@model IMS.RazorWebApp.Pages.Work_Result.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>WorkingResult</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WorkingResult.ResultId" />
+            <div class="form-group">
+                <label asp-for="WorkingResult.CreatedBy" class="control-label"></label>
+                <input asp-for="WorkingResult.CreatedBy" class="form-control" />
+                <span asp-validation-for="WorkingResult.CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkingResult.Rating" class="control-label"></label>
+                <input asp-for="WorkingResult.Rating" class="form-control" />
+                <span asp-validation-for="WorkingResult.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkingResult.Note" class="control-label"></label>
+                <input asp-for="WorkingResult.Note" class="form-control" />
+                <span asp-validation-for="WorkingResult.Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkingResult.MentorId" class="control-label"></label>
+                <select asp-for="WorkingResult.MentorId" class="form-control" asp-items="ViewBag.MentorId"></select>
+                <span asp-validation-for="WorkingResult.MentorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkingResult.TaskId" class="control-label"></label>
+                <select asp-for="WorkingResult.TaskId" class="form-control" asp-items="ViewBag.TaskId"></select>
+                <span asp-validation-for="WorkingResult.TaskId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkingResult.InternId" class="control-label"></label>
+                <select asp-for="WorkingResult.InternId" class="form-control" asp-items="ViewBag.InternId"></select>
+                <span asp-validation-for="WorkingResult.InternId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

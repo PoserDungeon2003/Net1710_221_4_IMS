@@ -38,13 +38,14 @@ public partial class Net1710_221_4_IMSContext : DbContext
              .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.Development.json", true, true)
                     .Build();
-        var strConn = config["ConnectionStrings:DefaultConnection"];
+        var strConn = config.GetConnectionString("DefaultConnection");
 
-        return strConn;
+        return strConn ?? throw new ArgumentNullException("Connection string is null");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseSqlServer(GetConnectionString());
+    => optionsBuilder.UseSqlServer(GetConnectionString())
+    .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

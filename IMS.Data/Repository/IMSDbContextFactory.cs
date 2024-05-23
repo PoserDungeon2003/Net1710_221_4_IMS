@@ -17,7 +17,8 @@ namespace IMS.Data.Repository
                 .AddJsonFile("appsettings.Development.json")
                 .Build();
             var optionsBuilder = new DbContextOptionsBuilder<Net1710_221_4_IMSContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("ConnectionStrings:DefaultConnection"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+            .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             
             return new Net1710_221_4_IMSContext(optionsBuilder.Options);
         }

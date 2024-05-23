@@ -69,22 +69,22 @@ namespace IMS.Data.Base
 
         public T GetById(int id)
         {
-            return _dbSet.Find(id);
+            return _dbSet.Find(id) ?? throw new Exception("Not found");
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(id) ?? throw new Exception("Not found");
         }
 
         public T GetById(string code)
         {
-            return _dbSet.Find(code);
+            return _dbSet.Find(code) ?? throw new Exception("Not found");
         }
 
         public async Task<T> GetByIdAsync(string code)
         {
-            return await _dbSet.FindAsync(code);
+            return await _dbSet.FindAsync(code) ?? throw new Exception("Not found");
         }
     }
 }
