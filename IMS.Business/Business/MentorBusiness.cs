@@ -11,10 +11,10 @@ namespace IMS.Business.Business
 {
     public interface IMentorBusiness
     {
-        Task<BusinessResult> GetAllAsync();
-        Task<BusinessResult> Add();
-        Task<BusinessResult> Update();
-        Task<BusinessResult> Delete();
+        Task<IIMSResult> GetAllAsync();
+        Task<IIMSResult> Add();
+        Task<IIMSResult> Update();
+        Task<IIMSResult> Delete();
     }
     public class MentorBusiness : IMentorBusiness
     {
@@ -23,23 +23,23 @@ namespace IMS.Business.Business
         {
             _mentorDAO = new MentorDAO();
         }
-        public Task<BusinessResult> Add()
+        public Task<IIMSResult> Add()
         {
             throw new NotImplementedException();
         }
 
-        public Task<BusinessResult> Delete()
+        public Task<IIMSResult> Delete()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<BusinessResult> GetAllAsync()
+        public async Task<IIMSResult> GetAllAsync()
         {
             var mentor = await _mentorDAO.GetAllAsync();
             return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
         }
 
-        public Task<BusinessResult> Update()
+        public Task<IIMSResult> Update()
         {
             throw new NotImplementedException();
         }
