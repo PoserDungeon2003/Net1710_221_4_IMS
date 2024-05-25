@@ -14,12 +14,10 @@ namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class IndexModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
         private readonly MentorBusiness _mentorBusiness;
 
         public IndexModel(Net1710_221_4_IMSContext context)
         {
-            _context = context;
             _mentorBusiness = new MentorBusiness();
         }
 

@@ -13,9 +13,9 @@ namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class EditModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public EditModel(Net1710_221_4_IMSContext context)
+        public EditModel(Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }

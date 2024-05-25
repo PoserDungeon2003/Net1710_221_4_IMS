@@ -12,9 +12,9 @@ namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class DeleteModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public DeleteModel(Net1710_221_4_IMSContext context)
+        public DeleteModel(Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }
