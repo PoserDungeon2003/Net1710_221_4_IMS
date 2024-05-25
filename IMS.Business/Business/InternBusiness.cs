@@ -10,10 +10,10 @@ namespace IMS.Business.Business
 {
     public interface IInternBusiness
     {
-        Task<IMSResult> GetAllAsync();
-        Task<IMSResult> Add();
-        Task<IMSResult> Update();
-        Task<IMSResult> Delete();
+        Task<BusinessResult> GetAllAsync();
+        Task<BusinessResult> Add();
+        Task<BusinessResult> Update();
+        Task<BusinessResult> Delete();
     }
     public class InternBusiness : IInternBusiness
     {
@@ -23,22 +23,22 @@ namespace IMS.Business.Business
             _DAO = new InternDAO();
         }
 
-        public Task<IMSResult> Add()
+        public Task<BusinessResult> Add()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IMSResult> Delete()
+        public Task<BusinessResult> Delete()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IMSResult> GetAllAsync()
+        public Task<BusinessResult> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IMSResult> Update()
+        public Task<BusinessResult> Update()
         {
             throw new NotImplementedException();
         }

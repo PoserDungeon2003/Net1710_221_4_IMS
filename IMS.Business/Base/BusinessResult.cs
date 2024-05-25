@@ -12,25 +12,25 @@ namespace IMS.Business.Result
         string? Message { get; set; }
         object? Data { get; set; }
     }
-    public class IMSResult : IIMSResult
+    public class BusinessResult : IIMSResult
     {
         public int Status { get; set; }
         public string? Message { get; set; }
         public object? Data { get; set; }
 
-        public IMSResult()
+        public BusinessResult()
         {
             Status = -1;
             Message = "Action fail";
         }
 
-        public IMSResult(int status, string message)
+        public BusinessResult(int status, string message)
         {
             Status = status;
             Message = message;
         }
 
-        public IMSResult(int status, string message, object data)
+        public BusinessResult(int status, string message, object data)
         {
             Status = status;
             Message = message;
