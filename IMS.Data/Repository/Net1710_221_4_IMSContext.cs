@@ -36,7 +36,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
     {
         IConfiguration config = new ConfigurationBuilder()
              .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.Development.json", true, true)
+                    .AddJsonFile("appsettings.json", true, true)
                     .Build();
         var strConn = config.GetConnectionString("DefaultConnection");
 
