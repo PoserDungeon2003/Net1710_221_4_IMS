@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IMS.Common\IMS.Common.csproj" />
     <ProjectReference Include="..\IMS.Data\IMS.Data.csproj" />
   </ItemGroup>
 
