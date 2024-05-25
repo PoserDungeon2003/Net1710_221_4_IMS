@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/IMS.Data/bin/Debug/net8.0/IMS.Data.dll"
+        },
+        {
+            "name": "C#: IMS.RazorWebApp [Default Configuration]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\IMS.RazorWebApp\\IMS.RazorWebApp.csproj"
+        }
+    ]
+}
