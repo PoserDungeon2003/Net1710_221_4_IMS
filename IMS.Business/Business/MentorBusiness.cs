@@ -36,7 +36,14 @@ namespace IMS.Business.Business
         public async Task<IIMSResult> GetAllAsync()
         {
             var mentor = await _mentorDAO.GetAllAsync();
-            return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            try
+            {
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public Task<IIMSResult> Update()
