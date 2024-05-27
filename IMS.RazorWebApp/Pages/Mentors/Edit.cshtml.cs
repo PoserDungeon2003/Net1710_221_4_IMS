@@ -20,8 +20,8 @@ namespace IMS.RazorWebApp.Pages.Mentors
 
         public EditModel()
         {
-            _mentorBusiness = new MentorBusiness();
-            _companyBusiness = new CompanyBusiness();
+            _mentorBusiness ??= new MentorBusiness();
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         [BindProperty]
