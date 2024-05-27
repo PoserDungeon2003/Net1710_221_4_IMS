@@ -18,7 +18,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
 
         public DeleteModel()
         {
-            _mentorBusiness = new MentorBusiness();
+            _mentorBusiness ??= new MentorBusiness();
         }
 
         [BindProperty]
@@ -31,7 +31,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor = await _mentorBusiness.GetByIdAsync(id);
+            var mentor = await _mentorBusiness.FindAsync(id);
 
             if (mentor == null)
             {
@@ -51,11 +51,11 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor = await _mentorBusiness.GetByIdAsync(id);
+            var mentor = await _mentorBusiness.FindAsync(id);
             if (mentor != null)
             {
                 Mentor = (Mentor)mentor.Data;
-                var result = await _mentorBusiness.Delete(Mentor);
+                var result = await _mentorBusiness.DeleteAsync(Mentor);
 
                 if (result.Status != Const.SUCCESS_DELETE_CODE)
                 {

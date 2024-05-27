@@ -1,6 +1,7 @@
 ﻿using IMS.Data.Base;
 using IMS.Data.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,10 @@ namespace IMS.Data.Repository
     public class CompanyRepository : GenericRepository<Company>
     {
         public CompanyRepository() { }
+
+        public IEnumerable GetAllCompany()
+        {
+            return _context.Companies;
+        }
     }
 }

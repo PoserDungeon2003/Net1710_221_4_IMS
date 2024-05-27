@@ -14,10 +14,12 @@ namespace IMS.Business.Business
     public interface IMentorBusiness
     {
         Task<IIMSResult> GetAllAsync();
-        Task<IIMSResult> GetByIdAsync(int? id);
+        Task<IIMSResult> FindAsync(int? id);
         Task<IIMSResult> AddAsync(Mentor mentor);
-        Task<IIMSResult> Update();
-        Task<IIMSResult> Delete(Mentor mentor);
+        Task<IIMSResult> GetByIdAsync(int? id);
+        Task<IIMSResult> UpdateAsync(Mentor mentor);
+        Task<IIMSResult> DeleteAsync(Mentor mentor);
+        IIMSResult MentorExisted(int id);
     }
     public class MentorBusiness : IMentorBusiness
     {
@@ -43,7 +45,7 @@ namespace IMS.Business.Business
             }
         }
 
-        public async Task<IIMSResult> Delete(Mentor mentor)
+        public async Task<IIMSResult> DeleteAsync(Mentor mentor)
         {
             var result = await _unitOfWork.MentorRepository.RemoveAsync(mentor);
             
@@ -78,7 +80,7 @@ namespace IMS.Business.Business
             }
         }
 
-        public async Task<IIMSResult> GetByIdAsync(int? id)
+        public async Task<IIMSResult> FindAsync(int? id)
         {
             if (id == null)
             {
@@ -99,9 +101,55 @@ namespace IMS.Business.Business
             }
         }
 
-        public Task<IIMSResult> Update()
+        public async Task<IIMSResult> UpdateAsync(Mentor mentor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _unitOfWork.MentorRepository.UpdateAsync(mentor);
+                if (result > 0)
+                {
+                    return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG);
+                }
+                return new BusinessResult(Const.FAIL_UPDATE_CODE, Const.FAIL_UPDATE_MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_UPDATE_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> GetByIdAsync(int? id)
+        {
+            if (id == null)
+            {
+                return new BusinessResult();
+            }
+            var mentor = await _unitOfWork.MentorRepository.GetMentorById((int)id);
+            try
+            {
+                if (mentor == null)
+                {
+                    return new BusinessResult();
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public IIMSResult MentorExisted(int id)
+        {
+            var existed = _unitOfWork.MentorRepository.MentorExisted(id);
+            try
+            {
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, existed);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
         }
     }
 }

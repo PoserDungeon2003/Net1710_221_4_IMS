@@ -12,6 +12,7 @@ namespace IMS.Data
         private Net1710_221_4_IMSContext _unitOfWorkContext;
 
         private MentorRepository _mentor;
+        private CompanyRepository _company;
 
         public UnitOfWork() { }
 
@@ -20,6 +21,14 @@ namespace IMS.Data
             get
             {
                 return _mentor ?? new MentorRepository();
+            }
+        }
+
+        public CompanyRepository CompanyRepository
+        {
+            get
+            {
+                return _company ?? new CompanyRepository();
             }
         }
     }

@@ -15,17 +15,18 @@ namespace IMS.RazorWebApp.Pages.Mentors
     public class CreateModel : PageModel
     {
         private readonly MentorBusiness _mentorBusiness;
-        private readonly Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly CompanyBusiness _companyBusiness;
 
-        public CreateModel(Data.Repository.Net1710_221_4_IMSContext context)
+        public CreateModel()
         {
-            _context = context;
-            _mentorBusiness = new MentorBusiness();
+            _mentorBusiness ??= new MentorBusiness();
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         public IActionResult OnGet()
         {
-        ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Name");
+            var company = _companyBusiness.GetAllCompany();
+            ViewData["CompanyId"] = new SelectList((System.Collections.IEnumerable)company.Data, "CompanyId", "Name");
             return Page();
         }
 

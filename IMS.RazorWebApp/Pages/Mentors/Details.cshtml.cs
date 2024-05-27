@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
 
 namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class DetailsModel : PageModel
     {
-        private readonly Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly MentorBusiness _mentorBusiness;
 
-        public DetailsModel(Data.Repository.Net1710_221_4_IMSContext context)
+        public DetailsModel()
         {
-            _context = context;
+            _mentorBusiness ??= new MentorBusiness();
         }
 
         public Mentor Mentor { get; set; } = default!;
@@ -28,14 +29,14 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor = await _context.Mentors.FirstOrDefaultAsync(m => m.MentorId == id);
+            var mentor = await _mentorBusiness.GetByIdAsync(id);
             if (mentor == null)
             {
                 return NotFound();
             }
             else
             {
-                Mentor = mentor;
+                Mentor = (Mentor)mentor.Data;
             }
             return Page();
         }
