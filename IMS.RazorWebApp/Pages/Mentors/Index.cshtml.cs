@@ -16,7 +16,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
     {
         private readonly MentorBusiness _mentorBusiness;
 
-        public IndexModel(Net1710_221_4_IMSContext context)
+        public IndexModel()
         {
             _mentorBusiness = new MentorBusiness();
         }

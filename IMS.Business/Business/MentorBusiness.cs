@@ -14,9 +14,10 @@ namespace IMS.Business.Business
     public interface IMentorBusiness
     {
         Task<IIMSResult> GetAllAsync();
+        Task<IIMSResult> GetByIdAsync(int? id);
         Task<IIMSResult> AddAsync(Mentor mentor);
         Task<IIMSResult> Update();
-        Task<IIMSResult> Delete();
+        Task<IIMSResult> Delete(Mentor mentor);
     }
     public class MentorBusiness : IMentorBusiness
     {
@@ -38,13 +39,26 @@ namespace IMS.Business.Business
             }
             catch (Exception ex)
             {
-                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+                return new BusinessResult(Const.FAIL_CREATE_CODE, ex.ToString());
             }
         }
 
-        public Task<IIMSResult> Delete()
+        public async Task<IIMSResult> Delete(Mentor mentor)
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.MentorRepository.RemoveAsync(mentor);
+            
+            try
+            {
+                if (result)
+                {
+                    return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
+                }
+                return new BusinessResult(Const.FAIL_DELETE_CODE, Const.FAIL_DELETE_MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
+            }
         }
 
         public async Task<IIMSResult> GetAllAsync()
@@ -55,6 +69,27 @@ namespace IMS.Business.Business
                 if (mentor == null)
                 {
                     return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> GetByIdAsync(int? id)
+        {
+            if (id == null)
+            {
+                return new BusinessResult();
+            }
+            var mentor = await _unitOfWork.MentorRepository.GetByIdAsync((int)id);
+            try
+            {
+                if (mentor == null)
+                {
+                    return new BusinessResult();
                 }
                 return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
             }
