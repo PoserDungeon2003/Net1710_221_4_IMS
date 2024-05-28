@@ -14,7 +14,7 @@ namespace IMS.Data.Repository
         {
             var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.Development.json")
+                .AddJsonFile("appsettings.json")
                 .Build();
             var optionsBuilder = new DbContextOptionsBuilder<Net1710_221_4_IMSContext>();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))

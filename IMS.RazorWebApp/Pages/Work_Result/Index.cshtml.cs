@@ -14,9 +14,9 @@ namespace IMS.RazorWebApp.Pages.Work_Result
 {
     public class IndexModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public IndexModel(Net1710_221_4_IMSContext context)
+        public IndexModel(Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }

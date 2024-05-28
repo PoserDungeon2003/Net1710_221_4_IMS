@@ -1,6 +1,7 @@
 ﻿using IMS.Data.Base;
 using IMS.Data.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,14 @@ namespace IMS.Data.Repository
     {
         public InternRepository() 
         {
+        }
+        public bool InternExisted(int id)
+        {
+            return _context.Interns.Any(e => e.InternId == id);
+        }
+        public IEnumerable GetAllIntern()
+        {
+            return _context.Interns;
         }
     }
 }

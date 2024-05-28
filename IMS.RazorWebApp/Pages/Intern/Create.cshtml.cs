@@ -8,22 +8,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using IMS.Business;
+using IMS.Business.Business;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Intern
 {
     public class CreateModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context; 
+        private readonly InternBusiness _internBusiness;
+        private readonly MentorBusiness _mentorBusiness;
+        private readonly CompanyBusiness _companyBusiness;
 
-        public CreateModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
+        public CreateModel()
         {
-            _context = context;
+            _internBusiness ??= new InternBusiness();
+            _mentorBusiness ??= new MentorBusiness();
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         public IActionResult OnGet()
         {
-        ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Address");
-        ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
+            var company = _companyBusiness.GetAllCompany();
+            var mentor = _mentorBusiness.GetAllMentor();
+            ViewData["CompanyId"] = new SelectList((System.Collections.IEnumerable)company.Data, "CompanyId", "Address");
+            ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "Email");
             return Page();
         }
 
@@ -33,13 +43,12 @@ namespace IMS.RazorWebApp.Pages.Intern
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var result = await _internBusiness.Save(Intern);
+            if (result.Status != Const.SUCCESS_CREATE_CODE)
             {
+                OnGet();
                 return Page();
             }
-
-            _context.Interns.Add(Intern);
-            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

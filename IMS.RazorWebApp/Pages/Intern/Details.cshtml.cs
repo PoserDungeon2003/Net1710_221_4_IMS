@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Data.Models;
 
 namespace IMS.RazorWebApp.Pages.Intern
 {
     public class DetailsModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly InternBusiness _internBusiness;
 
-        public DetailsModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
+        public DetailsModel()
         {
-            _context = context;
+            _internBusiness ??= new InternBusiness();
         }
 
         public Models.Intern Intern { get; set; } = default!;
@@ -28,14 +30,14 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
 
-            var intern = await _context.Interns.FirstOrDefaultAsync(m => m.InternId == id);
+            var intern = await _internBusiness.GetByID(id);
             if (intern == null)
             {
                 return NotFound();
             }
             else
             {
-                Intern = intern;
+                Intern = (Models.Intern)intern.Data;
             }
             return Page();
         }
