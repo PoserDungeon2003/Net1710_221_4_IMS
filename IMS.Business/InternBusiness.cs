@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using IMS.Business.Result;
+using IMS.Data;
 
 namespace IMS.Business
 { public interface IInternBusiness
@@ -20,10 +22,11 @@ namespace IMS.Business
     }
     public class InternBusiness : IInternBusiness
     {
-        private readonly InternDAO _DAO;
+        //private readonly InternDAO _DAO;
+        private readonly UnitOfWork _unitOfWork;
         public InternBusiness()
         {
-            _DAO = new InternDAO();
+            _unitOfWork ??= new UnitOfWork();
         }
         public async Task<IIMSResult> Getall()
         {
@@ -32,20 +35,21 @@ namespace IMS.Business
                 #region Business rule
                 #endregion
 
-                var interns = await _DAO.GetAllAsync();
+                //var interns = await _DAO.GetAllAsync();
+                var intern = await _unitOfWork.InternRepository.GetAllAsync();
 
-                if (interns == null)
+                if (intern == null)
                 {
-                    return new IMSResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
                 }
                 else
                 {
-                    return new IMSResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_CREATE_MSG, interns);
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_CREATE_MSG, intern);
                 }
             }
             catch (Exception ex)
             {
-                return new IMSResult(Const.ERROR_EXCEPTION, ex.Message);
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
             }
         }
 
@@ -56,20 +60,20 @@ namespace IMS.Business
                 #region Business rule
                 #endregion
 
-                var currency = await _DAO.GetByIdAsync(code);
-
-                if (currency == null)
+                //var currency = await _DAO.GetByIdAsync(code);
+                var intern = await _unitOfWork.InternRepository.GetByIdAsync(code);
+                if (intern == null)
                 {
-                    return new IMSResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
                 }
                 else
                 {
-                    return new IMSResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, currency);
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, intern);
                 }
             }
             catch (Exception ex)
             {
-                return new IMSResult(Const.ERROR_EXCEPTION, ex.Message);
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.Message);
             }
         }
 
@@ -78,20 +82,21 @@ namespace IMS.Business
             try
             {
                 //
-
-                int result = await _DAO.CreateAsync(intern);
+                //int result = await _DAO.CreateAsync(intern);
+                _unitOfWork.InternRepository.PrepareCreate(intern);
+                int result = await _unitOfWork.InternRepository.SaveAsync();
                 if (result > 0)
                 {
-                    return new IMSResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
+                    return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
                 }
                 else
                 {
-                    return new IMSResult(Const.FAIL_CREATE_CODE, Const.FAIL_CREATE_MSG);
+                    return new BusinessResult(Const.FAIL_CREATE_CODE, Const.FAIL_CREATE_MSG);
                 }
             }
             catch (Exception ex)
             {
-                return new IMSResult(Const.ERROR_EXCEPTION, ex.ToString());
+                return new BusinessResult(Const.ERROR_EXCEPTION, ex.ToString());
             }
         }
 
@@ -99,19 +104,20 @@ namespace IMS.Business
         {
             try
             {
-                int result = await _DAO.UpdateAsync(intern);
+                //int result = await _DAO.UpdateAsync(intern);
+                int result = await _unitOfWork.InternRepository.UpdateAsync(intern);
                 if (result > 0)
                 {
-                    return new IMSResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG);
+                    return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG);
                 }
                 else
                 {
-                    return new IMSResult(Const.FAIL_UPDATE_CODE, Const.FAIL_UPDATE_MSG);
+                    return new BusinessResult(Const.FAIL_UPDATE_CODE, Const.FAIL_UPDATE_MSG);
                 }
             }
             catch (Exception ex)
             {
-                return new IMSResult(-4, ex.ToString());
+                return new BusinessResult(-4, ex.ToString());
             }
         }
 
@@ -119,27 +125,29 @@ namespace IMS.Business
         {
             try
             {
-                var currency = await _DAO.GetByIdAsync(code);
-                if (currency != null)
+                //var currency = await _DAO.GetByIdAsync(code);
+                var interns = await _unitOfWork.InternRepository.GetByIdAsync(code);
+                if (interns != null)
                 {
-                    var result = await _DAO.RemoveAsync(currency);
+                    //var result = await _DAO.RemoveAsync(currency);
+                    var result = await _unitOfWork.InternRepository.RemoveAsync(interns);
                     if (result)
                     {
-                        return new IMSResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
+                        return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
                     }
                     else
                     {
-                        return new IMSResult(Const.FAIL_DELETE_CODE, Const.FAIL_DELETE_MSG);
+                        return new BusinessResult(Const.FAIL_DELETE_CODE, Const.FAIL_DELETE_MSG);
                     }
                 }
                 else
                 {
-                    return new IMSResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
                 }
             }
             catch (Exception ex)
             {
-                return new IMSResult(-4, ex.ToString());
+                return new BusinessResult(-4, ex.ToString());
             }
         }
     }

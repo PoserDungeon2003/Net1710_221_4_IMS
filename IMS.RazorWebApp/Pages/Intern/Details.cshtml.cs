@@ -12,9 +12,9 @@ namespace IMS.RazorWebApp.Pages.Intern
 {
     public class DetailsModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public DetailsModel(Net1710_221_4_IMSContext context)
+        public DetailsModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }

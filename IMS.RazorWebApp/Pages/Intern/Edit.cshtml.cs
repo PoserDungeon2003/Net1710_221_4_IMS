@@ -13,9 +13,9 @@ namespace IMS.RazorWebApp.Pages.Intern
 {
     public class EditModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public EditModel(Net1710_221_4_IMSContext context)
+        public EditModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }
@@ -36,6 +36,7 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
             Intern = intern;
+           ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Address");
            ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
             return Page();
         }
@@ -44,10 +45,10 @@ namespace IMS.RazorWebApp.Pages.Intern
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             _context.Attach(Intern).State = EntityState.Modified;
 
