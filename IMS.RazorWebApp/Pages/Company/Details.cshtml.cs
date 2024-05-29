@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Data.Models;
 
 namespace IMS.RazorWebApp.Pages.Company
 {
     public class DetailsModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly ICompanyBusiness _companyBusiness;
 
-        public DetailsModel(Net1710_221_4_IMSContext context)
+        public DetailsModel()
         {
-            _context = context;
+            _companyBusiness = new CompanyBusiness();
         }
 
         public Models.Company Company { get; set; } = default!;
@@ -28,14 +30,14 @@ namespace IMS.RazorWebApp.Pages.Company
                 return NotFound();
             }
 
-            var company = await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);
+            var company = await _companyBusiness.GetByIdAsync(id);
             if (company == null)
             {
                 return NotFound();
             }
             else
             {
-                Company = company;
+                Company = (Models.Company)company.Data;
             }
             return Page();
         }

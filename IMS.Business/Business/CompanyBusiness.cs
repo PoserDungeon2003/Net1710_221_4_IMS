@@ -13,11 +13,14 @@ namespace IMS.Business.Business
     public interface ICompanyBusiness
     {
         Task<IIMSResult> GetAllAsync();
-        IIMSResult GetAllCompany();
         Task<IIMSResult> GetByIdAsync(int? id);
-        Task<IIMSResult> AddAsync();
-        Task<IIMSResult> Update();
-        Task<IIMSResult> Delete();
+        Task<IIMSResult> FindAsync(int? id);
+        Task<IIMSResult> AddAsync(Company company);
+        Task<IIMSResult> UpdateAsync(Company company);
+        Task<IIMSResult> DeleteAsync(Company company);
+        IIMSResult GetAllCompany();
+        IIMSResult CompanyExisted(int id);
+
     }
     public class CompanyBusiness : ICompanyBusiness
     {
@@ -26,14 +29,73 @@ namespace IMS.Business.Business
         {
             _unitOfWork ??= new UnitOfWork();
         }
-        public Task<IIMSResult> AddAsync()
+        public async Task<IIMSResult> AddAsync(Company company)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _unitOfWork.CompanyRepository.CreateAsync(company);
+                if (result > 0)
+                {
+                    return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
+                }
+                return new BusinessResult(Const.FAIL_CREATE_CODE, Const.FAIL_CREATE_MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_CREATE_CODE, ex.ToString());
+            }
         }
 
-        public Task<IIMSResult> Delete()
+        public IIMSResult CompanyExisted(int id)
         {
-            throw new NotImplementedException();
+            var existed = _unitOfWork.CompanyRepository.CompanyExisted(id);
+            try
+            {
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, existed);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> DeleteAsync(Company company)
+        {
+            var result = await _unitOfWork.CompanyRepository.RemoveAsync(company);
+
+            try
+            {
+                if (result)
+                {
+                    return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
+                }
+                return new BusinessResult(Const.FAIL_DELETE_CODE, Const.FAIL_DELETE_MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> FindAsync(int? id)
+        {
+            if (id == null)
+            {
+                return new BusinessResult();
+            }
+            var company = await _unitOfWork.CompanyRepository.GetByIdAsync((int)id);
+            try
+            {
+                if (company == null)
+                {
+                    return new BusinessResult();
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, company);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
         }
 
         public async Task<IIMSResult> GetAllAsync()
@@ -70,14 +132,42 @@ namespace IMS.Business.Business
             }
         }
 
-        public Task<IIMSResult> GetByIdAsync(int? id)
+        public async Task<IIMSResult> GetByIdAsync(int? id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+            {
+                return new BusinessResult();
+            }
+            var company = await _unitOfWork.CompanyRepository.GetCompanyById((int)id);
+            try
+            {
+                if (company == null)
+                {
+                    return new BusinessResult();
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, company);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
         }
 
-        public Task<IIMSResult> Update()
+        public async Task<IIMSResult> UpdateAsync(Company company)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _unitOfWork.CompanyRepository.UpdateAsync(company);
+                if (result > 0)
+                {
+                    return new BusinessResult(Const.SUCCESS_UPDATE_CODE, Const.SUCCESS_UPDATE_MSG);
+                }
+                return new BusinessResult(Const.FAIL_UPDATE_CODE, Const.FAIL_UPDATE_MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_UPDATE_CODE, ex.ToString());
+            }
         }
     }
 }

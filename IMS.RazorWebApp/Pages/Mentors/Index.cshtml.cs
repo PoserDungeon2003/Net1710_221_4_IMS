@@ -14,11 +14,11 @@ namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class IndexModel : PageModel
     {
-        private readonly MentorBusiness _mentorBusiness;
+        private readonly IMentorBusiness _mentorBusiness;
 
         public IndexModel()
         {
-            _mentorBusiness = new MentorBusiness();
+            _mentorBusiness ??= new MentorBusiness();
         }
 
         public IList<Models.Mentor> Mentor { get;set; } = default!;
