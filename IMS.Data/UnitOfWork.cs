@@ -13,6 +13,7 @@ namespace IMS.Data
 
         private MentorRepository _mentor;
         private CompanyRepository _company;
+        private WorkingResultRepository _workingResult;
 
         public UnitOfWork() { }
 
@@ -29,6 +30,13 @@ namespace IMS.Data
             get
             {
                 return _company ?? new CompanyRepository();
+            }
+        }
+        public WorkingResultRepository WorkingResultRepository
+        {
+            get
+            {
+                return _workingResult ?? new WorkingResultRepository();
             }
         }
 

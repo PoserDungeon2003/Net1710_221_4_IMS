@@ -7,35 +7,39 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Common;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace IMS.RazorWebApp.Pages.Work_Result
 {
     public class DetailsModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly WorkingResultBusiness _workingResultBusiness;
 
-        public DetailsModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
+        public DetailsModel()
         {
-            _context = context;
+            _workingResultBusiness = new WorkingResultBusiness();
         }
 
         public WorkingResult WorkingResult { get; set; } = default!;
+        public string Message { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
+            var workingresult = await _workingResultBusiness.GetByIdAsync(id);
+            if (workingresult.Status == Const.SUCCESS_READ_CODE)
             {
-                return NotFound();
+                WorkingResult = (workingresult.Data as WorkingResult)!;
+                Message = workingresult.Message ?? "Get data success";
             }
-
-            var workingresult = await _context.WorkingResults.FirstOrDefaultAsync(m => m.ResultId == id);
-            if (workingresult == null)
+            if (workingresult.Status == Const.WARNING_NO_DATA_CODE)
             {
-                return NotFound();
+                Message = workingresult.Message ?? "No data";
             }
             else
             {
-                WorkingResult = workingresult;
+                Message = workingresult.Message ?? "Read data fail";
             }
             return Page();
         }

@@ -5,7 +5,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Working Result List</h1>
+
+@if (!String.IsNullOrEmpty(Model.Message))
+{
+    <p>@Model.Message</p>
+}
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -35,32 +40,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.WorkingResult) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Intern.JobPosition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mentor.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Task.Description)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ResultId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ResultId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ResultId">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.Message == "Get data successfully")
+        {
+            @foreach (var item in Model.WorkingResult)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rating)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Intern.JobPosition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mentor.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Task.Description)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ResultId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ResultId">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ResultId">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
