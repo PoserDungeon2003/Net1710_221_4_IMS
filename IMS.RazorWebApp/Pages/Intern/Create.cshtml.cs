@@ -20,6 +20,8 @@ namespace IMS.RazorWebApp.Pages.Intern
         private readonly InternBusiness _internBusiness;
         private readonly MentorBusiness _mentorBusiness;
         private readonly CompanyBusiness _companyBusiness;
+        public string Message { get; set; }=default;
+
 
         public CreateModel()
         {
