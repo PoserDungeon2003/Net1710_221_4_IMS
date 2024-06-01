@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMS.Common", "IMS.Common\IM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMS.Business", "IMS.Business\IMS.Business.csproj", "{BB9B6752-ECE5-46F4-B9BA-2DCE54B17931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS.WpfApp", "IMS.WpfApp\IMS.WpfApp.csproj", "{390C2861-1043-40F2-AA79-720F689DA279}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMS.WpfApp", "IMS.WpfApp\IMS.WpfApp.csproj", "{390C2861-1043-40F2-AA79-720F689DA279}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
