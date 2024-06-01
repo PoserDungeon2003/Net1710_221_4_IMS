@@ -19,17 +19,17 @@ namespace IMS.RazorWebApp.Pages.Work_Result
 
         public CreateModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
-            _workingResultBusiness = new WorkingResultBusiness();
+            _workingResultBusiness ??= new WorkingResultBusiness();
             _mentorBusiness ??= new MentorBusiness();
             _internBusiness ??= new InternBusiness();
-
         }
 
         public IActionResult OnGet()
         {
-        ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
-        ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
-        ViewData["TaskId"] = new SelectList(_context.Tasks, "TaskId", "Description");
+       
+    //    ViewData["InternId"] = new SelectList(_internBusiness.GetAllAsync()., "InternId");
+    //     ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId");
+    //     ViewData["TaskId"] = new SelectList(_context.Tasks, "TaskId");
             return Page();
         }
 
@@ -44,8 +44,8 @@ namespace IMS.RazorWebApp.Pages.Work_Result
                 return Page();
             }
 
-            _context.WorkingResults.Add(WorkingResult);
-            await _context.SaveChangesAsync();
+            // _context.WorkingResults.Add(WorkingResult);
+            // await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

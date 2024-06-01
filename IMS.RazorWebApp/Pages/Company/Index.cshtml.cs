@@ -7,23 +7,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
 
 namespace IMS.RazorWebApp.Pages.Company
 {
     public class IndexModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly ICompanyBusiness _companyBusiness;
 
-        public IndexModel(Net1710_221_4_IMSContext context)
+        public IndexModel()
         {
-            _context = context;
+            _companyBusiness = new CompanyBusiness();
         }
 
         public IList<Models.Company> Company { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Company = await _context.Companies.ToListAsync();
+            var company = await _companyBusiness.GetAllAsync();
+            if (company != null)
+            {
+                Company = (IList<Models.Company>) company.Data;
+            }
         }
     }
 }

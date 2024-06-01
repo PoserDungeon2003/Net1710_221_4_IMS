@@ -13,7 +13,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class DetailsModel : PageModel
     {
-        private readonly MentorBusiness _mentorBusiness;
+        private readonly IMentorBusiness _mentorBusiness;
 
         public DetailsModel()
         {
