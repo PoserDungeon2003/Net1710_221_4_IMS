@@ -1,0 +1,75 @@
+﻿@page
+@model IMS.RazorWebApp.Pages.Work_Result.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Working Result List</h1>
+
+@if (!String.IsNullOrEmpty(Model.Message))
+{
+    <p>@Model.Message</p>
+}
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkingResult[0].CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkingResult[0].Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkingResult[0].Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkingResult[0].Intern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkingResult[0].Mentor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkingResult[0].Task)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Message == "Get data successfully")
+        {
+            @foreach (var item in Model.WorkingResult)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rating)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Intern.JobPosition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mentor.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Task.Description)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ResultId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ResultId">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ResultId">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

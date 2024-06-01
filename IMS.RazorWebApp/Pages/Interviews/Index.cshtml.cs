@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using IMS.Data.Models;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Models = IMS.Data.Models;
 using IMS.Data.Repository;
 
 namespace IMS.RazorWebApp.Pages.Interviews
@@ -19,7 +20,7 @@ namespace IMS.RazorWebApp.Pages.Interviews
             _context = context;
         }
 
-        public IList<InterviewsInfo> InterviewsInfo { get;set; } = default!;
+        public IList<Models.InterviewsInfo> InterviewsInfo { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

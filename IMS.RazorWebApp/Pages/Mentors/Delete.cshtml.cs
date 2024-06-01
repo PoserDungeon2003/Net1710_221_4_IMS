@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class DeleteModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMentorBusiness _mentorBusiness;
 
-        public DeleteModel(Net1710_221_4_IMSContext context)
+        public DeleteModel()
         {
-            _context = context;
+            _mentorBusiness ??= new MentorBusiness();
         }
 
         [BindProperty]
@@ -29,7 +31,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor = await _context.Mentors.FirstOrDefaultAsync(m => m.MentorId == id);
+            var mentor = await _mentorBusiness.FindAsync(id);
 
             if (mentor == null)
             {
@@ -37,7 +39,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
             }
             else
             {
-                Mentor = mentor;
+                Mentor = (Mentor)mentor.Data;
             }
             return Page();
         }
@@ -49,12 +51,16 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor = await _context.Mentors.FindAsync(id);
+            var mentor = await _mentorBusiness.FindAsync(id);
             if (mentor != null)
             {
-                Mentor = mentor;
-                _context.Mentors.Remove(Mentor);
-                await _context.SaveChangesAsync();
+                Mentor = (Mentor)mentor.Data;
+                var result = await _mentorBusiness.DeleteAsync(Mentor);
+
+                if (result.Status != Const.SUCCESS_DELETE_CODE)
+                {
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

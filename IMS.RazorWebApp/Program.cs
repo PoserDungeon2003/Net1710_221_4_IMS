@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Configure the connection string
-var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options =>
     options.UseSqlServer(connectionString));

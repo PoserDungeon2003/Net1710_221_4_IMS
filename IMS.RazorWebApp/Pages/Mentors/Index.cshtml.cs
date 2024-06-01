@@ -7,24 +7,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Data.DAO;
+using IMS.Business.Business;
 
 namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class IndexModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMentorBusiness _mentorBusiness;
 
-        public IndexModel(Net1710_221_4_IMSContext context)
+        public IndexModel()
         {
-            _context = context;
+            _mentorBusiness ??= new MentorBusiness();
         }
 
         public IList<Models.Mentor> Mentor { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Mentor = await _context.Mentors
-                .Include(m => m.Company).ToListAsync();
+            var mentor = await _mentorBusiness.GetAllAsync();
+            if (mentor != null)
+            {
+                Mentor = (IList<Models.Mentor>)mentor.Data;
+            }
         }
     }
 }

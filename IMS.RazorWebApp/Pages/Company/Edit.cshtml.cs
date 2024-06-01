@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Data.Models;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Company
 {
     public class EditModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly ICompanyBusiness _companyBusiness;
 
-        public EditModel(Net1710_221_4_IMSContext context)
+        public EditModel()
         {
-            _context = context;
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         [BindProperty]
@@ -30,12 +33,15 @@ namespace IMS.RazorWebApp.Pages.Company
                 return NotFound();
             }
 
-            var company =  await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);
-            if (company == null)
+            var mentor = await _companyBusiness.GetByIdAsync(id);
+            if (mentor == null)
             {
                 return NotFound();
             }
-            Company = company;
+            else
+            {
+                Company = (Models.Company)mentor.Data;
+            }
             return Page();
         }
 
@@ -43,20 +49,18 @@ namespace IMS.RazorWebApp.Pages.Company
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Attach(Company).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var result = await _companyBusiness.UpdateAsync(Company);
+                if (result.Status != Const.SUCCESS_UPDATE_CODE)
+                {
+                    await OnGetAsync(Company.CompanyId);
+                    return Page();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CompanyExists(Company.CompanyId))
+                if (!(bool)_companyBusiness.CompanyExisted(Company.CompanyId).Data)
                 {
                     return NotFound();
                 }
@@ -65,13 +69,7 @@ namespace IMS.RazorWebApp.Pages.Company
                     throw;
                 }
             }
-
             return RedirectToPage("./Index");
-        }
-
-        private bool CompanyExists(int id)
-        {
-            return _context.Companies.Any(e => e.CompanyId == id);
         }
     }
 }

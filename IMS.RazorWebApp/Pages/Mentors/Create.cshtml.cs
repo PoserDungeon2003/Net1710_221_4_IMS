@@ -7,21 +7,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class CreateModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMentorBusiness _mentorBusiness;
+        private readonly ICompanyBusiness _companyBusiness;
 
-        public CreateModel(Net1710_221_4_IMSContext context)
+        public CreateModel()
         {
-            _context = context;
+            _mentorBusiness ??= new MentorBusiness();
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         public IActionResult OnGet()
         {
-        ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Name");
+            var company = _companyBusiness.GetAllCompany();
+            ViewData["CompanyId"] = new SelectList((System.Collections.IEnumerable)company.Data, "CompanyId", "Name");
             return Page();
         }
 
@@ -31,14 +36,12 @@ namespace IMS.RazorWebApp.Pages.Mentors
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    OnGet();
-            //    return Page();
-            //}
-
-            _context.Mentors.Add(Mentor);
-            await _context.SaveChangesAsync();
+            var result = await _mentorBusiness.AddAsync(Mentor);
+            if (result.Status != Const.SUCCESS_CREATE_CODE)
+            {
+                OnGet();
+                return Page();
+            }
 
             return RedirectToPage("./Index");
         }
