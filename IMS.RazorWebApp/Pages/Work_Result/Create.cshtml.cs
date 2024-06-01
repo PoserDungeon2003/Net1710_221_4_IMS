@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
 
 namespace IMS.RazorWebApp.Pages.Work_Result
 {
     public class CreateModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly WorkingResultBusiness _workingResultBusiness;
+        private readonly MentorBusiness _mentorBusiness;
+        private readonly InternBusiness _internBusiness;
 
         public CreateModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
-            _context = context;
+            _workingResultBusiness = new WorkingResultBusiness();
+            _mentorBusiness ??= new MentorBusiness();
+            _internBusiness ??= new InternBusiness();
+
         }
 
         public IActionResult OnGet()

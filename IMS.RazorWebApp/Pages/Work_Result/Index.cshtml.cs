@@ -9,26 +9,40 @@ using IMS.Data.Models;
 using IMS.Data.Repository;
 using NuGet.Protocol;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using IMS.Business.Business;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Work_Result
 {
     public class IndexModel : PageModel
     {
-        private readonly Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly WorkingResultBusiness _workingResultBusiness;
 
-        public IndexModel(Data.Repository.Net1710_221_4_IMSContext context)
+        public IndexModel()
         {
-            _context = context;
+            _workingResultBusiness = new WorkingResultBusiness();
         }
 
-        public IList<WorkingResult> WorkingResult { get;set; } = default!;
+        public IList<WorkingResult> WorkingResult { get; set; } = default!;
+        public string Message { get; set; } = string.Empty;
 
         public async System.Threading.Tasks.Task OnGetAsync()
         {
-            WorkingResult = await _context.WorkingResults
-            .Include(w => w.Intern)
-            .Include(w => w.Mentor)
-            .Include(w => w.Task).ToListAsync();
+            var workingResult = await _workingResultBusiness.GetAllAsync();
+            if (workingResult.Status == Const.SUCCESS_READ_CODE)
+            {
+                WorkingResult = (workingResult.Data as IList<WorkingResult>)!;
+                Message = workingResult.Message ?? "Get data success";
+            }
+            if (workingResult.Status == Const.WARNING_NO_DATA_CODE)
+            {
+                Message = workingResult.Message ?? "No data";
+            }
+            else
+            {
+                Message = workingResult.Message ?? "Read data fail";
+            }
         }
     }
 }
