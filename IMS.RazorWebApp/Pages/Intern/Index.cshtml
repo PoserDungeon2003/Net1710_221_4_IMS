@@ -35,6 +35,9 @@
                 @Html.DisplayNameFor(model => model.Intern[0].Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Intern[0].Company)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Intern[0].Mentor)
             </th>
             <th></th>
@@ -63,6 +66,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.Address)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Mentor.Email)
