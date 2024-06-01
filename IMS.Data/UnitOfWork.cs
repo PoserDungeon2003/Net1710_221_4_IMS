@@ -12,6 +12,7 @@ namespace IMS.Data
         private Net1710_221_4_IMSContext _unitOfWorkContext;
         private MentorRepository _mentor;
         private CompanyRepository _company;
+        private WorkingResultRepository _workingResult;
         private InternRepository _intern;
         public UnitOfWork()
         {
@@ -41,7 +42,14 @@ namespace IMS.Data
             }
 
         }
-       
+        public WorkingResultRepository WorkingResultRepository
+        {
+            get
+            {
+                return _workingResult ?? new WorkingResultRepository();
+            }
+        }
+
         ////TO-DO CODE HERE/////////////////
 
         #region Set transaction isolation levels
@@ -105,6 +113,5 @@ namespace IMS.Data
         }
 
         #endregion
-
     }
 }

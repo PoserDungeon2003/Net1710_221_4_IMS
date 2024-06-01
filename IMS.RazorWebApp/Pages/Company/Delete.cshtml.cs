@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Data.Models;
+using IMS.Business.Business;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Company
 {
     public class DeleteModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly ICompanyBusiness _companyBusiness;
 
-        public DeleteModel(Net1710_221_4_IMSContext context)
+        public DeleteModel()
         {
-            _context = context;
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         [BindProperty]
@@ -29,7 +32,7 @@ namespace IMS.RazorWebApp.Pages.Company
                 return NotFound();
             }
 
-            var company = await _context.Companies.FirstOrDefaultAsync(m => m.CompanyId == id);
+            var company = await _companyBusiness.FindAsync(id);
 
             if (company == null)
             {
@@ -37,7 +40,7 @@ namespace IMS.RazorWebApp.Pages.Company
             }
             else
             {
-                Company = company;
+                Company = (Models.Company)company.Data;
             }
             return Page();
         }
@@ -49,12 +52,16 @@ namespace IMS.RazorWebApp.Pages.Company
                 return NotFound();
             }
 
-            var company = await _context.Companies.FindAsync(id);
+            var company = await _companyBusiness.FindAsync(id);
             if (company != null)
             {
-                Company = company;
-                _context.Companies.Remove(Company);
-                await _context.SaveChangesAsync();
+                Company = (Models.Company)company.Data;
+                var result = await _companyBusiness.DeleteAsync(Company);
+
+                if (result.Status != Const.SUCCESS_DELETE_CODE)
+                {
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

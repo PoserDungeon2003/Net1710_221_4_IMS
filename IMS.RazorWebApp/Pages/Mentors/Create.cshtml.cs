@@ -14,8 +14,8 @@ namespace IMS.RazorWebApp.Pages.Mentors
 {
     public class CreateModel : PageModel
     {
-        private readonly MentorBusiness _mentorBusiness;
-        private readonly CompanyBusiness _companyBusiness;
+        private readonly IMentorBusiness _mentorBusiness;
+        private readonly ICompanyBusiness _companyBusiness;
 
         public CreateModel()
         {
