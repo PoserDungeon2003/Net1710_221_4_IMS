@@ -5,7 +5,12 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Working Result Details</h1>
+
+@if (!String.IsNullOrEmpty(Model.Message))
+{
+    <p>@Model.Message</p>
+}
 
 <div>
     <h4>WorkingResult</h4>
@@ -33,19 +38,19 @@
             @Html.DisplayNameFor(model => model.WorkingResult.Intern)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.WorkingResult.Intern.JobPosition)
+            @Html.DisplayFor(model => model.WorkingResult.InternId)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.WorkingResult.Mentor)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.WorkingResult.Mentor.Email)
+            @Html.DisplayFor(model => model.WorkingResult.MentorId)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.WorkingResult.Task)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.WorkingResult.Task.Description)
+            @Html.DisplayFor(model => model.WorkingResult.TaskId)
         </dd>
     </dl>
 </div>

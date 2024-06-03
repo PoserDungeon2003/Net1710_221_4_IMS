@@ -1,4 +1,5 @@
 ﻿@page
+@using IMS.Common
 @model IMS.RazorWebApp.Pages.Work_Result.IndexModel
 
 @{
@@ -6,11 +7,6 @@
 }
 
 <h1>Working Result List</h1>
-
-@if (!String.IsNullOrEmpty(Model.Message))
-{
-    <p>@Model.Message</p>
-}
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -40,7 +36,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Message == "Get data successfully")
+        @if (Model.Message == Const.SUCCESS_READ_MSG)
         {
             @foreach (var item in Model.WorkingResult)
             {
@@ -70,6 +66,10 @@
                     </td>
                 </tr>
             }
+        }
+        else
+        {
+            <p>@Model.Message</p>
         }
     </tbody>
 </table>

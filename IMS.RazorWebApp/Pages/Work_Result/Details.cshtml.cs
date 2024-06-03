@@ -28,19 +28,21 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             var workingresult = await _workingResultBusiness.GetByIdAsync(id);
-            if (workingresult.Status == Const.SUCCESS_READ_CODE)
-            {
-                WorkingResult = (workingresult.Data as WorkingResult)!;
-                Message = workingresult.Message ?? "Get data success";
-            }
-            if (workingresult.Status == Const.WARNING_NO_DATA_CODE)
-            {
-                Message = workingresult.Message ?? "No data";
-            }
-            else
-            {
-                Message = workingresult.Message ?? "Read data fail";
-            }
+            // if (workingresult.Status == Const.SUCCESS_READ_CODE)
+            // {
+            //     WorkingResult = (workingresult.Data as WorkingResult)!;
+            //     Message = workingresult.Message ?? "Get data success";
+            // }
+            // if (workingresult.Status == Const.WARNING_NO_DATA_CODE)
+            // {
+            //     Message = workingresult.Message ?? "No data";
+            // }
+            // else
+            // {
+            //     Message = workingresult.Message ?? "Read data fail";
+            // }
+            Message = workingresult.Message ?? "";
+            WorkingResult = (workingresult.Data as WorkingResult)!;
             return Page();
         }
     }

@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Create";
+    var mentorList = ViewData["MentorId"] as SelectList;
+    var internList = ViewData["InternId"] as SelectList;
+    var taskList = ViewData["TaskId"] as SelectList;
 }
 
 <h1>Create</h1>
@@ -29,16 +32,16 @@
                 <span asp-validation-for="WorkingResult.Note" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkingResult.MentorId" class="control-label"></label>
-                <select asp-for="WorkingResult.MentorId" class ="form-control" asp-items="ViewBag.MentorId"></select>
+                <label asp-for="WorkingResult.Mentor" class="control-label"></label>
+                <select asp-for="WorkingResult.MentorId" class ="form-control" asp-items="mentorList"></select>
             </div>
             <div class="form-group">
-                <label asp-for="WorkingResult.TaskId" class="control-label"></label>
-                <select asp-for="WorkingResult.TaskId" class ="form-control" asp-items="ViewBag.TaskId"></select>
+                <label asp-for="WorkingResult.Task" class="control-label"></label>
+                <select asp-for="WorkingResult.TaskId" class ="form-control" asp-items="taskList"></select>
             </div>
             <div class="form-group">
-                <label asp-for="WorkingResult.InternId" class="control-label"></label>
-                <select asp-for="WorkingResult.InternId" class ="form-control" asp-items="ViewBag.InternId"></select>
+                <label asp-for="WorkingResult.Intern" class="control-label"></label>
+                <select asp-for="WorkingResult.InternId" class ="form-control" asp-items="internList"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

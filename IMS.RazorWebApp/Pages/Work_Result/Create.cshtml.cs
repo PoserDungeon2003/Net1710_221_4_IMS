@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using IMS.Data.Models;
 using IMS.Data.Repository;
 using IMS.Business.Business;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Work_Result
 {
@@ -16,20 +19,33 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         private readonly WorkingResultBusiness _workingResultBusiness;
         private readonly MentorBusiness _mentorBusiness;
         private readonly InternBusiness _internBusiness;
+        private readonly TaskBusiness _taskBusiness;
 
         public CreateModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
             _workingResultBusiness ??= new WorkingResultBusiness();
             _mentorBusiness ??= new MentorBusiness();
             _internBusiness ??= new InternBusiness();
+            _taskBusiness ??= new TaskBusiness();
         }
 
         public IActionResult OnGet()
         {
-       
-    //    ViewData["InternId"] = new SelectList(_internBusiness.GetAllAsync()., "InternId");
-    //     ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId");
-    //     ViewData["TaskId"] = new SelectList(_context.Tasks, "TaskId");
+            var internList = _internBusiness.GetAllAsync();
+            var mentorList = _mentorBusiness.GetAllAsync();
+            var taskList = _taskBusiness.GetAllAsync();
+            if (internList.Result.Data != null)
+            {
+                ViewData["InternId"] = new SelectList((IEnumerable)internList.Result.Data, "InternId", "InternId");
+            }
+            if (mentorList.Result.Data != null)
+            {
+                ViewData["MentorId"] = new SelectList((IEnumerable)mentorList.Result.Data, "MentorId", "MentorId");
+            }
+            if (taskList.Result.Data != null)
+            {
+                ViewData["TaskId"] = new SelectList((IEnumerable)taskList.Result.Data, "TaskId", "TaskId");
+            }
             return Page();
         }
 
@@ -39,14 +55,12 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var result = await _workingResultBusiness.AddAsync(WorkingResult);
+            if (result.Status != Const.SUCCESS_CREATE_CODE)
             {
+                OnGet();
                 return Page();
             }
-
-            // _context.WorkingResults.Add(WorkingResult);
-            // await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
     }
