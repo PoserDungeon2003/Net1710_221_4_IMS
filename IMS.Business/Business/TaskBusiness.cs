@@ -1,43 +1,39 @@
-﻿using IMS.Business.Result;
-using IMS.Common;
-using IMS.Data;
-using IMS.Data.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using IMS.Business.Result;
+using IMS.Common;
+using IMS.Data;
 
 namespace IMS.Business.Business
 {
-    public interface IInternBusiness
+    public interface ITaskBusiness
     {
-        Task<BusinessResult> GetAllAsync();
-        Task<BusinessResult> Add();
-        Task<BusinessResult> Update();
-        Task<BusinessResult> Delete();
-    }
-    public class InternBusiness : IInternBusiness
+        Task<IIMSResult> GetAllAsync();
+        Task<IIMSResult> Add();
+        Task<IIMSResult> Update();
+        Task<IIMSResult> Delete();}
+    public class TaskBusiness : ITaskBusiness
     {
         private readonly UnitOfWork _unitOfWork;
-        public InternBusiness()
+        public TaskBusiness()
         {
             _unitOfWork ??= new UnitOfWork();
         }
-
-        public Task<BusinessResult> Add()
+        public Task<IIMSResult> Add()
         {
             throw new NotImplementedException();
         }
 
-        public Task<BusinessResult> Delete()
+        public Task<IIMSResult> Delete()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<BusinessResult> GetAllAsync()
+        public async Task<IIMSResult> GetAllAsync()
         {
-            var result = await _unitOfWork.InternRepository.GetAllAsync();
+            var result = await _unitOfWork.TaskRepository.GetAllAsync();
             try
             {
                 if (result.Count() == 0)
@@ -52,7 +48,7 @@ namespace IMS.Business.Business
             }
         }
 
-        public Task<BusinessResult> Update()
+        public Task<IIMSResult> Update()
         {
             throw new NotImplementedException();
         }

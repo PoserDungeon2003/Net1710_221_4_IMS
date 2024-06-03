@@ -1,4 +1,5 @@
-﻿using IMS.Data.Repository;
+﻿using IMS.Data.Models;
+using IMS.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,12 @@ namespace IMS.Data
         private MentorRepository _mentor;
         private CompanyRepository _company;
         private WorkingResultRepository _workingResult;
+        private InternRepository _intern;
+        private TaskRepository _task;
 
         public UnitOfWork() { }
-
-        public MentorRepository MentorRepository 
-        { 
+        public MentorRepository MentorRepository
+        {
             get
             {
                 return _mentor ?? new MentorRepository();
@@ -37,6 +39,20 @@ namespace IMS.Data
             get
             {
                 return _workingResult ?? new WorkingResultRepository();
+            }
+        }
+        public InternRepository InternRepository
+        {
+            get
+            {
+                return _intern ?? new InternRepository();
+            }
+        }
+        public TaskRepository TaskRepository
+        {
+            get
+            {
+                return _task ?? new TaskRepository();
             }
         }
 
