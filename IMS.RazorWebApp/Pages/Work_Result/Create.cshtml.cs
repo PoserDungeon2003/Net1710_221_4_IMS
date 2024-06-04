@@ -11,6 +11,7 @@ using IMS.Business.Business;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections;
 using IMS.Common;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace IMS.RazorWebApp.Pages.Work_Result
 {
@@ -20,6 +21,7 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         private readonly MentorBusiness _mentorBusiness;
         private readonly InternBusiness _internBusiness;
         private readonly TaskBusiness _taskBusiness;
+        public string Message { get; set; } = string.Empty;
 
         public CreateModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
@@ -34,18 +36,13 @@ namespace IMS.RazorWebApp.Pages.Work_Result
             var internList = _internBusiness.GetAllAsync();
             var mentorList = _mentorBusiness.GetAllAsync();
             var taskList = _taskBusiness.GetAllAsync();
-            if (internList.Result.Data != null)
+            if (internList.Result.Data == null || mentorList.Result.Data == null || taskList.Result.Data == null)
             {
-                ViewData["InternId"] = new SelectList((IEnumerable)internList.Result.Data, "InternId", "InternId");
+                return NotFound();
             }
-            if (mentorList.Result.Data != null)
-            {
-                ViewData["MentorId"] = new SelectList((IEnumerable)mentorList.Result.Data, "MentorId", "MentorId");
-            }
-            if (taskList.Result.Data != null)
-            {
-                ViewData["TaskId"] = new SelectList((IEnumerable)taskList.Result.Data, "TaskId", "TaskId");
-            }
+            ViewData["InternId"] = new SelectList((IEnumerable)internList.Result.Data, "InternId", "InternId");
+            ViewData["MentorId"] = new SelectList((IEnumerable)mentorList.Result.Data, "MentorId", "MentorId");
+            ViewData["TaskId"] = new SelectList((IEnumerable)taskList.Result.Data, "TaskId", "TaskId");
             return Page();
         }
 
@@ -61,6 +58,7 @@ namespace IMS.RazorWebApp.Pages.Work_Result
                 OnGet();
                 return Page();
             }
+
             return RedirectToPage("./Index");
         }
     }

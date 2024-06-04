@@ -1,4 +1,5 @@
 ﻿@page
+@using IMS.Common
 @model IMS.RazorWebApp.Pages.Work_Result.DetailsModel
 
 @{
@@ -7,14 +8,11 @@
 
 <h1>Working Result Details</h1>
 
-@if (!String.IsNullOrEmpty(Model.Message))
-{
-    <p>@Model.Message</p>
-}
-
 <div>
     <h4>WorkingResult</h4>
     <hr />
+    @if (Model.Message == Const.SUCCESS_READ_MSG)
+    {
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.WorkingResult.CreatedBy)
@@ -53,7 +51,13 @@
             @Html.DisplayFor(model => model.WorkingResult.TaskId)
         </dd>
     </dl>
+    }
+    else
+    {
+        <p>@Model.Message</p>
+    }
 </div>
+
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.WorkingResult.ResultId">Edit</a> |
     <a asp-page="./Index">Back to List</a>

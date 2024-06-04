@@ -1,4 +1,5 @@
 ﻿@page
+@using IMS.Common
 @model IMS.RazorWebApp.Pages.Work_Result.DeleteModel
 
 @{
@@ -49,7 +50,8 @@
             @Html.DisplayFor(model => model.WorkingResult.TaskId)
         </dd>
     </dl>
-    
+    <p>@Model.Message</p>
+
     <form method="post">
         <input type="hidden" asp-for="WorkingResult.ResultId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

@@ -30,20 +30,7 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         public async System.Threading.Tasks.Task OnGetAsync()
         {
             var workingResult = await _workingResultBusiness.GetAllAsync();
-            // if (workingResult.Status == Const.SUCCESS_READ_CODE)
-            // {
-            //     WorkingResult = (workingResult.Data as IList<WorkingResult>)!;
-            //     Message = workingResult.Message ?? "Get data success";
-            // }
-            // if (workingResult.Status == Const.WARNING_NO_DATA_CODE)
-            // {
-            //     Message = workingResult.Message ?? "No data";
-            // }
-            // else
-            // {
-            //     Message = workingResult.Message ?? "Read data fail";
-            // }
-            Message = workingResult.Message ?? "";
+            Message = workingResult.Message ?? "Unknow error";
             WorkingResult = (workingResult.Data as IList<WorkingResult>)!;
         }
     }
