@@ -31,45 +31,45 @@ namespace IMS.WpfApp.UI
 
         private async void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var item = await _mentorBusiness.GetByIdAsync(txtCurrencyCode.Text as int?);
+            //try
+            //{
+            //    var item = await _mentorBusiness.GetByIdAsync(txtCurrencyCode.Text as int?);
 
-                if (item.Data == null)
-                {
-                    var mentor = new Mentor()
-                    {
-                        CurrencyCode = txtCurrencyCode.Text,
-                        CurrencyName = txtCurrencyName.Text,
-                        NationCode = txtNationCode.Text,
-                        IsActive = chkIsActive.IsChecked
-                    };
+            //    if (item.Data == null)
+            //    {
+            //        var mentor = new Mentor()
+            //        {
+            //            CurrencyCode = txtCurrencyCode.Text,
+            //            CurrencyName = txtCurrencyName.Text,
+            //            NationCode = txtNationCode.Text,
+            //            IsActive = chkIsActive.IsChecked
+            //        };
 
-                    var result = await _business.Save(mentor);
-                    MessageBox.Show(result.Message, "Save");
-                }
-                else
-                {
-                    var currency = item.Data as Currency;
-                    //currency.CurrencyCode = txtCurrencyCode.Text;
-                    currency.CurrencyName = txtCurrencyName.Text;
-                    currency.NationCode = txtNationCode.Text;
-                    currency.IsActive = chkIsActive.IsChecked;
+            //        var result = await _business.Save(mentor);
+            //        MessageBox.Show(result.Message, "Save");
+            //    }
+            //    else
+            //    {
+            //        var currency = item.Data as Currency;
+            //        //currency.CurrencyCode = txtCurrencyCode.Text;
+            //        currency.CurrencyName = txtCurrencyName.Text;
+            //        currency.NationCode = txtNationCode.Text;
+            //        currency.IsActive = chkIsActive.IsChecked;
 
-                    var result = await _business.Update(currency);
-                    MessageBox.Show(result.Message, "Update");
-                }
+            //        var result = await _business.Update(currency);
+            //        MessageBox.Show(result.Message, "Update");
+            //    }
 
-                txtCurrencyCode.Text = string.Empty;
-                txtCurrencyName.Text = string.Empty;
-                txtNationCode.Text = string.Empty;
-                chkIsActive.IsChecked = false;
-                this.LoadGrdCurrencies();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error");
-            }
+            //    txtCurrencyCode.Text = string.Empty;
+            //    txtCurrencyName.Text = string.Empty;
+            //    txtNationCode.Text = string.Empty;
+            //    chkIsActive.IsChecked = false;
+            //    this.LoadGrdCurrencies();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString(), "Error");
+            //}
 
         }
 
