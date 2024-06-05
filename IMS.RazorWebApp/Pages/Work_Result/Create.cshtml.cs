@@ -53,12 +53,12 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         public async Task<IActionResult> OnPostAsync()
         {
             var result = await _workingResultBusiness.AddAsync(WorkingResult);
+            Message = result.Message ?? "Unknow error";
             if (result.Status != Const.SUCCESS_CREATE_CODE)
             {
                 OnGet();
                 return Page();
             }
-
             return RedirectToPage("./Index");
         }
     }

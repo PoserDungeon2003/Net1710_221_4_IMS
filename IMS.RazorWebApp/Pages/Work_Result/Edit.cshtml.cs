@@ -37,7 +37,7 @@ namespace IMS.RazorWebApp.Pages.Work_Result
             var workingresult = await _workingResultBusiness.GetByIdAsync(id);
             var mentor = _mentorBusiness.GetAllAsync();
             var task = _taskBusiness.GetAllAsync();
-            var intern = _internBusiness.GetAllAsync();
+            var intern = _internBusiness.Getall();
 
             if (intern.Result.Data == null || mentor.Result.Data == null || task.Result.Data == null || workingresult == null || id == null)
             {

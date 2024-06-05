@@ -8,16 +8,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Data.Models;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Intern
 {
     public class EditModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly InternBusiness _internBusiness;
+        private readonly MentorBusiness _mentorBusiness;
+        private readonly CompanyBusiness _companyBusiness;
 
-        public EditModel(Net1710_221_4_IMSContext context)
+        public EditModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
-            _context = context;
+            _internBusiness ??= new InternBusiness();
+            _mentorBusiness ??= new MentorBusiness();
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         [BindProperty]
@@ -30,13 +38,16 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
 
-            var intern =  await _context.Interns.FirstOrDefaultAsync(m => m.InternId == id);
+            var intern =  await _internBusiness.GetByID(id);
+            var mentor =  _mentorBusiness.GetAllMentor();
+            var company = _companyBusiness.GetAllCompany();
             if (intern == null)
             {
                 return NotFound();
             }
-            Intern = intern;
-           ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
+            Intern = (Models.Intern)intern.Data;
+           ViewData["CompanyId"] = new SelectList((System.Collections.IEnumerable)company.Data, "CompanyId", "Address");
+           ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "Email");
             return Page();
         }
 
@@ -44,20 +55,18 @@ namespace IMS.RazorWebApp.Pages.Intern
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-
-            _context.Attach(Intern).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var result = await _internBusiness.Update(Intern);
+                if (result.Status != Const.SUCCESS_UPDATE_CODE)
+                {
+                    await OnGetAsync(Intern.InternId);
+                    return Page();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InternExists(Intern.InternId))
+                if (!(bool)_internBusiness.InternExisted(Intern.MentorId).Data)
                 {
                     return NotFound();
                 }

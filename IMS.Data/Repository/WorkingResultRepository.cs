@@ -10,12 +10,13 @@ namespace IMS.Data.Repository
 {
     public class WorkingResultRepository : GenericRepository<WorkingResult>
     {
-        public WorkingResultRepository()
+        public WorkingResultRepository(Net1710_221_4_IMSContext context)
         {
+            _context = context;
         }
         public new async Task<IEnumerable<WorkingResult>> GetAllAsync()
         {
-            return await _dbSet
+            return await _context.WorkingResults
             .Include(c => c.Mentor)
             .Include(c => c.Intern)
             .Include(c => c.Task)

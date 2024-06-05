@@ -2,6 +2,7 @@
 using IMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace IMS.Data.Repository
 
         public new async Task<List<Mentor>> GetAllAsync()
         {
-            return await _dbSet.Include(c => c.Company).ToListAsync();
+            return await _context.Mentors.Include(c => c.Company).ToListAsync();
         }
         
         public async Task<Mentor> GetMentorById(int id)
@@ -39,6 +40,10 @@ namespace IMS.Data.Repository
         public bool MentorExisted(int id)
         {
             return _context.Mentors.Any(e => e.MentorId == id);
+        }
+        public IEnumerable GetAllMentor()
+        {
+            return _context.Mentors;
         }
     }
 }
