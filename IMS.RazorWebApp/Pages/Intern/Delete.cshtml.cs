@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Data.Models;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Intern
 {
     public class DeleteModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly InternBusiness _internBusiness;
 
-        public DeleteModel(Net1710_221_4_IMSContext context)
+        public DeleteModel()
         {
-            _context = context;
+            _internBusiness = new InternBusiness();
         }
 
         [BindProperty]
@@ -29,7 +32,7 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
 
-            var intern = await _context.Interns.FirstOrDefaultAsync(m => m.InternId == id);
+            var intern = await _internBusiness.GetByID(id);
 
             if (intern == null)
             {
@@ -37,7 +40,7 @@ namespace IMS.RazorWebApp.Pages.Intern
             }
             else
             {
-                Intern = intern;
+                Intern = (Models.Intern)intern.Data;
             }
             return Page();
         }
@@ -49,12 +52,16 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
 
-            var intern = await _context.Interns.FindAsync(id);
+            var intern = await _internBusiness.GetByID(id);
             if (intern != null)
             {
-                Intern = intern;
-                _context.Interns.Remove(Intern);
-                await _context.SaveChangesAsync();
+                Intern = (Models.Intern)intern.Data;
+                var result = await _internBusiness.DeleteAsync(Intern);
+
+                if (result.Status != Const.SUCCESS_DELETE_CODE)
+                {
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models = IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Common;
+using IMS.Data.Models;
 
 namespace IMS.RazorWebApp.Pages.Company
 {
     public class CreateModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly ICompanyBusiness _companyBusiness;
 
-        public CreateModel(Net1710_221_4_IMSContext context)
+        public CreateModel()
         {
-            _context = context;
+            _companyBusiness ??= new CompanyBusiness();
         }
 
         public IActionResult OnGet()
@@ -30,13 +33,11 @@ namespace IMS.RazorWebApp.Pages.Company
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var result = await _companyBusiness.AddAsync(Company);
+            if (result.Status != Const.SUCCESS_CREATE_CODE)
             {
                 return Page();
             }
-
-            _context.Companies.Add(Company);
-            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

@@ -31,7 +31,7 @@ namespace IMS.Data
         {
             get
             {
-                return _mentor ?? new MentorRepository();
+                return _mentor ?? new MentorRepository(_unitOfWorkContext);
             }
         }
 

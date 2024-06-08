@@ -2,6 +2,7 @@
 using IMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,12 @@ namespace IMS.Data.Repository
 {
     public class MentorRepository : GenericRepository<Mentor>
     {
-        public MentorRepository() { }
+        private readonly Net1710_221_4_IMSContext _context;
+        public MentorRepository(Net1710_221_4_IMSContext context) => _context = context;
 
         public new async Task<List<Mentor>> GetAllAsync()
         {
-            return await _dbSet.Include(c => c.Company).ToListAsync();
+            return await _context.Mentors.Include(c => c.Company).ToListAsync();
         }
         
         public async Task<Mentor> GetMentorById(int id)
@@ -36,9 +38,18 @@ namespace IMS.Data.Repository
             }
         }
 
+        public async void DeleteByIdAsync()
+        {
+            //return await _context.Mentors.dele
+        }
+
         public bool MentorExisted(int id)
         {
             return _context.Mentors.Any(e => e.MentorId == id);
+        }
+        public IEnumerable GetAllMentor()
+        {
+            return _context.Mentors;
         }
     }
 }

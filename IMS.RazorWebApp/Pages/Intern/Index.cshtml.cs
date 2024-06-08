@@ -6,16 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models = IMS.Data.Models;
-using Task = System.Threading.Tasks.Task;
 using IMS.Data.Repository;
 
 namespace IMS.RazorWebApp.Pages.Intern
 {
     public class IndexModel : PageModel
     {
-        private readonly Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
 
-        public IndexModel(Net1710_221_4_IMSContext context)
+        public IndexModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
             _context = context;
         }
@@ -25,6 +24,7 @@ namespace IMS.RazorWebApp.Pages.Intern
         public async Task OnGetAsync()
         {
             Intern = await _context.Interns
+                .Include(i => i.Company)
                 .Include(i => i.Mentor).ToListAsync();
         }
     }
