@@ -34,25 +34,24 @@ namespace IMS.WpfApp.UI
         {
             try
             {
-                //int idTmp = -1;
-                //int.TryParse(txtCurrencyCode.Text, out idTmp);
-
-                var item = await _business.GetByID(int.Parse(txtInternId.Text));
+                int internId = -1;
+                int.TryParse(txtInternId.Text, out internId);
+                var item = await _business.GetByID(internId);
 
                 if (item.Data == null)
                 {
                     var intern = new Intern()
                     {
-                        InternId = int.Parse(txtInternId.Text),
-                        University = txtNationCode.Text,
-                        Major = txtCurrencyName.Text,
-                        JobPosition = txtCurrencyName.Text,
-                        EducationBackground = txtCurrencyName.Text,
-                        Experiences = txtCurrencyName.Text,
-                        WorkingTasks = txtCurrencyName.Text,
-                        MentorId = int.Parse(txtInternId.Text),
-                        Name = txtCurrencyName.Text,
-                        CompanyId = int.Parse(txtInternId.Text),
+                       // InternId = int.Parse(txtInternId.Text),
+                        University = txtUniversity.Text,
+                        Major = txtMajor.Text,
+                        JobPosition = txtJobPosition.Text,
+                        EducationBackground = txtEducationBackground.Text,
+                        Experiences = txtExperiences.Text,
+                        WorkingTasks = txtWorkingTasks.Text,
+                        MentorId = int.Parse(txtMentorId.Text),
+                        Name = txtName.Text,
+                        CompanyId = int.Parse(txtCompanyId.Text),
                     };
 
                     var result = await _business.Save(intern);
@@ -62,18 +61,30 @@ namespace IMS.WpfApp.UI
                 {
                     var intern = item.Data as Intern;
                     //currency.CurrencyCode = txtCurrencyCode.Text;
-                    //intern.InternId = txtCurrencyName.Text;
-                    //intern.NationCode = txtNationCode.Text;
-                    //intern.IsActive = chkIsActive.IsChecked;
+                    intern.University = txtUniversity.Text;
+                    intern.Major = txtMajor.Text;
+                    intern.JobPosition = txtJobPosition.Text;
+                    intern.EducationBackground = txtEducationBackground.Text;
+                    intern.Experiences = txtExperiences.Text;
+                    intern.WorkingTasks = txtWorkingTasks.Text;
+                    intern.MentorId = int.Parse(txtMentorId.Text);
+                    intern.Name = txtName.Text;
+                    intern.CompanyId = int.Parse(txtCompanyId.Text);
 
                     var result = await _business.Update(intern);
                     MessageBox.Show(result.Message, "Update");
                 }
 
                 txtInternId.Text = string.Empty;
-                txtCurrencyName.Text = string.Empty;
-                txtNationCode.Text = string.Empty;
-                chkIsActive.IsChecked = false;
+                txtUniversity.Text = string.Empty;
+                txtMajor.Text = string.Empty;
+                txtJobPosition.Text = string.Empty;
+                txtEducationBackground.Text = string.Empty;
+                txtExperiences.Text = string.Empty;
+                txtWorkingTasks.Text = string.Empty;
+                txtMentorId.Text = string.Empty;
+                txtName.Text = string.Empty;
+                txtCompanyId.Text = string.Empty;
                 this.LoadGrdIntern();
             }
             catch (Exception ex)
@@ -85,12 +96,64 @@ namespace IMS.WpfApp.UI
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
         }
-        private void grdCurrency_MouseDouble_Click(object sender, RoutedEventArgs e)
+        private async void grdCurrency_MouseDouble_Click(object sender, RoutedEventArgs e)
         {
+            //MessageBox.Show("Double Click on Grid");
+            DataGrid grd = sender as DataGrid;
+            if (grd != null && grd.SelectedItems != null && grd.SelectedItems.Count == 1)
+            {
+                var row = grd.ItemContainerGenerator.ContainerFromItem(grd.SelectedItem) as DataGridRow;
+                if (row != null)
+                {
+                    var item = row.Item as Intern;
+                    if (item != null)
+                    {
+                        var currencyResult = await _business.GetByID(item.InternId);
+
+                        if (currencyResult.Status > 0 && currencyResult.Data != null)
+                        {
+                            item = currencyResult.Data as Intern;
+                            txtInternId.Text = item.InternId.ToString();
+                            txtUniversity.Text = item.University;
+                            txtMajor.Text = item.Major;
+                            txtJobPosition.Text = item.JobPosition;
+                            txtEducationBackground.Text = item.EducationBackground;
+                            txtExperiences.Text = item.Experiences;
+                            txtWorkingTasks.Text = item.WorkingTasks;
+                            txtMentorId.Text = item.MentorId.ToString();
+                            txtName.Text = item.Name;
+                            txtCompanyId.Text = item.CompanyId.ToString();
+                        }
+                    }
+                }
+            }
         }
-        private void grdCurrency_ButtonDelete_Click(object sender, RoutedEventArgs e)
-        {
-        }
+        private async void grdCurrency_ButtonDelete_Click(object sender, RoutedEventArgs e)
+{
+  Button btn = (Button)sender;
+
+  // Attempt to convert CommandParameter to int
+  int? InternId;
+  if (btn.CommandParameter != null && int.TryParse(btn.CommandParameter.ToString(), out int value))
+  {
+    InternId = value;
+  }
+  else
+  {
+    // Handle the case where CommandParameter is not an integer or null
+    MessageBox.Show("Invalid Intern ID format. Please try again.", "Error", MessageBoxButton.OK);
+    return;
+  }
+
+  // Confirmation and deletion logic (assuming InternId is valid)
+  if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+  {
+    var result = await _business.DeleteById(InternId.Value);
+    MessageBox.Show($"{result.Message}", "Delete");
+    this.LoadGrdIntern();
+  }
+}
+
         private async void LoadGrdIntern()
         {
             var result = await _business.Getall();
@@ -110,7 +173,7 @@ namespace IMS.WpfApp.UI
 
         }
 
-        private void txtInterId_TextChanged(object sender, TextChangedEventArgs e)
+        private void txtUniversity_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

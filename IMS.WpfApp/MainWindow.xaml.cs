@@ -27,5 +27,12 @@ namespace IMS.WpfApp
             p.Owner = this;
             p.Show();
         }
+
+        private void Open_wMentor_Click(object sender, RoutedEventArgs e)
+        {
+            var p = new wMentor();
+            p.Owner = this;
+            p.Show();
+        }
     }
 }

@@ -7,11 +7,18 @@
         mc:Ignorable="d"
         Title="wIntern" Height="450" Width="800">
     <Grid>
-        <StackPanel Orientation="Vertical" Margin="0,0,0,65">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="381*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Margin="0,0,0,65" Grid.ColumnSpan="2">
             <GroupBox Header="Intern Form" Height="111">
-                <Grid Height="41">
+                <Grid Height="79">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
@@ -24,14 +31,28 @@
                         <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Content="InternId" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtInternId" Height="25" Text="{Binding Intern.InternId, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="2" Grid.Row="0" Content="Name" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtCurrencyName" Height="25" Text="{Binding Intern.Name, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="0" Grid.Row="0" Content="InternId" HorizontalAlignment="Left" VerticalContentAlignment="Center" Visibility="Collapsed"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtInternId" Height="25" Text="{Binding Intern.InternId, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left" IsEnabled="False" />
+                    <Label Grid.Column="0" Grid.Row="0" Content="University" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtUniversity" Height="25" Text="{Binding Intern.InternId, Mode=TwoWay}"  Margin="5,5,0,0"  Width="180" HorizontalAlignment="Left" TextChanged="txtUniversity_TextChanged" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Major" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtMajor" Height="25" Text="{Binding Intern.Major, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                     <Label Grid.Column="4" Grid.Row="0" Content="JobPosition" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="5" Grid.Row="0" x:Name="txtNationCode" Height="25" Text="{Binding Intern.JobPosition, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="6" Grid.Row="0" Content="Active" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <CheckBox Grid.Column="7" Grid.Row="0" x:Name="chkIsActive" Height="25" IsChecked="{Binding IsCheckBoxChecked, ElementName=IsActive}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Column="5" Grid.Row="0" x:Name="txtJobPosition" Height="25" Text="{Binding Intern.JobPosition, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--<Label Grid.Column="6" Grid.Row="0" Content="Active" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <CheckBox Grid.Column="7" Grid.Row="0" x:Name="chkIsActive" Height="25" IsChecked="{Binding IsCheckBoxChecked, ElementName=IsActive}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>-->
+                    <Label Grid.Column="0" Grid.Row="1" Content="EduBgrd" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtEducationBackground" Height="25" Text="{Binding Intern.EducationBackground, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="2" Grid.Row="1" Content="Experiences" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtExperiences" Height="25" Text="{Binding Intern.Experiences, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="4" Grid.Row="1" Content="WorkingTasks" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="5" Grid.Row="1" x:Name="txtWorkingTasks" Height="25" Text="{Binding Intern.WorkingTasks, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="MentorId" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtMentorId" Height="25" Text="{Binding Intern.MentorId, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="2" Grid.Row="2" Content="WorkingTasks" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="2" x:Name="txtName" Height="25" Text="{Binding Intern.Name, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="4" Grid.Row="2" Content="CompanyId" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="5" Grid.Row="2" x:Name="txtCompanyId" Height="25" Text="{Binding Intern.CompanyId, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                 </Grid>
             </GroupBox>
             <StackPanel Height="42" Orientation="Horizontal" HorizontalAlignment="Right" Width="163">
@@ -39,7 +60,7 @@
                 <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/>
             </StackPanel>
             <StackPanel Height="210">
-                <DataGrid x:Name="grdCurrency" AutoGenerateColumns="False" ItemsSource="{Binding Intern}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdCurrency_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow" SelectionChanged="grdCurrency_SelectionChanged">
+                <DataGrid x:Name="grdCurrency" AutoGenerateColumns="False" ItemsSource="{Binding Currencies}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdCurrency_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow" SelectionChanged="grdCurrency_SelectionChanged">
                     <DataGrid.Columns>
                         <!--<DataGridTextColumn Header="Code" Binding="{Binding Path=Id}" Visibility="Hidden"/>-->
                         <DataGridTextColumn Header="InternId" Binding="{Binding InternId}" Visibility="Visible"/>
