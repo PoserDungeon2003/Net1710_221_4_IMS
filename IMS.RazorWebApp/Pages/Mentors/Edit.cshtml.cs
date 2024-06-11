@@ -34,7 +34,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor =  await _mentorBusiness.GetByIdAsync(id);
+            var mentor =  await _mentorBusiness.FindAsync(id);
             var company = _companyBusiness.GetAllCompany();
             if (mentor == null)
             {

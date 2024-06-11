@@ -36,9 +36,9 @@ namespace IMS.WpfApp.UI
         {
             try
             {
-                if (txtMentorCode.Text == null) return;
-                var mentorId = int.Parse(txtMentorCode.Text);
-                var item = await _mentorBusiness.GetByIdAsync(mentorId);
+                int mentorId = -1;
+                int.TryParse(txtMentorCode.Text, out mentorId);
+                var item = await _mentorBusiness.FindAsync(mentorId);
 
                 if (item.Data == null)
                 {
@@ -97,7 +97,7 @@ namespace IMS.WpfApp.UI
                     var item = row.Item as Mentor;
                     if (item != null)
                     {
-                        var mentorResult = await _mentorBusiness.GetByIdAsync(item.MentorId);
+                        var mentorResult = await _mentorBusiness.FindAsync(item.MentorId);
 
                         if (mentorResult.Status > 0 && mentorResult.Data != null)
                         {

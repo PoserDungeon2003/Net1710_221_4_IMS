@@ -16,7 +16,6 @@ namespace IMS.Business.Business
         Task<IIMSResult> GetAllAsync();
         Task<IIMSResult> FindAsync(int? id);
         Task<IIMSResult> AddAsync(Mentor mentor);
-        Task<IIMSResult> GetByIdAsync(int? id);
         Task<IIMSResult> UpdateAsync(Mentor mentor);
         Task<IIMSResult> DeleteAsync(Mentor mentor);
         IIMSResult MentorExisted(int id);
@@ -79,7 +78,8 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
             }
         }
-                public IIMSResult GetAllMentor()
+
+        public IIMSResult GetAllMentor()
         {
             var mentor = _unitOfWork.MentorRepository.GetAllMentor();
             try
@@ -95,6 +95,7 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
             }
         }
+
         public async Task<IIMSResult> FindAsync(int? id)
         {
             if (id == null)
@@ -133,26 +134,26 @@ namespace IMS.Business.Business
             }
         }
 
-        public async Task<IIMSResult> GetByIdAsync(int? id)
-        {
-            if (id == null)
-            {
-                return new BusinessResult();
-            }
-            var mentor = await _unitOfWork.MentorRepository.GetMentorById((int)id);
-            try
-            {
-                if (mentor == null)
-                {
-                    return new BusinessResult();
-                }
-                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
-            }
-            catch (Exception ex)
-            {
-                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
-            }
-        }
+        //public async Task<IIMSResult> GetByIdAsync(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new BusinessResult();
+        //    }
+        //    var mentor = await _unitOfWork.MentorRepository.GetMentorById((int)id);
+        //    try
+        //    {
+        //        if (mentor == null)
+        //        {
+        //            return new BusinessResult();
+        //        }
+        //        return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+        //    }
+        //}
 
         public IIMSResult MentorExisted(int id)
         {

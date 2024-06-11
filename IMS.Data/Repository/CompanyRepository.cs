@@ -12,7 +12,11 @@ namespace IMS.Data.Repository
 {
     public class CompanyRepository : GenericRepository<Company>
     {
-        public CompanyRepository() { }
+        private readonly Net1710_221_4_IMSContext _context;
+        public CompanyRepository(Net1710_221_4_IMSContext context)
+        {
+            _context = context;
+        }
 
         public IEnumerable GetAllCompany()
         {
