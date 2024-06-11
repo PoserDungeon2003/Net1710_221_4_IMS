@@ -12,7 +12,8 @@ namespace IMS.Data.Repository
 {
     public class MentorRepository : GenericRepository<Mentor>
     {
-        public MentorRepository() { }
+        private readonly Net1710_221_4_IMSContext _context;
+        public MentorRepository(Net1710_221_4_IMSContext context) => _context = context;
 
         public new async Task<List<Mentor>> GetAllAsync()
         {
@@ -35,6 +36,11 @@ namespace IMS.Data.Repository
                 Console.WriteLine(ex.ToString());
                 throw new Exception(ex.ToString());
             }
+        }
+
+        public async void DeleteByIdAsync()
+        {
+            //return await _context.Mentors.dele
         }
 
         public bool MentorExisted(int id)
