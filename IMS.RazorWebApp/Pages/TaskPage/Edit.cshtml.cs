@@ -30,16 +30,19 @@ namespace IMS.RazorWebApp.Pages.Task
         [BindProperty]
         public IMS.Data.Models.Task Task { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id) //(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
+            //Load combobox
+            //ViewData["CustomerId"] = new SelectList(_context.Customer, "", "")
+
             var task = await _taskBusiness.GetByIdAsync(id);
             var mentor = await _mentorBusiness.GetAllAsync();
-            var intern = await _internBusiness.GetAllAsync();
+            var intern = await _internBusiness.Getall();
             if (task == null)
             {
                 return NotFound();
@@ -47,7 +50,11 @@ namespace IMS.RazorWebApp.Pages.Task
             Task = (IMS.Data.Models.Task)task.Data;
             ViewData["InternId"] = new SelectList((System.Collections.IEnumerable)intern.Data, "InternId", "Name");
             ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "Name");
+
+            //Currency = currency.Data as Currency
+
             return Page();
+
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.

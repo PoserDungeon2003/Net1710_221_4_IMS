@@ -18,19 +18,34 @@ namespace IMS.RazorWebApp.Pages.Task
 
         public IndexModel()
         {
-            _taskBusiness = new TaskBusiness();
+            _taskBusiness ??= new TaskBusiness();
         }
 
         public IList<Models.Task> Task { get; set; } = default!;
 
         public async Tasks.Task OnGetAsync()
+
+
+
+ //       {
+ //            var task = await _taskBusiness.GetAllAsync();
+ //         if (task != null)
+ //         {
+ //             Task = (IList<Models.Task>)task.Data;
+ //           }
+ //         
+ //       }
+
+
+
         {
-            var task = await _taskBusiness.GetAllAsync();
-            if (task != null)
-            {
-                Task = (IList<Models.Task>)task.Data;
-            }
-            
+            var result = await _taskBusiness.GetAllAsync();
+            if (result !=null && result.Status > 0 && result.Data != null)
+             {
+              Task = result.Data as List<Models.Task>;
+             }
         }
+        
+      
     }
 }

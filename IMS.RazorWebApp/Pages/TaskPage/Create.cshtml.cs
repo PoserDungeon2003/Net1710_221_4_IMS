@@ -27,7 +27,7 @@ namespace IMS.RazorWebApp.Pages.Task
 
         public async Task<IActionResult> OnGet()
         {
-            var intern = await _internBusiness.GetAllAsync();
+            var intern = await _internBusiness.Getall();
             var mentor = await _mentorBusiness.GetAllAsync();
             ViewData["InternId"] = new SelectList((System.Collections.IEnumerable)intern.Data, "InternId", "Name");
             ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "Name");
@@ -51,3 +51,4 @@ namespace IMS.RazorWebApp.Pages.Task
         }
     }
 }
+

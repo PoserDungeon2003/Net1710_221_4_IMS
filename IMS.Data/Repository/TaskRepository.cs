@@ -6,19 +6,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IMS.Data.Models;
+using System.Collections;
 
 namespace IMS.Data.Repository
 {
-    public class TaskRepository : GenericRepository<IMS.Data.Models.Task>
+    public class TaskRepository : GenericRepository<Models.Task>
     {
-        public TaskRepository() { }
+        private readonly Net1710_221_4_IMSContext _context;
+        public TaskRepository(Net1710_221_4_IMSContext context) => _context = context;
+
+        public TaskRepository()
+        {
+        }
 
         public new async Task<List<Models.Task>> GetAllAsync()
         {
-            return await _dbSet.Include(c => c.Intern).ToListAsync();
+            return await _context.Tasks.Include(c => c.Intern).ToListAsync();
         }
 
-        public async Task<IMS.Data.Models.Task> GetTaskById(int id)
+        public async Task<Models.Task> GetTaskById(int id)
         {
             var task = await _context.Tasks.FirstOrDefaultAsync(m => m.TaskId == id);
             try
@@ -36,13 +43,18 @@ namespace IMS.Data.Repository
             }
         }
 
+        public async void DeleteByIdAsync()
+        {
+            //return await _context.Tasks.dele
+        }
+
         public bool TaskExisted(int id)
         {
             return _context.Tasks.Any(e => e.TaskId == id);
         }
+        public IEnumerable GetAllTask()
+        {
+            return _context.Tasks;
+        }
     }
-
-    ////TO DO CODE HERE////
-
-
 }
