@@ -118,18 +118,25 @@ namespace IMS.WpfApp.UI
         {
             Button btn = (Button)sender;
 
-            string currencyCode = btn.CommandParameter.ToString();
-
-            //MessageBox.Show(currencyCode);
-
-            if (!string.IsNullOrEmpty(currencyCode))
+            // Attempt to convert CommandParameter to int
+            int? mentorId;
+            if (btn.CommandParameter != null && int.TryParse(btn.CommandParameter.ToString(), out int value))
             {
-                if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    //var result = await _mentorBusiness.DeleteAsync(currencyCode);
-                    //MessageBox.Show($"{result.Message}", "Delete");
-                    //this.LoadGrdCurrencies();
-                }
+                mentorId = value;
+            }
+            else
+            {
+                // Handle the case where CommandParameter is not an integer or null
+                MessageBox.Show("Invalid Mentor ID format. Please try again.", "Error", MessageBoxButton.OK);
+                return;
+            }
+
+            // Confirmation and deletion logic (assuming InternId is valid)
+            if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                var result = await _mentorBusiness.DeleteByIdAsync(mentorId.Value);
+                MessageBox.Show($"{result.Message}", "Delete");
+                LoadGrdMentor();
             }
         }
 

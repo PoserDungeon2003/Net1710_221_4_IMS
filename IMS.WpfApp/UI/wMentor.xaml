@@ -41,7 +41,7 @@
                 <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/>
             </StackPanel>
             <StackPanel Height="210">
-                <DataGrid x:Name="grdMentor" AutoGenerateColumns="False" ItemsSource="{Binding Currencies}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdMentor_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow">
+                <DataGrid x:Name="grdMentor" AutoGenerateColumns="False" ItemsSource="{Binding Mentors}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdMentor_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow">
                     <DataGrid.Columns>
                         <!--<DataGridTextColumn Header="Code" Binding="{Binding Path=Id}" Visibility="Hidden"/>-->
                         <DataGridTextColumn Header="MentorID" Binding="{Binding Path=MentorId}" Visibility="Visible"/>
@@ -52,7 +52,7 @@
                         <DataGridTemplateColumn Width="50">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=CurrencyCode}" Click="grdMentor_ButtonDelete_Click"/>
+                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=MentorId}" Click="grdMentor_ButtonDelete_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
