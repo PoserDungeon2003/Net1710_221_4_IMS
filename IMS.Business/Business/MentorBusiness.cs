@@ -16,9 +16,9 @@ namespace IMS.Business.Business
         Task<IIMSResult> GetAllAsync();
         Task<IIMSResult> FindAsync(int? id);
         Task<IIMSResult> AddAsync(Mentor mentor);
-        Task<IIMSResult> GetByIdAsync(int? id);
         Task<IIMSResult> UpdateAsync(Mentor mentor);
         Task<IIMSResult> DeleteAsync(Mentor mentor);
+        Task<IIMSResult> DeleteByIdAsync(int? id);
         IIMSResult MentorExisted(int id);
     }
     public class MentorBusiness : IMentorBusiness
@@ -79,7 +79,8 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
             }
         }
-                public IIMSResult GetAllMentor()
+
+        public IIMSResult GetAllMentor()
         {
             var mentor = _unitOfWork.MentorRepository.GetAllMentor();
             try
@@ -95,6 +96,7 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
             }
         }
+
         public async Task<IIMSResult> FindAsync(int? id)
         {
             if (id == null)
@@ -133,27 +135,6 @@ namespace IMS.Business.Business
             }
         }
 
-        public async Task<IIMSResult> GetByIdAsync(int? id)
-        {
-            if (id == null)
-            {
-                return new BusinessResult();
-            }
-            var mentor = await _unitOfWork.MentorRepository.GetMentorById((int)id);
-            try
-            {
-                if (mentor == null)
-                {
-                    return new BusinessResult();
-                }
-                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
-            }
-            catch (Exception ex)
-            {
-                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
-            }
-        }
-
         public IIMSResult MentorExisted(int id)
         {
             var existed = _unitOfWork.MentorRepository.MentorExisted(id);
@@ -164,6 +145,28 @@ namespace IMS.Business.Business
             catch (Exception ex)
             {
                 return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> DeleteByIdAsync(int? id)
+        {
+            try
+            {
+                var mentor = await _unitOfWork.MentorRepository.GetByIdAsync((int)id);
+                if (mentor != null)
+                {
+                    var result = await _unitOfWork.MentorRepository.RemoveAsync(mentor);
+                    if (result)
+                    {
+                        return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
+                    }
+                    return new BusinessResult(Const.FAIL_DELETE_CODE, Const.FAIL_DELETE_MSG);
+                }
+                return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
             }
         }
 

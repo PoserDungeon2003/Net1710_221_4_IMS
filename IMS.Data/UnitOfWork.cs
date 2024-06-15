@@ -39,7 +39,7 @@ namespace IMS.Data
         {
             get
             {
-                return _company ?? new CompanyRepository();
+                return _company ?? new CompanyRepository(_unitOfWorkContext);
             }
 
         }
