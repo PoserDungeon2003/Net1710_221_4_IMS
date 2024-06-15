@@ -12,8 +12,11 @@
                 <MenuItem Header="Payment Order" IsCheckable="False" FontSize="12" Click="Open_wIntern_Click">
 
                 </MenuItem>
-                <MenuItem Header="Mentor" IsCheckable="False" FontSize="12" Click="Open_wMentor_Click">
+                <MenuItem Header="Interview" IsCheckable="False" FontSize="12" Click="Open_wInterview_Click">
 
+                </MenuItem>
+                <MenuItem Header="Mentor" IsCheckable="False" FontSize="12" Click="Open_wMentor_Click">
+    
                 </MenuItem>
             </MenuItem>
 

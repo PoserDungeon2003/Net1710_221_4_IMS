@@ -14,6 +14,7 @@ namespace IMS.Data
         private CompanyRepository _company;
         private WorkingResultRepository _workingResult;
         private InternRepository _intern;
+        private InterviewsInfoRepository _interviewsInfo;
         public UnitOfWork()
         {
             _unitOfWorkContext ??= new Net1710_221_4_IMSContext();
@@ -26,8 +27,8 @@ namespace IMS.Data
             }
         }
 
-        public MentorRepository MentorRepository 
-        { 
+        public MentorRepository MentorRepository
+        {
             get
             {
                 return _mentor ?? new MentorRepository(_unitOfWorkContext);
@@ -49,6 +50,14 @@ namespace IMS.Data
                 return _workingResult ?? new WorkingResultRepository();
             }
         }
+        public InterviewsInfoRepository InterviewsInfoRepository
+        {
+            get
+            {
+                return _interviewsInfo ?? new InterviewsInfoRepository();
+            }
+        }
+
 
         ////TO-DO CODE HERE/////////////////
 
