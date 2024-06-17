@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 // Configure the connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options =>
+builder.Services.AddDbContext<Net17102214ImsContext>(options =>
     options.UseSqlServer(connectionString));
 
 var app = builder.Build();

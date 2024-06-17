@@ -12,8 +12,8 @@ namespace IMS.Data.Repository
 {
     public class MentorRepository : GenericRepository<Mentor>
     {
-        private readonly Net1710_221_4_IMSContext _context;
-        public MentorRepository(Net1710_221_4_IMSContext context) => _context = context;
+        private readonly Net17102214ImsContext _context;
+        public MentorRepository(Net17102214ImsContext context) => _context = context;
 
         public new async Task<List<Mentor>> GetAllAsync()
         {

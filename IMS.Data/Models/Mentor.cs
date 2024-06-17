@@ -15,6 +15,14 @@ public partial class Mentor
 
     public string JobPosition { get; set; } = null!;
 
+    public string? Department { get; set; }
+
+    public DateOnly DateOfBirth { get; set; }
+
+    public string? LinkedinProfile { get; set; }
+
+    public DateOnly DateJoined { get; set; }
+
     public int CompanyId { get; set; }
 
     public virtual Company Company { get; set; } = null!;
