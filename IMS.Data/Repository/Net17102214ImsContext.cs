@@ -77,6 +77,7 @@ public partial class Net17102214ImsContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.Skills).HasColumnName("skills");
             entity.Property(e => e.University)
                 .HasMaxLength(100)
                 .HasColumnName("university");
@@ -101,7 +102,14 @@ public partial class Net17102214ImsContext : DbContext
 
             entity.Property(e => e.InterviewinfoId).HasColumnName("interviewinfo_id");
             entity.Property(e => e.Content).HasColumnName("content");
+            entity.Property(e => e.Feedback)
+                .HasMaxLength(50)
+                .HasColumnName("feedback");
             entity.Property(e => e.InternId).HasColumnName("intern_id");
+            entity.Property(e => e.InterviewMode)
+                .HasMaxLength(20)
+                .HasColumnName("interview_mode");
+            entity.Property(e => e.InterviewerId).HasColumnName("interviewerId");
             entity.Property(e => e.Location).HasColumnName("location");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
