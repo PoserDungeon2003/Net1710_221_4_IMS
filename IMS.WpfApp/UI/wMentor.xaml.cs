@@ -1,4 +1,5 @@
 ﻿using IMS.Business.Business;
+using IMS.Common;
 using IMS.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,10 @@ namespace IMS.WpfApp.UI
                         Email = txtEmail.Text,
                         Phone = txtPhone.Text,
                         JobPosition = txtJobPosition.Text,
+                        DateOfBirth = DateOnly.Parse(txtDob.Text),
+                        Department = txtDepartment.Text,
+                        DateJoined = DateOnly.Parse(txtDateJoined.Text),
+                        LinkedinProfile = txtLinkedinProfile.Text,
                         CompanyId = int.Parse(txtCompany.Text)
                     };
 
@@ -61,6 +66,10 @@ namespace IMS.WpfApp.UI
                     mentor.Email = txtEmail.Text;
                     mentor.Phone = txtPhone.Text;
                     mentor.JobPosition = txtJobPosition.Text;
+                    mentor.DateOfBirth = DateOnly.Parse(txtDob.Text);
+                    mentor.Department = txtDepartment.Text;
+                    mentor.DateJoined = DateOnly.Parse(txtDateJoined.Text);
+                    mentor.LinkedinProfile = txtLinkedinProfile.Text;
 
                     var result = await _mentorBusiness.UpdateAsync(mentor);
                     MessageBox.Show(result.Message, "Update");
@@ -72,7 +81,11 @@ namespace IMS.WpfApp.UI
                 txtEmail.Text = string.Empty;
                 txtPhone.Text = string.Empty;
                 txtJobPosition.Text = string.Empty;
-                this.LoadGrdMentor();
+                txtDob.Text = string.Empty;
+                txtDepartment.Text = string.Empty;
+                txtDateJoined.Text = string.Empty;
+                txtLinkedinProfile.Text = string.Empty;
+                LoadGrdMentor();
             }
             catch (Exception ex)
             {
@@ -83,6 +96,16 @@ namespace IMS.WpfApp.UI
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            txtMentorCode.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtCompany.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtPhone.Text = string.Empty;
+            txtJobPosition.Text = string.Empty;
+            txtDob.Text = string.Empty;
+            txtDepartment.Text = string.Empty;
+            txtDateJoined.Text = string.Empty;
+            txtLinkedinProfile.Text = string.Empty;
         }
 
         private async void grdMentor_MouseDouble_Click(object sender, RoutedEventArgs e)
@@ -108,6 +131,10 @@ namespace IMS.WpfApp.UI
                             txtEmail.Text = item.Email;
                             txtPhone.Text = item.Phone;
                             txtJobPosition.Text = item.JobPosition;
+                            txtDepartment.Text = item.Department;
+                            txtLinkedinProfile.Text = item.LinkedinProfile;
+                            txtDob.Text = item.DateOfBirth.ToString();
+                            txtDateJoined.Text = item.DateJoined.ToString();
                         }
                     }
                 }
@@ -146,6 +173,7 @@ namespace IMS.WpfApp.UI
 
             if (result.Status > 0 && result.Data != null)
             {
+                grdMentor.ItemsSource = null;
                 grdMentor.ItemsSource = result.Data as List<Mentor>;
             }
             else

@@ -17,7 +17,7 @@ namespace IMS.Data.Repository
 
         public new async Task<List<Mentor>> GetAllAsync()
         {
-            return await _context.Mentors.Include(c => c.Company).ToListAsync();
+            return await _context.Mentors.AsNoTracking().Include(c => c.Company).ToListAsync();
         }
         
         public async Task<Mentor> GetMentorById(int id)
