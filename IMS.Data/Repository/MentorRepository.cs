@@ -22,7 +22,8 @@ namespace IMS.Data.Repository
         
         public async Task<Mentor> GetMentorById(int id)
         {
-            var mentor = await _context.Mentors.FirstOrDefaultAsync(m => m.MentorId == id);
+            var mentor = await _context.Mentors.Include(c => c.Company)
+                                                .FirstOrDefaultAsync(m => m.MentorId == id);
             try
             {
                 if (mentor == null)
@@ -36,11 +37,6 @@ namespace IMS.Data.Repository
                 Console.WriteLine(ex.ToString());
                 throw new Exception(ex.ToString());
             }
-        }
-
-        public async void DeleteByIdAsync()
-        {
-            //return await _context.Mentors.dele
         }
 
         public bool MentorExisted(int id)
