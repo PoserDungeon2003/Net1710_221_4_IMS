@@ -29,7 +29,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor = await _mentorBusiness.GetByIdAsync(id);
+            var mentor = await _mentorBusiness.FindAsync(id);
             if (mentor == null)
             {
                 return NotFound();

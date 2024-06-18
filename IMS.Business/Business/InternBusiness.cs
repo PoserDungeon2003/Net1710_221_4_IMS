@@ -19,7 +19,7 @@ namespace IMS.Business.Business
         Task<IIMSResult> GetByID(int? id);
         Task<IIMSResult> Save(Intern intern);
         Task<IIMSResult> Update(Intern intern);
-        Task<IIMSResult> DeleteById(string code);
+        Task<IIMSResult> DeleteById(int? id);
         Task<IIMSResult> DeleteAsync(Intern intern);
     }
     public class InternBusiness : IInternBusiness
@@ -138,12 +138,12 @@ namespace IMS.Business.Business
             }
         }
 
-        public async Task<IIMSResult> DeleteById(string code)
+        public async Task<IIMSResult> DeleteById(int? id)
         {
             try
             {
                 //var currency = await _DAO.GetByIdAsync(code);
-                var interns = await _unitOfWork.InternRepository.GetByIdAsync(code);
+                var interns = await _unitOfWork.InternRepository.GetByIdAsync((int)id);
                 if (interns != null)
                 {
                     //var result = await _DAO.RemoveAsync(currency);

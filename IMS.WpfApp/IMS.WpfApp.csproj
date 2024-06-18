@@ -9,7 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IMS.Business\IMS.Business.csproj" />
+    <ProjectReference Include="..\IMS.Common\IMS.Common.csproj" />
+    <ProjectReference Include="..\IMS.Data\IMS.Data.csproj" />
   </ItemGroup>
 
 </Project>
