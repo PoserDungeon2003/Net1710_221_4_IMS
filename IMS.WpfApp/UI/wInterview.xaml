@@ -38,11 +38,7 @@
             </GroupBox>
             <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="ButtonSave" Content="Save" Height="30" Width="80" Click="ButtonSave_Click"/>
-                <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/> txtLocation.Text = string.Empty;
- txtLocation.Text = string.Empty;
- txtResult.Text = string.Empty;
- txtName.Text = string.Empty;
- txtContent.Text = string.Empty;
+                <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/> 
             </StackPanel>
             <StackPanel Height="210">
                 <DataGrid x:Name="grdInterview" AutoGenerateColumns="False" ItemsSource="{Binding Currencies}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdInterview_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow">
