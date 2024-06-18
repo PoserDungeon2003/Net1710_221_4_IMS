@@ -15,11 +15,11 @@ namespace IMS.RazorWebApp.Pages.Intern
 {
     public class DeleteModel : PageModel
     {
-        private readonly InternBusiness _internBusiness;
+        private readonly InternBusiness business;
 
         public DeleteModel()
         {
-            _internBusiness = new InternBusiness();
+            business = new InternBusiness();
         }
 
         [BindProperty]
@@ -32,7 +32,7 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
 
-            var intern = await _internBusiness.GetByID(id);
+            var intern = await business.GetByID(id);
 
             if (intern == null)
             {
@@ -52,11 +52,11 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
 
-            var intern = await _internBusiness.GetByID(id);
+            var intern = await business.GetByID(id);
             if (intern != null)
             {
                 Intern = (Models.Intern)intern.Data;
-                var result = await _internBusiness.DeleteAsync(Intern);
+                var result = await business.DeleteAsync(Intern);
 
                 if (result.Status != Const.SUCCESS_DELETE_CODE)
                 {

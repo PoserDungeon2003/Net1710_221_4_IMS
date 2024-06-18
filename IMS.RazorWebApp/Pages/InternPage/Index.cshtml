@@ -10,6 +10,44 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form method="get">
+    <div class="form-group">
+        <label asp-for="SearchCriteria.SearchTerm">Search:</label>
+        <input type="text" class="form-control" asp-for="SearchCriteria.SearchTerm">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (Model.Intern != null && Model.Intern.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>University</th>
+                <th>Major</th>
+                <th>JobPosition</th
+                <th>WorkingTasks</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var intern in Model.Intern)
+            {
+                <tr>
+                    <td>@intern.University</td>
+                    <td>@intern.Major</td>
+                    <td>@intern.JobPosition</td>
+                    <td>@intern.WorkingTasks</td>
+                    <td>@intern.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No interns found matching your search criteria.</p>
+}
 <table class="table">
     <thead>
         <tr>

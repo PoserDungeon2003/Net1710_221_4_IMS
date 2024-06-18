@@ -17,13 +17,13 @@ namespace IMS.RazorWebApp.Pages.Intern
     public class EditModel : PageModel
     {
         private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
-        private readonly InternBusiness _internBusiness;
+        private readonly InternBusiness business;
         private readonly MentorBusiness _mentorBusiness;
         private readonly CompanyBusiness _companyBusiness;
 
         public EditModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
         {
-            _internBusiness ??= new InternBusiness();
+            business ??= new InternBusiness();
             _mentorBusiness ??= new MentorBusiness();
             _companyBusiness ??= new CompanyBusiness();
         }
@@ -38,7 +38,7 @@ namespace IMS.RazorWebApp.Pages.Intern
                 return NotFound();
             }
 
-            var intern =  await _internBusiness.GetByID(id);
+            var intern =  await business.GetByID(id);
             var mentor =  _mentorBusiness.GetAllMentor();
             var company = _companyBusiness.GetAllCompany();
             if (intern == null)
@@ -48,6 +48,7 @@ namespace IMS.RazorWebApp.Pages.Intern
             Intern = (Models.Intern)intern.Data;
            ViewData["CompanyId"] = new SelectList((System.Collections.IEnumerable)company.Data, "CompanyId", "Address");
            ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "Email");
+
             return Page();
         }
 
@@ -57,24 +58,35 @@ namespace IMS.RazorWebApp.Pages.Intern
         {
             try
             {
-                var result = await _internBusiness.Update(Intern);
+                var result = await business.Update(Intern);
                 if (result.Status != Const.SUCCESS_UPDATE_CODE)
-                {
+               {
                     await OnGetAsync(Intern.InternId);
                     return Page();
                 }
             }
-            catch (DbUpdateConcurrencyException)
+           catch (DbUpdateConcurrencyException)
             {
-                if (!(bool)_internBusiness.InternExisted(Intern.MentorId).Data)
+                if (!(bool)business.InternExisted(Intern.MentorId).Data)
                 {
-                    return NotFound();
+                   return NotFound();
                 }
                 else
-                {
+               {
                     throw;
                 }
             }
+            //if(!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+            //try
+            //{
+            //    await business.Update(Intern);
+            //}
+            //catch (Exception ex)
+            //{
+            //}
 
             return RedirectToPage("./Index");
         }

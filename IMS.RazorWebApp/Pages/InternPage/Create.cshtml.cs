@@ -16,8 +16,7 @@ namespace IMS.RazorWebApp.Pages.Intern
 {
     public class CreateModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context; 
-        private readonly InternBusiness _internBusiness;
+        private readonly InternBusiness business;
         private readonly MentorBusiness _mentorBusiness;
         private readonly CompanyBusiness _companyBusiness;
         public string Message { get; set; }=default;
@@ -25,7 +24,7 @@ namespace IMS.RazorWebApp.Pages.Intern
 
         public CreateModel()
         {
-            _internBusiness ??= new InternBusiness();
+            business ??= new InternBusiness();
             _mentorBusiness ??= new MentorBusiness();
             _companyBusiness ??= new CompanyBusiness();
         }
@@ -45,12 +44,16 @@ namespace IMS.RazorWebApp.Pages.Intern
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            var result = await _internBusiness.Save(Intern);
+            var result = await business.Save(Intern);
             if (result.Status != Const.SUCCESS_CREATE_CODE)
             {
                 OnGet();
                 return Page();
             }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             return RedirectToPage("./Index");
         }

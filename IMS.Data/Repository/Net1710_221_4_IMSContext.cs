@@ -43,9 +43,21 @@ public partial class Net1710_221_4_IMSContext : DbContext
         return strConn ?? throw new ArgumentNullException("Connection string is null");
     }
 
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //=> optionsBuilder.UseSqlServer(GetConnectionString())
+    //.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+    public static string GetConnectionString(string connectionStringName)
+    {
+        var config = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        string connectionString = config.GetConnectionString(connectionStringName);
+        return connectionString;
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseSqlServer(GetConnectionString())
-    .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+        => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnection"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

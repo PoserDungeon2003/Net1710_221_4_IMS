@@ -34,4 +34,9 @@ public partial class Intern
     public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
     public virtual ICollection<WorkingResult> WorkingResults { get; set; } = new List<WorkingResult>();
+
+    public class InternSearchCriteria // Search criteria for interns
+    {
+        public string SearchTerm { get; set; } // Search by name, email, or skills
+    }
 }

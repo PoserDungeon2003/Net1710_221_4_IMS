@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Repository;
+using IMS.Business.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ builder.Services.AddRazorPages();
 
 // Configure the connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
+builder.Services.AddScoped<IInternBusiness, InternBusiness>();
 builder.Services.AddDbContext<Net1710_221_4_IMSContext>(options =>
     options.UseSqlServer(connectionString));
 

@@ -42,7 +42,7 @@ namespace IMS.WpfApp.UI
                 {
                     var intern = new Intern()
                     {
-                       // InternId = int.Parse(txtInternId.Text),
+                        // InternId = int.Parse(txtInternId.Text),
                         University = txtUniversity.Text,
                         Major = txtMajor.Text,
                         JobPosition = txtJobPosition.Text,
@@ -129,30 +129,30 @@ namespace IMS.WpfApp.UI
             }
         }
         private async void grdCurrency_ButtonDelete_Click(object sender, RoutedEventArgs e)
-{
-  Button btn = (Button)sender;
+        {
+            Button btn = (Button)sender;
 
-  // Attempt to convert CommandParameter to int
-  int? InternId;
-  if (btn.CommandParameter != null && int.TryParse(btn.CommandParameter.ToString(), out int value))
-  {
-    InternId = value;
-  }
-  else
-  {
-    // Handle the case where CommandParameter is not an integer or null
-    MessageBox.Show("Invalid Intern ID format. Please try again.", "Error", MessageBoxButton.OK);
-    return;
-  }
+            // Attempt to convert CommandParameter to int
+            int? InternId;
+            if (btn.CommandParameter != null && int.TryParse(btn.CommandParameter.ToString(), out int value))
+            {
+                InternId = value;
+            }
+            else
+            {
+                // Handle the case where CommandParameter is not an integer or null
+                MessageBox.Show("Invalid Intern ID format. Please try again.", "Error", MessageBoxButton.OK);
+                return;
+            }
 
-  // Confirmation and deletion logic (assuming InternId is valid)
-  if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-  {
-    var result = await _business.DeleteById(InternId.Value);
-    MessageBox.Show($"{result.Message}", "Delete");
-    this.LoadGrdIntern();
-  }
-}
+            // Confirmation and deletion logic (assuming InternId is valid)
+            if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                var result = await _business.DeleteById(InternId.Value);
+                MessageBox.Show($"{result.Message}", "Delete");
+                this.LoadGrdIntern();
+            }
+        }
 
         private async void LoadGrdIntern()
         {
