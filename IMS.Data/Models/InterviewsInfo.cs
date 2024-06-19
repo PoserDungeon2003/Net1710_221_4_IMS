@@ -17,6 +17,12 @@ public partial class InterviewsInfo
 
     public string Content { get; set; } = null!;
 
+    public int InterviewerId { get; set; }
+
+    public string? InterviewMode { get; set; }
+
+    public string? Feedback { get; set; }
+
     public int InternId { get; set; }
 
     public virtual Intern Intern { get; set; } = null!;

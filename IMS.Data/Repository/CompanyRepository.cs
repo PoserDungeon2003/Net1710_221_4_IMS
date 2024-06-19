@@ -12,8 +12,8 @@ namespace IMS.Data.Repository
 {
     public class CompanyRepository : GenericRepository<Company>
     {
-        private readonly Net1710_221_4_IMSContext _context;
-        public CompanyRepository(Net1710_221_4_IMSContext context)
+        private readonly Net17102214ImsContext _context;
+        public CompanyRepository(Net17102214ImsContext context)
         {
             _context = context;
         }

@@ -13,6 +13,12 @@ public partial class WorkingResult
 
     public string? Note { get; set; }
 
+    public DateTime DateCompleted { get; set; }
+
+    public string? Status { get; set; }
+
+    public long HoursWorked { get; set; }
+
     public int MentorId { get; set; }
 
     public int TaskId { get; set; }

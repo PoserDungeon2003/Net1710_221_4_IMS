@@ -14,7 +14,7 @@ namespace IMS.Data.Repository
         public InternRepository() 
         {
         }
-        public InternRepository(Net1710_221_4_IMSContext context) => _context = context;
+        public InternRepository(Net17102214ImsContext context) => _context = context;
         public bool InternExisted(int id)
         {
             return _context.Interns.Any(e => e.InternId == id);

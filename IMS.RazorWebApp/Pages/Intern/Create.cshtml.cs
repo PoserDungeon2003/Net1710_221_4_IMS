@@ -16,7 +16,7 @@ namespace IMS.RazorWebApp.Pages.Intern
 {
     public class CreateModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context; 
+        private readonly IMS.Data.Repository.Net17102214ImsContext _context; 
         private readonly InternBusiness _internBusiness;
         private readonly MentorBusiness _mentorBusiness;
         private readonly CompanyBusiness _companyBusiness;

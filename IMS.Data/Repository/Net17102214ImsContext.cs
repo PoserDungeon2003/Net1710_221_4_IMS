@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using IMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using IMS.Data.Models;
 
 namespace IMS.Data.Repository;
 
-public partial class Net1710_221_4_IMSContext : DbContext
+public partial class Net17102214ImsContext : DbContext
 {
-
-    public Net1710_221_4_IMSContext()
+    public Net17102214ImsContext()
     {
     }
 
-    public Net1710_221_4_IMSContext(DbContextOptions<Net1710_221_4_IMSContext> options)
+    public Net17102214ImsContext(DbContextOptions<Net17102214ImsContext> options)
         : base(options)
     {
-
     }
-
 
     public virtual DbSet<Company> Companies { get; set; }
 
@@ -28,7 +25,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
 
     public virtual DbSet<Mentor> Mentors { get; set; }
 
-    public virtual DbSet<Models.Task> Tasks { get; set; }
+    public virtual DbSet<IMS.Data.Models.Task> Tasks { get; set; }
 
     public virtual DbSet<WorkingResult> WorkingResults { get; set; }
 
@@ -44,8 +41,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseSqlServer(GetConnectionString())
-    .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+        => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -81,6 +77,7 @@ public partial class Net1710_221_4_IMSContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.Skills).HasColumnName("skills");
             entity.Property(e => e.University)
                 .HasMaxLength(100)
                 .HasColumnName("university");
@@ -105,7 +102,14 @@ public partial class Net1710_221_4_IMSContext : DbContext
 
             entity.Property(e => e.InterviewinfoId).HasColumnName("interviewinfo_id");
             entity.Property(e => e.Content).HasColumnName("content");
+            entity.Property(e => e.Feedback)
+                .HasMaxLength(50)
+                .HasColumnName("feedback");
             entity.Property(e => e.InternId).HasColumnName("intern_id");
+            entity.Property(e => e.InterviewMode)
+                .HasMaxLength(20)
+                .HasColumnName("interview_mode");
+            entity.Property(e => e.InterviewerId).HasColumnName("interviewerId");
             entity.Property(e => e.Location).HasColumnName("location");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -131,6 +135,11 @@ public partial class Net1710_221_4_IMSContext : DbContext
 
             entity.Property(e => e.MentorId).HasColumnName("mentor_id");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
+            entity.Property(e => e.DateJoined).HasColumnName("date_joined");
+            entity.Property(e => e.DateOfBirth).HasColumnName("date_of_birth");
+            entity.Property(e => e.Department)
+                .HasMaxLength(100)
+                .HasColumnName("department");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
@@ -140,6 +149,9 @@ public partial class Net1710_221_4_IMSContext : DbContext
             entity.Property(e => e.JobPosition)
                 .HasMaxLength(100)
                 .HasColumnName("job_position");
+            entity.Property(e => e.LinkedinProfile)
+                .HasMaxLength(50)
+                .HasColumnName("linkedin_profile");
             entity.Property(e => e.Phone)
                 .HasMaxLength(10)
                 .IsFixedLength()
@@ -151,19 +163,30 @@ public partial class Net1710_221_4_IMSContext : DbContext
                 .HasConstraintName("FK_Mentor_Company");
         });
 
-        modelBuilder.Entity<Models.Task>(entity =>
+        modelBuilder.Entity<IMS.Data.Models.Task>(entity =>
         {
             entity.ToTable("Task");
 
             entity.Property(e => e.TaskId).HasColumnName("task_id");
+            entity.Property(e => e.CompletionPercentage).HasColumnName("completion_percentage");
+            entity.Property(e => e.CreateDate)
+                .HasColumnType("datetime")
+                .HasColumnName("create_date");
             entity.Property(e => e.Description)
                 .HasMaxLength(50)
                 .HasColumnName("description");
+            entity.Property(e => e.DueDate)
+                .HasColumnType("datetime")
+                .HasColumnName("due_date");
             entity.Property(e => e.InternId).HasColumnName("intern_id");
             entity.Property(e => e.MentorId).HasColumnName("mentor_id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.Priority).HasColumnName("priority");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
 
             entity.HasOne(d => d.Intern).WithMany(p => p.Tasks)
                 .HasForeignKey(d => d.InternId)
@@ -186,10 +209,17 @@ public partial class Net1710_221_4_IMSContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .HasMaxLength(36)
                 .HasColumnName("created_by");
+            entity.Property(e => e.DateCompleted)
+                .HasColumnType("datetime")
+                .HasColumnName("date_completed");
+            entity.Property(e => e.HoursWorked).HasColumnName("hours_worked");
             entity.Property(e => e.InternId).HasColumnName("intern_id");
             entity.Property(e => e.MentorId).HasColumnName("mentor_id");
             entity.Property(e => e.Note).HasColumnName("note");
             entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .HasColumnName("status");
             entity.Property(e => e.TaskId).HasColumnName("task_id");
 
             entity.HasOne(d => d.Intern).WithMany(p => p.WorkingResults)
