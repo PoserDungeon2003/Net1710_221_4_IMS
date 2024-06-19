@@ -10,16 +10,16 @@ namespace IMS.Data.Base
 {
     public class GenericRepository<T> where T : class
     {
-        protected Net1710_221_4_IMSContext _context;
+        protected Net17102214ImsContext _context;
 
         public GenericRepository()
         {
-            _context ??= new Net1710_221_4_IMSContext();
+            _context ??= new Net17102214ImsContext();
 
         }
         #region Separating asign entity and save operators
 
-        public GenericRepository(Net1710_221_4_IMSContext context)
+        public GenericRepository(Net17102214ImsContext context)
         {
             _context = context;
         }

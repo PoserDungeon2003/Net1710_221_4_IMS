@@ -10,7 +10,7 @@ namespace IMS.Data
 {
     public class UnitOfWork
     {
-        private Net1710_221_4_IMSContext _unitOfWorkContext;
+        private Net17102214ImsContext _unitOfWorkContext;
         private MentorRepository _mentor;
         private CompanyRepository _company;
         private WorkingResultRepository _workingResult;
@@ -19,7 +19,7 @@ namespace IMS.Data
 
         public UnitOfWork()
         {
-            _unitOfWorkContext ??= new Net1710_221_4_IMSContext();
+            _unitOfWorkContext ??= new Net17102214ImsContext();
         }
         public InternRepository InternRepository
         {

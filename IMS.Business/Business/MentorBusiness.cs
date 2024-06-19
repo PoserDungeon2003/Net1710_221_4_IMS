@@ -15,6 +15,7 @@ namespace IMS.Business.Business
     {
         Task<IIMSResult> GetAllAsync();
         Task<IIMSResult> FindAsync(int? id);
+        Task<IIMSResult> FindMentorAsync(int? id);
         Task<IIMSResult> AddAsync(Mentor mentor);
         Task<IIMSResult> UpdateAsync(Mentor mentor);
         Task<IIMSResult> DeleteAsync(Mentor mentor);
@@ -104,6 +105,27 @@ namespace IMS.Business.Business
                 return new BusinessResult();
             }
             var mentor = await _unitOfWork.MentorRepository.GetByIdAsync((int)id);
+            try
+            {
+                if (mentor == null)
+                {
+                    return new BusinessResult();
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> FindMentorAsync(int? id)
+        {
+            if (id == null)
+            {
+                return new BusinessResult();
+            }
+            var mentor = await _unitOfWork.MentorRepository.GetMentorById((int)id);
             try
             {
                 if (mentor == null)

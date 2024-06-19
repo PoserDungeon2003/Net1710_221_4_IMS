@@ -12,17 +12,18 @@ namespace IMS.Data.Repository
 {
     public class MentorRepository : GenericRepository<Mentor>
     {
-        private readonly Net1710_221_4_IMSContext _context;
-        public MentorRepository(Net1710_221_4_IMSContext context) => _context = context;
+        private readonly Net17102214ImsContext _context;
+        public MentorRepository(Net17102214ImsContext context) => _context = context;
 
         public new async Task<List<Mentor>> GetAllAsync()
         {
-            return await _context.Mentors.Include(c => c.Company).ToListAsync();
+            return await _context.Mentors.AsNoTracking().Include(c => c.Company).ToListAsync();
         }
         
         public async Task<Mentor> GetMentorById(int id)
         {
-            var mentor = await _context.Mentors.FirstOrDefaultAsync(m => m.MentorId == id);
+            var mentor = await _context.Mentors.Include(c => c.Company)
+                                                .FirstOrDefaultAsync(m => m.MentorId == id);
             try
             {
                 if (mentor == null)
@@ -36,11 +37,6 @@ namespace IMS.Data.Repository
                 Console.WriteLine(ex.ToString());
                 throw new Exception(ex.ToString());
             }
-        }
-
-        public async void DeleteByIdAsync()
-        {
-            //return await _context.Mentors.dele
         }
 
         public bool MentorExisted(int id)

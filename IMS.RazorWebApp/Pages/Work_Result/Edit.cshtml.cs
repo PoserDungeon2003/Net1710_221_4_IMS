@@ -16,17 +16,11 @@ namespace IMS.RazorWebApp.Pages.Work_Result
 {
     public class EditModel : PageModel
     {
-        private readonly IWorkingResultBusiness _workingResultBusiness;
-        private readonly IMentorBusiness _mentorBusiness;
-        private readonly ITaskBusiness _taskBusiness;
-        private readonly IInternBusiness _internBusiness;
+        private readonly IMS.Data.Repository.Net17102214ImsContext _context;
 
-        public EditModel()
+        public EditModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
-            _mentorBusiness ??= new MentorBusiness();
-            _taskBusiness ??= new TaskBusiness();
-            _internBusiness ??= new InternBusiness();
-            _workingResultBusiness ??= new WorkingResultBusiness();
+            _context = context;
         }
 
         [BindProperty]
@@ -34,20 +28,20 @@ namespace IMS.RazorWebApp.Pages.Work_Result
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            var workingresult = await _workingResultBusiness.GetByIdAsync(id);
-            var mentor = _mentorBusiness.GetAllAsync();
-            var task = _taskBusiness.GetAllAsync();
-            var intern = _internBusiness.Getall();
-
-            if (intern.Result.Data == null || mentor.Result.Data == null || task.Result.Data == null || workingresult == null || id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            WorkingResult = (workingresult.Data as WorkingResult)!;
-            ViewData["InternId"] = new SelectList((IEnumerable)intern.Result.Data, "InternId", "InternId");
-            ViewData["MentorId"] = new SelectList((IEnumerable)mentor.Result.Data, "MentorId", "MentorId");
-            ViewData["TaskId"] = new SelectList((IEnumerable)task.Result.Data, "TaskId", "TaskId");
+            var workingresult = await _context.WorkingResults.FirstOrDefaultAsync(m => m.ResultId == id);
+            if (workingresult == null)
+            {
+                return NotFound();
+            }
+            WorkingResult = workingresult;
+            ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
+            ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
+            ViewData["TaskId"] = new SelectList(_context.Tasks, "TaskId", "Description");
             return Page();
         }
 
@@ -55,14 +49,35 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-                var result = await _workingResultBusiness.Update(WorkingResult);
-                if (result.Status != Const.SUCCESS_UPDATE_CODE)
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.Attach(WorkingResult).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!WorkingResultExists(WorkingResult.ResultId))
                 {
-                    await OnGetAsync(WorkingResult.ResultId);
-                    return Page();
+                    return NotFound();
                 }
-                 
+                else
+                {
+                    throw;
+                }
+            }
+
             return RedirectToPage("./Index");
+        }
+
+        private bool WorkingResultExists(int id)
+        {
+            return _context.WorkingResults.Any(e => e.ResultId == id);
         }
     }
 }
