@@ -34,5 +34,12 @@ namespace IMS.WpfApp
             p.Owner = this;
             p.Show();
         }
+
+        private void Open_wWorkResult_Click(object sender, RoutedEventArgs e)
+        {
+            var p = new wWorkResult();
+            p.Owner = this;
+            p.Show();
+        }
     }
 }
