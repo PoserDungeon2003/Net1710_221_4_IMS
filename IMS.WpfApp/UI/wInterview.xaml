@@ -9,8 +9,10 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <GroupBox Header="Interview Form" Margin="10">
-                <Grid Height="50">
+                <Grid Height="150">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
@@ -22,18 +24,26 @@
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Content="Code" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <Label Grid.Column="0" Grid.Row="0" Content="ID" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
                     <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtInterviewCode" Height="25" Text="{Binding Path=Currency.CurrencyCode, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="2" Grid.Row="0" Content="Time" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtTime" Height="25" Text="{Binding Path=Currency.CurrencyName, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="4" Grid.Row="0" Content="Location" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="5" Grid.Row="0" x:Name="txtLocation" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="Result" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtResult" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="2" Grid.Row="1" Content="Name" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtName" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Name" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtName" Height="25" Text="{Binding Path=Currency.CurrencyName, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="4" Grid.Row="0" Content="Time" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="5" Grid.Row="0" x:Name="txtTime" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Location" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtLocation" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="2" Grid.Row="1" Content="Mode" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtMode" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                     <Label Grid.Column="4" Grid.Row="1" Content="Content" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
                     <TextBox Grid.Column="5" Grid.Row="1" x:Name="txtContent" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Intern" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtIntern" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="2" Grid.Row="2" Content="Result" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="2" x:Name="txtResult" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="4" Grid.Row="2" Content="Feedback" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="6" Grid.Row="2" x:Name="txtFeedback" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Interviewer" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtInterviewer" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                 </Grid>
             </GroupBox>
             <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -41,19 +51,23 @@
                 <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/> 
             </StackPanel>
             <StackPanel Height="210">
-                <DataGrid x:Name="grdInterview" AutoGenerateColumns="False" ItemsSource="{Binding Currencies}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdInterview_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow">
+                <DataGrid x:Name="grdInterview" AutoGenerateColumns="False" ItemsSource="{Binding InterviewsInfo}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdInterview_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow">
                     <DataGrid.Columns>
                         <!--<DataGridTextColumn Header="Code" Binding="{Binding Path=Id}" Visibility="Hidden"/>-->
                         <DataGridTextColumn Header="InterviewID" Binding="{Binding Path=InterviewinfoId}" Visibility="Visible"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="50"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Interviewer" Binding="{Binding Path=InterviewerId}" Width="70"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Intern" Binding="{Binding Path=InternId}" Width="50"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Mode" Binding="{Binding Path=InterviewMode}" Width="50"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" Width="50"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Location" Binding="{Binding Path=Location}" Width="100"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Content" Binding="{Binding Path=Content}" Width="200"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Result" Binding="{Binding Path=Result}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Content" Binding="{Binding Path=Content}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTemplateColumn Width="50">
+                        <DataGridTextColumn Header="Feedback" Binding="{Binding Path=Feedback}" Width="50"  IsReadOnly="True"/>
+                        <DataGridTemplateColumn Width="80">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=CurrencyCode}" Click="grdInterview_ButtonDelete_Click"/>
+                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=InterviewinfoId}" Click="grdInterview_ButtonDelete_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

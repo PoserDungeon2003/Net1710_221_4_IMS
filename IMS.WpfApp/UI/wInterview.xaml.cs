@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace IMS.WpfApp.UI
 {
@@ -44,10 +45,15 @@ namespace IMS.WpfApp.UI
                 {
                     var interview = new InterviewsInfo()
                     {
+                        Time = DateTime.Parse(txtTime.Text),
                         Location = txtLocation.Text,
                         Result = txtResult.Text,
                         Name = txtName.Text,
-                        Content = txtContent.Text
+                        Content = txtContent.Text,
+                        InterviewerId = int.Parse(txtInterviewer.Text),
+                        InternId = int.Parse(txtIntern.Text),  
+                        InterviewMode = txtMode.Text,
+                        Feedback = txtFeedback.Text,
                     };
 
                     var result = await _interviewBusiness.AddAsync(interview);
@@ -56,22 +62,30 @@ namespace IMS.WpfApp.UI
                 else
                 {
                     var interview = item.Data as InterviewsInfo;
-                    //interview.Time = txtTime.Text.;
+                    interview.Time = DateTime.Parse(txtTime.Text);
                     interview.Location = txtLocation.Text;
                     interview.Result = txtResult.Text;
                     interview.Name = txtName.Text;
                     interview.Content = txtContent.Text;
+                    interview.InterviewerId = int.Parse(txtInterviewer.Text);
+                    interview.InternId = int.Parse(txtIntern.Text);
+                    interview.InterviewMode = txtMode.Text;
+                    interview.Feedback = txtFeedback.Text;
 
 
                     var result = await _interviewBusiness.UpdateAsync(interview);
                     MessageBox.Show(result.Message, "Update");
                 }
-
-                txtLocation.Text = string.Empty;
-                //txtLocation.Text = string.Empty;
+                txtInterviewCode.Text = string.Empty;
+                txtTime.Text = string.Empty;
+                txtLocation.Text = string.Empty ;
                 txtResult.Text = string.Empty;
                 txtName.Text = string.Empty;
                 txtContent.Text = string.Empty;
+                txtInterviewer.Text = string.Empty;
+                txtIntern.Text = string.Empty; 
+                txtMode.Text = string.Empty;
+                txtFeedback.Text = string.Empty;
                 this.LoadGrdInterview();
             }
             catch (Exception ex)
@@ -83,6 +97,16 @@ namespace IMS.WpfApp.UI
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            txtInterviewCode.Text = string.Empty;
+            txtTime.Text = string.Empty;
+            txtLocation.Text = string.Empty;
+            txtResult.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtContent.Text = string.Empty;
+            txtInterviewer.Text = string.Empty;
+            txtIntern.Text = string.Empty;
+            txtMode.Text = string.Empty;
+            txtFeedback.Text = string.Empty;
         }
 
         private async void grdInterview_MouseDouble_Click(object sender, RoutedEventArgs e)
@@ -102,10 +126,16 @@ namespace IMS.WpfApp.UI
                         if (interviewResult.Status > 0 && interviewResult.Data != null)
                         {
                             item = interviewResult.Data as InterviewsInfo;
+                            txtInterviewCode.Text = item.InterviewinfoId.ToString();
+                            txtTime.Text = item.Time.ToString();
                             txtLocation.Text = item.Location;
-                            txtResult.Text = item.Result;
+                            txtResult.Text = item.Result;    
                             txtName.Text = item.Name;
                             txtContent.Text = item.Content;
+                            txtInterviewer.Text = item.InterviewerId.ToString();
+                            txtIntern.Text = item.InternId.ToString();
+                            txtMode.Text = item.InterviewMode;
+                            txtFeedback.Text = item.Feedback;
                         }
                     }
                 }
@@ -116,19 +146,25 @@ namespace IMS.WpfApp.UI
         {
             Button btn = (Button)sender;
 
-            string currencyCode = btn.CommandParameter.ToString();
-
-            //MessageBox.Show(currencyCode);
-
-            if (!string.IsNullOrEmpty(currencyCode))
+            // Attempt to convert CommandParameter to int
+            int? interviewId;
+            if (btn.CommandParameter != null && int.TryParse(btn.CommandParameter.ToString(), out int value))
             {
-                if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    //InterviewsInfo interview = await _interviewBusiness.GetByIdAsync(currencyCode);
-                    //var result = await _interviewBusiness.DeleteAsync(currencyCode);
-                    //MessageBox.Show($"{result.message}", "delete");
-                    //this.LoadGrdInterview();
-                }
+                interviewId = value;
+            }
+            else
+            {
+                // Handle the case where CommandParameter is not an integer or null
+                MessageBox.Show("Invalid Interview ID format. Please try again.", "Error", MessageBoxButton.OK);
+                return;
+            }
+
+            // Confirmation and deletion logic (assuming InternId is valid)
+            if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                var result = await _interviewBusiness.DeleteByIdAsync(interviewId.Value);
+                MessageBox.Show($"{result.Message}", "Delete");
+                LoadGrdInterview();
             }
         }
 

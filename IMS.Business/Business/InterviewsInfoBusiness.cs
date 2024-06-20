@@ -18,6 +18,7 @@ namespace IMS.Business.Business
         Task<IIMSResult> GetByIdAsync(int? id);
         Task<IIMSResult> UpdateAsync(InterviewsInfo interviewsInfo);
         Task<IIMSResult> DeleteAsync(InterviewsInfo interviewsInfo);
+        Task<IIMSResult> DeleteByIdAsync(int? id);
         IIMSResult InterviewInfoExisted(int id);
     }
     public class InterviewsInfoBusiness : IinterviewsInfoBusiness
@@ -149,6 +150,27 @@ namespace IMS.Business.Business
             catch (Exception ex)
             {
                 return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+        public async Task<IIMSResult> DeleteByIdAsync(int? id)
+        {
+            try
+            {
+                var interview = await _unitOfWork.InterviewsInfoRepository.GetByIdAsync((int)id);
+                if (interview != null)
+                {
+                    var result = await _unitOfWork.InterviewsInfoRepository.RemoveAsync(interview);
+                    if (result)
+                    {
+                        return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
+                    }
+                    return new BusinessResult(Const.FAIL_DELETE_CODE, Const.FAIL_DELETE_MSG);
+                }
+                return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
             }
         }
     }
