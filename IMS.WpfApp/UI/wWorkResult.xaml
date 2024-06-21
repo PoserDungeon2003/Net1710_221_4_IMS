@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMS.WpfApp.UI"
         mc:Ignorable="d"
-        Title="wWorkResult" Height="600" Width="1400">
-    <Grid Margin="20,15,20,0" HorizontalAlignment="Center" Width="1350">
+        Title="wWorkResult" Height="600" Width="1100">
+    <Grid Margin="0,15,0,20" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="509*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Margin="0,0,116,-33" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
+        <StackPanel Orientation="Vertical" Margin="0,0,0,20" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
             <StackPanel.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -21,10 +21,9 @@
                 </TransformGroup>
             </StackPanel.RenderTransform>
         </StackPanel>
-        <GroupBox Header="Work Reuslt Form" Grid.RowSpan="2">
-            <Grid Height="150" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" Width="840">
+        <GroupBox Header="Work Reuslt Form" Grid.RowSpan="2" Margin="0,0,0,0" RenderTransformOrigin="0.501,0.572">
+            <Grid Height="150" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -37,10 +36,8 @@
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" Content="Result ID" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtResultID" Height="25" Text="{Binding Path=Currency.CurrencyCode, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                <Label Grid.Column="2" Grid.Row="0" Content="Created By" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtCreatedBy" Height="25" Text="{Binding Path=Currency.CurrencyName, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                <Label Grid.Column="0" Grid.Row="0" Content="Created By" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtCreatedBy" Height="25" Text="{Binding Path=Currency.CurrencyName, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                 <Label Grid.Column="4" Grid.Row="0" Content="Rating" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
                 <TextBox Grid.Column="5" Grid.Row="0" x:Name="txtRating" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                 <Label Grid.Column="0" Grid.Row="1" Content="Note" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
@@ -49,33 +46,34 @@
                 <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtDateCompleted" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                 <Label Grid.Column="4" Grid.Row="1" Content="Status" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
                 <TextBox Grid.Column="5" Grid.Row="1" x:Name="txtStatus" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                <Label Grid.Column="0" Grid.Row="2" Content="Hous" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtDepartment" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                <Label Grid.Column="2" Grid.Row="2" Content="Date of birth" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                <TextBox Grid.Column="3" Grid.Row="2" x:Name="txtDob" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                <Label Grid.Column="4" Grid.Row="2" Content="Linkedin profile" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                <TextBox Grid.Column="6" Grid.Row="2" x:Name="txtLinkedinProfile" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                <Label Grid.Column="0" Grid.Row="3" Content="Date joined" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtDateJoined" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                <Label Grid.Column="0" Grid.Row="2" Content="Hours Work" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtHoursWork" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                <Label Grid.Column="2" Grid.Row="2" Content="Mentor Id" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                <TextBox Grid.Column="3" Grid.Row="2" x:Name="txtMentorID" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                <Label Grid.Column="4" Grid.Row="2" Content="Task Id" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                <TextBox Grid.Column="6" Grid.Row="2" x:Name="txtTaskID" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                <Label Grid.Column="2" Grid.Row="0" Content="Intern Id" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                <TextBox Grid.Column="3" Grid.Row="0" x:Name="txtInternID" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
             </Grid>
         </GroupBox>
-        <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1" Margin="0,125,100,0">
+        <StackPanel Height="120" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1" Margin="0,20,20,0">
             <Button x:Name="ButtonSave" Content="Save" Height="30" Width="80" Click="ButtonSave_Click" Margin="5"/>
             <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click" Margin="5"/>
+            <Button x:Name="ButtonUpdate" Content="Update" Height="30" Width="80" Click="ButtonUpdate_Click" Margin="5"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
-            <DataGrid x:Name="grdWorkResult" AutoGenerateColumns="False" ItemsSource="{Binding WorkingResult}" CanUserAddRows="False" Height="200" Margin="10">
+        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="20">
+            <DataGrid x:Name="grdWorkResult" AutoGenerateColumns="False" CanUserAddRows="False" Height="300">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Result ID" Binding="{Binding ResultID}" Visibility="Visible" Width="75"/>
-                    <DataGridTextColumn Header="Created By" Binding="{Binding CreatedBy}" Visibility="Visible" Width="120"/>
-                    <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Visibility="Visible" Width="120"/>
+                    <DataGridTextColumn Header="Result ID" Binding="{Binding ResultId}" Visibility="Visible" Width="60"/>
+                    <DataGridTextColumn Header="Created By" Binding="{Binding CreatedBy}" Visibility="Visible" Width="100"/>
+                    <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Visibility="Visible" Width="45"/>
                     <DataGridTextColumn Header="Note" Binding="{Binding Note}" Visibility="Visible" Width="120"/>
-                    <DataGridTextColumn Header="Date Completed" Binding="{Binding DateCompleted}" Visibility="Visible" Width="120"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Visibility="Visible" Width="120"/>
-                    <DataGridTextColumn Header="Hours Worked" Binding="{Binding Hours}" Visibility="Visible" Width="120"/>
-                    <DataGridTextColumn Header="Mentor ID" Binding="{Binding Hours}" Visibility="Visible" Width="120"/>
-                    <DataGridTextColumn Header="Task ID" Binding="{Binding Hours}" Visibility="Visible" Width="120"/>
-                    <DataGridTextColumn Header="Intern ID" Binding="{Binding Hours}" Visibility="Visible" Width="120"/>
+                    <DataGridTextColumn Header="Date Completed" Binding="{Binding DateCompleted}" Visibility="Visible" Width="100"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Visibility="Visible" Width="45"/>
+                    <DataGridTextColumn Header="Hours Worked" Binding="{Binding HoursWorked}" Visibility="Visible" Width="90"/>
+                    <DataGridTextColumn Header="Mentor ID" Binding="{Binding MentorId}" Visibility="Visible" Width="120"/>
+                    <DataGridTextColumn Header="Task ID" Binding="{Binding TaskId}" Visibility="Visible" Width="120"/>
+                    <DataGridTextColumn Header="Intern ID" Binding="{Binding InternId}" Visibility="Visible" Width="120"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

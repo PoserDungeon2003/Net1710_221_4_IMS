@@ -1,5 +1,6 @@
 ﻿using IMS.Business.Business;
 using IMS.Data.Models;
+using IMS.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace IMS.WpfApp.UI
 {
@@ -23,6 +25,8 @@ namespace IMS.WpfApp.UI
     public partial class wWorkResult : Window
     {
         private readonly WorkingResultBusiness _workingResultBusiness;
+
+
         public wWorkResult()
         {
             _workingResultBusiness ??= new WorkingResultBusiness();
@@ -30,7 +34,8 @@ namespace IMS.WpfApp.UI
             LoadGrdWorkResult();
             
         }
-        public async void LoadGrdWorkResult()
+
+       public async void LoadGrdWorkResult()
         {
             var result = await _workingResultBusiness.GetAllAsync();
             if (result.Status > 0 && result.Data != null)
@@ -43,12 +48,36 @@ namespace IMS.WpfApp.UI
             }
         }
 
+
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            var WorkResult = new WorkingResult()
+            {
+                CreatedBy = txtCreatedBy.Text,
+                Rating = double.Parse(txtRating.Text),
+                Note = txtNote.Text,
+                DateCompleted = DateTime.Parse(txtDateCompleted.Text),
+                Status = txtStatus.Text,
+                HoursWorked = int.Parse(txtHoursWork.Text),
+                MentorId = int.Parse(txtMentorID.Text),
+                TaskId = int.Parse(txtTaskID.Text),
+                InternId = int.Parse(txtInternID.Text),
+            };
+            _workingResultBusiness.AddAsync(WorkResult);
+            LoadGrdWorkResult();
+        }
+
+        private void txtResultID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
 
         }
