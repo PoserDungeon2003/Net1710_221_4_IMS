@@ -11,11 +11,13 @@ namespace IMS.Data.Repository
 {
     public class InternRepository : GenericRepository<Intern>
     {
-        public InternRepository(Net1710_221_4_IMSContext _unitOfWorkContext) 
+        public InternRepository() 
         {
-            _context = new Net1710_221_4_IMSContext();
+            
         }
-        private readonly Net1710_221_4_IMSContext  _context ;
+
+        public InternRepository(Net17102214ImsContext context) => _context = context;
+
         public bool InternExisted(int id)
         {
             return _context.Interns.Any(e => e.InternId == id);

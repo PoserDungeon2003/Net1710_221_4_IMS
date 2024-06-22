@@ -5,12 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMS.WpfApp.UI"
         mc:Ignorable="d"
-        Title="wMentor" Height="450" Width="800">
-    <Grid>
-        <StackPanel Orientation="Vertical">
+        Title="wMentor" Height="569" Width="1338">
+    <Grid HorizontalAlignment="Left" Width="1423" Margin="12,0,0,-6">
+        <StackPanel Orientation="Vertical" Margin="0,0,116,-33" RenderTransformOrigin="0.5,0.5">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0"/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
             <GroupBox Header="Mentor Form" Margin="10">
-                <Grid Height="50">
+                <Grid Height="150">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
@@ -22,8 +32,8 @@
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Content="Code" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtMentorCode" Height="25" Text="{Binding Path=Currency.CurrencyCode, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left" IsReadOnly="True"/>
+                    <Label Grid.Column="0" Grid.Row="0" Content="ID" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtMentorCode" Height="25" Text="{Binding Path=Currency.CurrencyCode, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                     <Label Grid.Column="2" Grid.Row="0" Content="Name" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
                     <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtName" Height="25" Text="{Binding Path=Currency.CurrencyName, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                     <Label Grid.Column="4" Grid.Row="0" Content="Phone" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
@@ -34,25 +44,38 @@
                     <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtCompany" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                     <Label Grid.Column="4" Grid.Row="1" Content="Email" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
                     <TextBox Grid.Column="5" Grid.Row="1" x:Name="txtEmail" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Department" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtDepartment" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="2" Grid.Row="2" Content="Date of birth" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="2" x:Name="txtDob" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="4" Grid.Row="2" Content="Linkedin profile" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="6" Grid.Row="2" x:Name="txtLinkedinProfile" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Date joined" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtDateJoined" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
                 </Grid>
             </GroupBox>
             <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="ButtonSave" Content="Save" Height="30" Width="80" Click="ButtonSave_Click"/>
                 <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/>
             </StackPanel>
-            <StackPanel Height="210">
-                <DataGrid x:Name="grdMentor" AutoGenerateColumns="False" ItemsSource="{Binding Currencies}" CanUserAddRows="False" Height="200" Margin="10" MouseDoubleClick="grdMentor_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow">
+            <StackPanel Height="298" Width="1240">
+                <DataGrid x:Name="grdMentor" AutoGenerateColumns="False" ItemsSource="{Binding Mentors}" CanUserAddRows="False" Height="277" Margin="10" MouseDoubleClick="grdMentor_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow" Width="1273">
                     <DataGrid.Columns>
                         <!--<DataGridTextColumn Header="Code" Binding="{Binding Path=Id}" Visibility="Hidden"/>-->
                         <DataGridTextColumn Header="MentorID" Binding="{Binding Path=MentorId}" Visibility="Visible"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=FullName}" Width="100"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Phone number" Binding="{Binding Path=Phone}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Job position" Binding="{Binding Path=JobPosition}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Company" Binding="{Binding Path=CompanyId}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTemplateColumn Width="50">
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=FullName}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Phone number" Binding="{Binding Path=Phone}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Job position" Binding="{Binding Path=JobPosition}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding Path=Department}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Date of birth" Binding="{Binding Path=DateOfBirth}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Linkedin profile" Binding="{Binding Path=LinkedinProfile}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Date joined" Binding="{Binding Path=DateJoined}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Company" Binding="{Binding Path=CompanyId}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTemplateColumn Width="80">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=CurrencyCode}" Click="grdMentor_ButtonDelete_Click"/>
+                                    <Button Content="X" x:Name="ButtonDelete" CommandParameter="{Binding Path=MentorId}" Click="grdMentor_ButtonDelete_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

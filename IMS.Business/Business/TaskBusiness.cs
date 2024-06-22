@@ -20,6 +20,7 @@ namespace IMS.Business.Business
         Task<IIMSResult> UpdateAsync(IMS.Data.Models.Task task);
         Task<IIMSResult> DeleteAsync(IMS.Data.Models.Task task);
         IIMSResult TaskExisted(int id);
+        Task<IIMSResult> DeleteByIdAsync(int? id);
     }
     public class TaskBusiness : ITaskBusiness
     {
@@ -151,5 +152,28 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
             }
         }
+
+        public async Task<IIMSResult> DeleteByIdAsync(int? id)
+        {
+            try
+            {
+                var task = await _unitOfWork.TaskRepository.GetByIdAsync((int)id);
+                if (task != null)
+                {
+                    var result = await _unitOfWork.TaskRepository.RemoveAsync(task);
+                    if (result)
+                    {
+                        return new BusinessResult(Const.SUCCESS_DELETE_CODE, Const.SUCCESS_DELETE_MSG);
+                    }
+                    return new BusinessResult(Const.FAIL_DELETE_CODE, Const.FAIL_DELETE_MSG);
+                }
+                return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
+            }
+        }
+
     }
 }

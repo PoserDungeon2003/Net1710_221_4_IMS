@@ -24,16 +24,46 @@
             @Html.DisplayFor(model => model.Task.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Task.Intern)
+            @Html.DisplayNameFor(model => model.Task.InternId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Task.Intern.JobPosition)
+            @Html.DisplayFor(model => model.Task.InternId)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Task.Mentor)
+            @Html.DisplayNameFor(model => model.Task.MentorId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Task.Mentor.Email)
+            @Html.DisplayFor(model => model.Task.MentorId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Task.Priority)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Task.Priority)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Task.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Task.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Task.CreateDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Task.CreateDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Task.DueDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Task.DueDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Task.CompletionPercentage)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Task.CompletionPercentage)
         </dd>
     </dl>
 </div>

@@ -20,11 +20,27 @@
                 @Html.DisplayNameFor(model => model.Task[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Task[0].Intern)
+                @Html.DisplayNameFor(model => model.Task[0].InternId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Task[0].Mentor)
+                @Html.DisplayNameFor(model => model.Task[0].MentorId)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Task[0].Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Task[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Task[0].CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Task[0].DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Task[0].CompletionPercentage)
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -38,11 +54,27 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Intern.JobPosition)
+                @Html.DisplayFor(modelItem => item.InternId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Mentor.Email)
+                @Html.DisplayFor(modelItem => item.MentorId)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletionPercentage)
+            </td>
+
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.TaskId">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.TaskId">Details</a> |

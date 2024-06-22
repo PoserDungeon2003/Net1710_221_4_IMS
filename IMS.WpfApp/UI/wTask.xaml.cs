@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using IMS.Data.Models;
 
 namespace IMS.WpfApp.UI
 {
@@ -36,19 +37,26 @@ namespace IMS.WpfApp.UI
         {
             try
             {
-                if (txtTaskCode.Text == null) return;
-                var taskId = int.Parse(txtTaskCode.Text);
-                var item = await _taskBusiness.GetByIdAsync(taskId);
+                int taskId = -1;
+                int.TryParse(txtTaskCode.Text, out taskId);
+                var item = await _taskBusiness.FindAsync(taskId);
 
                 if (item.Data == null)
                 {
                     var task = new Models.Task()
                     {
-                        Description = txtDescription.Text,
-                        InternId = txtInternID.Text,
                         Name = txtName.Text,
-                        MentorId = txtMentorID.Text,
-                        
+                        Description = txtDescription.Text,
+                        Priority = int.Parse(txtPriority.Text),
+                        Status = txtStatus.Text,
+                        CreateDate = DateTime.Parse(txtCreateDate.Text),
+                        DueDate = DateTime.Parse(txtDueDate.Text),
+                        CompletionPercentage = int.Parse(txtCompletionPercentage.Text),
+                        InternId = int.Parse(txtInternId.Text),
+                        MentorId = int.Parse(txtMentorId.Text)
+
+
+
                     };
 
                     var result = await _taskBusiness.AddAsync(task);
@@ -57,22 +65,33 @@ namespace IMS.WpfApp.UI
                 else
                 {
                     var task = item.Data as Models.Task;
-                    task.Description = txtName.Text;
-                    task.InternId = txtEmail.Text;
-                    task.Name = txtPhone.Text;
-                    task.MentorId = txtJobPosition.Text;
+                    task.Name = txtName.Text;
+                    task.Description = txtDescription.Text;
+                    task.Priority = int.Parse(txtPriority.Text);
+                    task.Status = txtStatus.Text;
+                    task.CreateDate = DateTime.Parse(txtCreateDate.Text);
+                    task.DueDate = DateTime.Parse(txtDueDate.Text);
+                    task.CompletionPercentage = int.Parse(txtCompletionPercentage.Text);
+                    task.InternId = int.Parse(txtInternId.Text);
+                    task.MentorId = int.Parse(txtMentorId.Text);
+
+
 
                     var result = await _taskBusiness.UpdateAsync(task);
                     MessageBox.Show(result.Message, "Update");
                 }
 
-                txtMentorCode.Text = string.Empty;
+                txtTaskCode.Text = string.Empty;
                 txtName.Text = string.Empty;
-                txtCompany.Text = string.Empty;
-                txtEmail.Text = string.Empty;
-                txtPhone.Text = string.Empty;
-                txtJobPosition.Text = string.Empty;
-                this.LoadGrdTask();
+                txtDescription.Text = string.Empty;
+                txtPriority.Text = string.Empty;
+                txtStatus.Text = string.Empty;
+                txtCreateDate.Text = string.Empty;
+                txtDueDate.Text = string.Empty;
+                txtCompletionPercentage.Text = string.Empty;
+                txtInternId.Text = string.Empty;
+                txtMentorId.Text = string.Empty;
+                LoadGrdTask();
             }
             catch (Exception ex)
             {
@@ -83,6 +102,18 @@ namespace IMS.WpfApp.UI
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            txtTaskCode.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtDescription.Text = string.Empty;
+            txtPriority.Text = string.Empty;
+            txtStatus.Text = string.Empty;
+            txtCreateDate.Text = string.Empty;
+            txtDueDate.Text = string.Empty;
+            txtCompletionPercentage.Text = string.Empty;
+            txtInternId.Text = string.Empty;
+            txtMentorId.Text = string.Empty;
+
+
         }
 
         private async void grdTask_MouseDouble_Click(object sender, RoutedEventArgs e)
@@ -97,17 +128,21 @@ namespace IMS.WpfApp.UI
                     var item = row.Item as Models.Task;
                     if (item != null)
                     {
-                        var taskResult = await _taskBusiness.GetByIdAsync(item.TaskId);
+                        var taskResult = await _taskBusiness.FindAsync(item.TaskId);
 
                         if (taskResult.Status > 0 && taskResult.Data != null)
                         {
                             item = taskResult.Data as Models.Task;
-                            txtMentorCode.Text = item.MentorId.ToString();
-                            txtName.Text = item.FullName;
-                            txtCompany.Text = item.CompanyId.ToString();
-                            txtEmail.Text = item.Email;
-                            txtPhone.Text = item.Phone;
-                            txtJobPosition.Text = item.JobPosition;
+                            txtTaskCode.Text = item.TaskId.ToString();
+                            txtName.Text = item.Name;
+                            txtDescription.Text = item.Description;
+                            txtPriority.Text = item.Priority.ToString();
+                            txtStatus.Text = item.Status;
+                            txtCreateDate.Text = item.CreateDate.ToString();
+                            txtDueDate.Text = item.DueDate.ToString();
+                            txtCompletionPercentage.Text = item.CompletionPercentage.ToString();
+                            txtInternId.Text = item.InternId.ToString();
+                            txtMentorId.Text = item.MentorId.ToString();
                         }
                     }
                 }
@@ -118,18 +153,25 @@ namespace IMS.WpfApp.UI
         {
             Button btn = (Button)sender;
 
-            string currencyCode = btn.CommandParameter.ToString();
-
-            //MessageBox.Show(currencyCode);
-
-            if (!string.IsNullOrEmpty(currencyCode))
+            // Attempt to convert CommandParameter to int
+            int? taskId;
+            if (btn.CommandParameter != null && int.TryParse(btn.CommandParameter.ToString(), out int value))
             {
-                if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    //var result = await _taskBusiness.DeleteAsync(currencyCode);
-                    //MessageBox.Show($"{result.Message}", "Delete");
-                    //this.LoadGrdCurrencies();
-                }
+                taskId = value;
+            }
+            else
+            {
+                // Handle the case where CommandParameter is not an integer or null
+                MessageBox.Show("Invalid Task ID format. Please try again.", "Error", MessageBoxButton.OK);
+                return;
+            }
+
+            // Confirmation and deletion logic (assuming InternId is valid)
+            if (MessageBox.Show("Do you want to delete this item?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                var result = await _taskBusiness.DeleteByIdAsync(taskId.Value);
+                MessageBox.Show($"{result.Message}", "Delete");
+                LoadGrdTask();
             }
         }
 
@@ -139,6 +181,7 @@ namespace IMS.WpfApp.UI
 
             if (result.Status > 0 && result.Data != null)
             {
+                grdTask.ItemsSource = null;
                 grdTask.ItemsSource = result.Data as List<Models.Task>;
             }
             else

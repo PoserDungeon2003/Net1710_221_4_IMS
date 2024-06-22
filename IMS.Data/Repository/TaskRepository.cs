@@ -13,12 +13,12 @@ namespace IMS.Data.Repository
 {
     public class TaskRepository : GenericRepository<Models.Task>
     {
-        private readonly Net1710_221_4_IMSContext _context;
-        public TaskRepository(Net1710_221_4_IMSContext context) => _context = context;
+        private readonly Net17102214ImsContext _context;
+        public TaskRepository(Net17102214ImsContext context) => _context = context;
 
-        public TaskRepository()
-        {
-        }
+//        public TaskRepository()
+  //      {
+    //    }
 
         public new async Task<List<Models.Task>> GetAllAsync()
         {
