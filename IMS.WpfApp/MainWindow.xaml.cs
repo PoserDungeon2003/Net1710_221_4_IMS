@@ -35,6 +35,13 @@ namespace IMS.WpfApp
             p.Show();
         }
 
+        private void Open_wTask_Click(object sender, RoutedEventArgs e)
+        {
+            var p = new wTask();
+            p.Owner = this;
+            p.Show();
+        }
+
         private void Open_wWorkResult_Click(object sender, RoutedEventArgs e)
         {
             var p = new wWorkResult();

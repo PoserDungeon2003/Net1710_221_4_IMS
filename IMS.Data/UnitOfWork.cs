@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IMS.Data;
 
 namespace IMS.Data
 {
@@ -29,8 +30,8 @@ namespace IMS.Data
             }
         }
 
-        public MentorRepository MentorRepository 
-        { 
+        public MentorRepository MentorRepository
+        {
             get
             {
                 return _mentor ?? new MentorRepository(_unitOfWorkContext);
@@ -57,7 +58,7 @@ namespace IMS.Data
         {
             get
             {
-                return _task ?? new TaskRepository();
+                return _task ?? new TaskRepository(_unitOfWorkContext);
             }
         }
 

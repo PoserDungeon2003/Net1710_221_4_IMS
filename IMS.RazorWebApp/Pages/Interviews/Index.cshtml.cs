@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Tasks = System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +22,7 @@ namespace IMS.RazorWebApp.Pages.Interviews
 
         public IList<Models.InterviewsInfo> InterviewsInfo { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Tasks.Task OnGetAsync()
         {
             InterviewsInfo = await _context.InterviewsInfos
                 .Include(i => i.Intern).ToListAsync();

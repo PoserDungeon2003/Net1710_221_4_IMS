@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Tasks = System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +23,7 @@ namespace IMS.RazorWebApp.Pages.Mentors
 
         public IList<Models.Mentor> Mentor { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Tasks.Task OnGetAsync()
         {
             var mentor = await _mentorBusiness.GetAllAsync();
             if (mentor != null)
