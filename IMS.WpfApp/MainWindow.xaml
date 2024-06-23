@@ -41,8 +41,6 @@
                       Click="Open_wTask_Click">
 
             </MenuItem>
-            </MenuItem>
-
         </Menu>
     </Grid>
 </Window>
