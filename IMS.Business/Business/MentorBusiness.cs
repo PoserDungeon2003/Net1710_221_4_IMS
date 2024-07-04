@@ -21,6 +21,7 @@ namespace IMS.Business.Business
         Task<IIMSResult> DeleteAsync(Mentor mentor);
         Task<IIMSResult> DeleteByIdAsync(int? id);
         IIMSResult MentorExisted(int id);
+        Task<IIMSResult> SearchMentors(string value);
     }
     public class MentorBusiness : IMentorBusiness
     {
@@ -195,6 +196,23 @@ namespace IMS.Business.Business
         public async System.Threading.Tasks.Task AddAsync(Intern intern)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IIMSResult> SearchMentors(string value)
+        {
+            var mentor = await _unitOfWork.MentorRepository.SearchMentor(value);
+            try
+            {
+                if (mentor == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
         }
     }
 }

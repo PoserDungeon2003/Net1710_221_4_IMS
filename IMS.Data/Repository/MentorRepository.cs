@@ -39,6 +39,27 @@ namespace IMS.Data.Repository
             }
         }
 
+        public async Task<List<Mentor>> SearchMentor(string value)
+        {
+            value = value.Trim().ToLower();
+            DateOnly dateValue;
+            bool isValidDate = DateOnly.TryParse(value, out dateValue);
+            var mentor = _context.Mentors
+                                .Include(c => c.Company)
+                                .Where(m => 
+                                    m.Email.Contains(value) || 
+                                    m.Department.Contains(value) || 
+                                    m.Phone.Contains(value) ||
+                                    m.MentorId.ToString().Contains(value) ||
+                                    m.FullName.Contains(value) ||
+                                    m.Department.Contains(value) ||
+                                    (isValidDate && m.DateJoined.Equals(dateValue)) ||
+                                    (isValidDate && m.DateOfBirth.Equals(dateValue)) || 
+                                    m.LinkedinProfile.Contains(value) || 
+                                    m.Company.Name.Contains(value));
+            return await mentor.ToListAsync();
+        }
+
         public bool MentorExisted(int id)
         {
             return _context.Mentors.Any(e => e.MentorId == id);

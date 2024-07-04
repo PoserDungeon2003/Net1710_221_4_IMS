@@ -15,6 +15,8 @@ namespace IMS.RazorWebApp.Pages.Mentors
     public class IndexModel : PageModel
     {
         private readonly IMentorBusiness _mentorBusiness;
+        [BindProperty(SupportsGet = true)]
+        public string? Search { get; set; }
 
         public IndexModel()
         {
@@ -29,6 +31,15 @@ namespace IMS.RazorWebApp.Pages.Mentors
             if (mentor != null)
             {
                 Mentor = (IList<Models.Mentor>)mentor.Data;
+            }
+
+            if (Search != null)
+            {
+                var searchResult = await _mentorBusiness.SearchMentors(Search);
+                if (searchResult != null)
+                {
+                    Mentor = (IList<Models.Mentor>)searchResult.Data;
+                }
             }
         }
     }
