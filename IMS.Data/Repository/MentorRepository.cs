@@ -1,6 +1,8 @@
-﻿using IMS.Data.Base;
+﻿using IMS.Common;
+using IMS.Data.Base;
 using IMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +41,7 @@ namespace IMS.Data.Repository
             }
         }
 
-        public async Task<List<Mentor>> SearchMentor(string value)
+        public async Task<List<Mentor>> SearchMentor(string value, int? pageIndex, int pageSize)
         {
             value = value.Trim().ToLower();
             DateOnly dateValue;
@@ -57,16 +59,25 @@ namespace IMS.Data.Repository
                                     (isValidDate && m.DateOfBirth.Equals(dateValue)) || 
                                     m.LinkedinProfile.Contains(value) || 
                                     m.Company.Name.Contains(value));
-            return await mentor.ToListAsync();
+            var paginatedMentor = await PaginatedList<Mentor>.CreateAsync(mentor.AsNoTracking(), pageIndex ?? 1, pageSize);
+            return paginatedMentor;
         }
 
         public bool MentorExisted(int id)
         {
             return _context.Mentors.Any(e => e.MentorId == id);
         }
+
         public IEnumerable GetAllMentor()
         {
             return _context.Mentors;
+        }
+
+        public async Task<PaginatedList<Mentor>> GetMentorsPagingAsync(int? pageIndex, int pageSize)
+        {
+            var paginatedMentor = await PaginatedList<Mentor>.CreateAsync(
+                _context.Mentors.AsNoTracking().Include(c => c.Company), pageIndex ?? 1, pageSize);
+            return paginatedMentor;
         }
     }
 }
