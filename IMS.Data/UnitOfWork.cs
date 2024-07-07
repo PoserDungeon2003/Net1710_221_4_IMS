@@ -17,6 +17,7 @@ namespace IMS.Data
         private WorkingResultRepository _workingResult;
         private InternRepository _intern;
         private InterviewsInfoRepository _interviewsInfo;
+        private TaskRepository _task;
         public UnitOfWork()
         {
             _unitOfWorkContext ??= new Net17102214ImsContext();

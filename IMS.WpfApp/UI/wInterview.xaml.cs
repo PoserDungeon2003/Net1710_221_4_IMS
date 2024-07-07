@@ -38,8 +38,8 @@ namespace IMS.WpfApp.UI
         {
             try
             {
-                if (txtInterviewCode.Text == null) return;
-                var interviewId = int.Parse(txtInterviewCode.Text);
+                int interviewId = -1;
+                int.TryParse(txtInterviewCode.Text, out interviewId);
                 var item = await _interviewBusiness.FindAsync(interviewId);
 
                 if (item.Data == null)
