@@ -40,7 +40,7 @@ namespace IMS.WpfApp.UI
             {
                 if (txtInterviewCode.Text == null) return;
                 var interviewId = int.Parse(txtInterviewCode.Text);
-                var item = await _interviewBusiness.GetByIdAsync(interviewId);
+                var item = await _interviewBusiness.FindAsync(interviewId);
 
                 if (item.Data == null)
                 {
@@ -52,7 +52,7 @@ namespace IMS.WpfApp.UI
                         Position = txtPosition.Text,
                         Status = txtStatus.Text,
                         Content = txtContent.Text,
-                        MentorId = int.Parse(txtInterviewer.Text),
+                        MentorId = int.Parse(txtMentor.Text),
                         InternId = int.Parse(txtIntern.Text),
                         InterviewMode = txtMode.Text,
                         Feedback = txtFeedback.Text,
@@ -70,7 +70,7 @@ namespace IMS.WpfApp.UI
                     interview.Position = txtPosition.Text;
                     interview.Status = txtStatus.Text;
                     interview.Content = txtContent.Text;
-                    interview.MentorId = int.Parse(txtInterviewer.Text);
+                    interview.MentorId = int.Parse(txtMentor.Text);
                     interview.InternId = int.Parse(txtIntern.Text);
                     interview.InterviewMode = txtMode.Text;
                     interview.Feedback = txtFeedback.Text;
@@ -86,7 +86,7 @@ namespace IMS.WpfApp.UI
                 txtPosition.Text = string.Empty;
                 txtStatus.Text = string.Empty;
                 txtContent.Text = string.Empty;
-                txtInterviewer.Text = string.Empty;
+                txtMentor.Text = string.Empty;
                 txtIntern.Text = string.Empty;
                 txtMode.Text = string.Empty;
                 txtFeedback.Text = string.Empty;
@@ -108,7 +108,7 @@ namespace IMS.WpfApp.UI
             txtPosition.Text = string.Empty;
             txtStatus.Text = string.Empty;
             txtContent.Text = string.Empty;
-            txtInterviewer.Text = string.Empty;
+            txtMentor.Text = string.Empty;
             txtIntern.Text = string.Empty;
             txtMode.Text = string.Empty;
             txtFeedback.Text = string.Empty;
@@ -126,7 +126,7 @@ namespace IMS.WpfApp.UI
                     var item = row.Item as InterviewsInfo;
                     if (item != null)
                     {
-                        var interviewResult = await _interviewBusiness.GetByIdAsync(item.InterviewinfoId);
+                        var interviewResult = await _interviewBusiness.FindAsync(item.InterviewinfoId);
 
                         if (interviewResult.Status > 0 && interviewResult.Data != null)
                         {
@@ -138,11 +138,11 @@ namespace IMS.WpfApp.UI
                             txtPosition.Text = item.Position;
                             txtStatus.Text = item.Status;
                             txtContent.Text = item.Content;
-                            txtInterviewer.Text = item.Mentor.FullName;
-                            txtIntern.Text = item.Intern.Name;
+                            txtMentor.Text = item.MentorId.ToString();
+                            txtIntern.Text = item.InternId.ToString();
 
-                            txtMentorId.Text = item.MentorId.ToString();
-                            txtInternId.Text = item.InternId.ToString();
+                            //txtMentorId.Text = item.MentorId.ToString();
+                            //txtInternId.Text = item.InternId.ToString();
                             txtMode.Text = item.InterviewMode;
                             txtFeedback.Text = item.Feedback;
 
