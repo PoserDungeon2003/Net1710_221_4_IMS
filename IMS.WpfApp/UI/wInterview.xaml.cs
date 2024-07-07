@@ -48,9 +48,10 @@ namespace IMS.WpfApp.UI
                         Time = DateTime.Parse(txtTime.Text),
                         Location = txtLocation.Text,
                         Result = txtResult.Text,
-                        Name = txtName.Text,
+                        Position = txtPosition.Text,
+                        Status = txtStatus.Text,
                         Content = txtContent.Text,
-                        InterviewerId = int.Parse(txtInterviewer.Text),
+                        MentorId = int.Parse(txtInterviewer.Text),
                         InternId = int.Parse(txtIntern.Text),  
                         InterviewMode = txtMode.Text,
                         Feedback = txtFeedback.Text,
@@ -65,9 +66,10 @@ namespace IMS.WpfApp.UI
                     interview.Time = DateTime.Parse(txtTime.Text);
                     interview.Location = txtLocation.Text;
                     interview.Result = txtResult.Text;
-                    interview.Name = txtName.Text;
+                    interview.Position = txtPosition.Text;
+                    interview.Status = txtStatus.Text;
                     interview.Content = txtContent.Text;
-                    interview.InterviewerId = int.Parse(txtInterviewer.Text);
+                    interview.MentorId = int.Parse(txtInterviewer.Text);
                     interview.InternId = int.Parse(txtIntern.Text);
                     interview.InterviewMode = txtMode.Text;
                     interview.Feedback = txtFeedback.Text;
@@ -80,7 +82,8 @@ namespace IMS.WpfApp.UI
                 txtTime.Text = string.Empty;
                 txtLocation.Text = string.Empty ;
                 txtResult.Text = string.Empty;
-                txtName.Text = string.Empty;
+                txtPosition.Text = string.Empty;
+                txtStatus.Text = string.Empty;
                 txtContent.Text = string.Empty;
                 txtInterviewer.Text = string.Empty;
                 txtIntern.Text = string.Empty; 
@@ -101,7 +104,8 @@ namespace IMS.WpfApp.UI
             txtTime.Text = string.Empty;
             txtLocation.Text = string.Empty;
             txtResult.Text = string.Empty;
-            txtName.Text = string.Empty;
+            txtPosition.Text = string.Empty;
+            txtStatus.Text = string.Empty;
             txtContent.Text = string.Empty;
             txtInterviewer.Text = string.Empty;
             txtIntern.Text = string.Empty;
@@ -130,12 +134,17 @@ namespace IMS.WpfApp.UI
                             txtTime.Text = item.Time.ToString();
                             txtLocation.Text = item.Location;
                             txtResult.Text = item.Result;    
-                            txtName.Text = item.Name;
+                            txtPosition.Text = item.Position;
+                            txtStatus.Text = item.Status;
                             txtContent.Text = item.Content;
-                            txtInterviewer.Text = item.InterviewerId.ToString();
-                            txtIntern.Text = item.InternId.ToString();
+                            txtInterviewer.Text = item.Mentor.FullName;
+                            txtIntern.Text = item.Intern.Name;
+
+                            txtMentorId.Text = item.MentorId.ToString();
+                            txtInternId.Text = item.InternId.ToString();
                             txtMode.Text = item.InterviewMode;
                             txtFeedback.Text = item.Feedback;
+                     
                         }
                     }
                 }

@@ -54,7 +54,7 @@ namespace IMS.Data
         {
             get
             {
-                return _interviewsInfo ?? new InterviewsInfoRepository();
+                return _interviewsInfo ?? new InterviewsInfoRepository(_unitOfWorkContext);
             }
         }
 

@@ -11,16 +11,18 @@ namespace IMS.Data.Repository
 {
     public class InterviewsInfoRepository : GenericRepository<InterviewsInfo>
     {
-        public InterviewsInfoRepository() { }
+        private readonly Net17102214ImsContext _context;
+        public InterviewsInfoRepository(Net17102214ImsContext context) => _context = context;
 
         public new async Task<List<InterviewsInfo>> GetAllAsync()
         {
-            return await _context.InterviewsInfos.Include(c => c.Intern).ToListAsync();
+            return await _context.InterviewsInfos.Include(c => c.Intern).Include(c => c.Mentor).ToListAsync();
         }
 
         public async Task<InterviewsInfo> GetInterviewInfoById(int id)
         {
-            var interview = await _context.InterviewsInfos.FirstOrDefaultAsync(i => i.InterviewinfoId == id);
+            var interview = await _context.InterviewsInfos.Include(c => c.Intern).Include(c => c.Mentor)
+                                                        .FirstOrDefaultAsync(i => i.InterviewinfoId == id);
             try
             {
                 if (interview == null)

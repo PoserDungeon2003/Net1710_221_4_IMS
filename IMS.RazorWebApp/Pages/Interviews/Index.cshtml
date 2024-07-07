@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    var mentorList = ViewData["MentorId"] as SelectList;
+    var internList = ViewData["InternId"] as SelectList;
 }
 
 <h1>Index</h1>
@@ -13,33 +15,43 @@
 <table class="table">
     <thead>
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Result)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Name)
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].InterviewMode)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.InterviewsInfo[0].Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].InternId)
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Mentor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].InterviewerId)
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Intern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Status)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.InterviewsInfo[0].Feedback)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].InterviewMode)
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Result)
             </th>
+          
+         
+          
+          
+         
+            
 
 
             <th></th>
@@ -49,31 +61,34 @@
 @foreach (var item in Model.InterviewsInfo) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Result)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.InterviewMode)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InternId)
-                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InterviewerId)
+                @Html.DisplayFor(modelItem => item.Mentor.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Intern.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Feedback)
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.InterviewMode)
+                    @Html.DisplayFor(modelItem => item.Feedback)
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.Result)
                 </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.InterviewinfoId">Edit</a> |

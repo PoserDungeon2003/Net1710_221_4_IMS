@@ -14,6 +14,7 @@ namespace IMS.Business.Business
     {
         Task<IIMSResult> GetAllAsync();
         Task<IIMSResult> FindAsync(int? id);
+        Task<IIMSResult> FindInterviewAsync(int? id);
         Task<IIMSResult> AddAsync(InterviewsInfo interviewsInfo);
         Task<IIMSResult> GetByIdAsync(int? id);
         Task<IIMSResult> UpdateAsync(InterviewsInfo interviewsInfo);
@@ -87,14 +88,34 @@ namespace IMS.Business.Business
             {
                 return new BusinessResult();
             }
-            var mentor = await _unitOfWork.InterviewsInfoRepository.GetByIdAsync((int)id);
+            var interview = await _unitOfWork.InterviewsInfoRepository.GetByIdAsync((int)id);
             try
             {
-                if (mentor == null)
+                if (interview == null)
                 {
                     return new BusinessResult();
                 }
-                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, interview);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+        public async Task<IIMSResult> FindInterviewAsync(int? id)
+        {
+            if (id == null)
+            {
+                return new BusinessResult();
+            }
+            var interview = await _unitOfWork.InterviewsInfoRepository.GetInterviewInfoById((int)id);
+            try
+            {
+                if (interview == null)
+                {
+                    return new BusinessResult();
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, interview);
             }
             catch (Exception ex)
             {

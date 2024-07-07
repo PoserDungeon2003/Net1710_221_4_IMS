@@ -7,21 +7,34 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Diagnostics;
 
 namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class CreateModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net17102214ImsContext _context;
+        private readonly MentorBusiness _mentorBusiness;
+        private readonly InternBusiness _internBusiness;
 
         public CreateModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
-            _context = context;
+            _mentorBusiness ??= new MentorBusiness();
+            _internBusiness ??= new InternBusiness();
         }
 
         public IActionResult OnGet()
         {
-        ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
+           var mentorList = _mentorBusiness.GetAllAsync();
+            var internList = _internBusiness.Getall();
+            if (internList.Result.Data == null || mentorList.Result.Data == null)
+            {
+                return NotFound();
+            }
+            ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentorList.Result.Data, "MentorId", "FullName");
+            ViewData["InternId"] = new SelectList((System.Collections.IEnumerable)internList.Result.Data, "InternId", "Name");
+           
             return Page();
         }
 
@@ -31,13 +44,13 @@ namespace IMS.RazorWebApp.Pages.Interviews
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-           // if (!ModelState.IsValid)
-            //{
-              //  return Page();
-           // }
+        if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-            _context.InterviewsInfos.Add(InterviewsInfo);
-            await _context.SaveChangesAsync();
+            // _context.WorkingResults.Add(WorkingResult);
+            // await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

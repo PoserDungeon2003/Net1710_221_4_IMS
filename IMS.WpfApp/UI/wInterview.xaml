@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:IMS.WpfApp.UI"
         mc:Ignorable="d"
         Title="wInterview" Height="450" Width="800">
@@ -15,6 +16,7 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                    
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
@@ -24,26 +26,47 @@
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
+                    <!--ID-->
                     <Label Grid.Column="0" Grid.Row="0" Content="ID" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtInterviewCode" Height="25" Text="{Binding Path=Currency.CurrencyCode, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="2" Grid.Row="0" Content="Name" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtName" Height="25" Text="{Binding Path=Currency.CurrencyName, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="4" Grid.Row="0" Content="Time" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="5" Grid.Row="0" x:Name="txtTime" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="Location" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtLocation" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="2" Grid.Row="1" Content="Mode" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtMode" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="4" Grid.Row="1" Content="Content" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="5" Grid.Row="1" x:Name="txtContent" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="0" Grid.Row="2" Content="Intern" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtIntern" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="2" Grid.Row="2" Content="Result" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="3" Grid.Row="2" x:Name="txtResult" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="4" Grid.Row="2" Content="Feedback" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="6" Grid.Row="2" x:Name="txtFeedback" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
-                    <Label Grid.Column="0" Grid.Row="3" Content="Interviewer" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtInterviewer" Height="25" Text="{Binding Path=Currency.Phone, Mode=TwoWay}"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtInterviewCode" Height="25"   Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--Mode-->
+                    <Label Grid.Column="2" Grid.Row="0" Content="Mode" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="0" x:Name="txtMode" Height="25"   Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                   
+                    <!--Mentor-->
+                    <Label Grid.Column="0" Grid.Row="1" Content="Interviewer" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <ComboBox Grid.Column="1" Grid.Row="1" x:Name="txtInterviewer" Height="25"   Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--Intern-->
+                    <Label Grid.Column="2" Grid.Row="1" Content="Interviewee" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="1" x:Name="txtIntern" Height="25"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--Position-->
+                    <Label Grid.Column="4" Grid.Row="1" Content="Position" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox  Grid.Column="5" Grid.Row="1" x:Name="txtPosition" Height="25"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+
+                    <!--Location-->
+                    <Label Grid.Column="0" Grid.Row="2" Content="Location" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtLocation" Height="25"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--Time-->
+                    <Label Grid.Column="2" Grid.Row="2" Content="Time" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <xctk:DateTimePicker Grid.Column="3" Grid.Row="2" x:Name="txtTime" Height="25"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--Content-->
+                    <Label Grid.Column="4" Grid.Row="2" Content="Content" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="5" Grid.Row="2" x:Name="txtContent" Height="25"  Margin="5"  Width="180" HorizontalAlignment="Left"/>
+
+                    <!--Status-->
+                    <Label Grid.Column="0" Grid.Row="3" Content="Status" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtStatus" Height="25" Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--Feedback-->
+                    <Label Grid.Column="2" Grid.Row="3" Content="Feedback" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="3" x:Name="txtFeedback" Height="25"   Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                    <!--Result-->
+                    <Label Grid.Column="4" Grid.Row="3" Content="Result" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="5" Grid.Row="3" x:Name="txtResult" Height="25" Margin="5"  Width="180" HorizontalAlignment="Left"/>
+                   
+                    <!--Id contain-->
+                    <TextBox Grid.Column="1" Grid.Row="4" x:Name="txtMentorId" Height="25"  Margin="5"  Width="180" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                    <TextBox Grid.Column="1" Grid.Row="4" x:Name="txtInternId" Height="25"  Margin="5"  Width="180" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                    
                 </Grid>
             </GroupBox>
             <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -55,15 +78,17 @@
                     <DataGrid.Columns>
                         <!--<DataGridTextColumn Header="Code" Binding="{Binding Path=Id}" Visibility="Hidden"/>-->
                         <DataGridTextColumn Header="InterviewID" Binding="{Binding Path=InterviewinfoId}" Visibility="Visible"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Interviewer" Binding="{Binding Path=InterviewerId}" Width="70"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Intern" Binding="{Binding Path=InternId}" Width="50"  IsReadOnly="True"/>
+                       
+                        <DataGridTextColumn Header="Interviewer" Binding="{Binding Path=Mentor.FullName}" Width="80"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Interviewee" Binding="{Binding Path=Intern.Name}" Width="80"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Applied Position" Binding="{Binding Path=Position}" Width="100"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Mode" Binding="{Binding Path=InterviewMode}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" Width="50"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Location" Binding="{Binding Path=Location}" Width="100"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Content" Binding="{Binding Path=Content}" Width="200"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Result" Binding="{Binding Path=Result}" Width="50"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Feedback" Binding="{Binding Path=Feedback}" Width="50"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" Width="100"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Content" Binding="{Binding Path=Content}" Width="120"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}" Width="70"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Feedback" Binding="{Binding Path=Feedback}" Width="70"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Result" Binding="{Binding Path=Result}" Width="70"  IsReadOnly="True"/>
                         <DataGridTemplateColumn Width="80">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -72,16 +97,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <!--<DataGridTemplateColumn Width="50">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete" x:Name="ButtonDelete" CommandParameter="{Binding Path=Id}"
-                                Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor,
-                                        AncestorType=Window}}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>-->
-
+            
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

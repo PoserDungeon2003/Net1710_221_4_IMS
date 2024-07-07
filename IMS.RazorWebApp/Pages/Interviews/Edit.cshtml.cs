@@ -8,11 +8,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
 
 namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class EditModel : PageModel
     {
+        private readonly MentorBusiness _mentorBusiness;
+        private readonly InternBusiness _internBusiness;
         private readonly IMS.Data.Repository.Net17102214ImsContext _context;
 
         public EditModel(IMS.Data.Repository.Net17102214ImsContext context)
@@ -30,13 +33,14 @@ namespace IMS.RazorWebApp.Pages.Interviews
                 return NotFound();
             }
 
-            var interviewsinfo =  await _context.InterviewsInfos.FirstOrDefaultAsync(m => m.InterviewinfoId == id);
+            var interviewsinfo = await _context.InterviewsInfos.FirstOrDefaultAsync(m => m.InterviewinfoId == id);
             if (interviewsinfo == null)
             {
                 return NotFound();
             }
             InterviewsInfo = interviewsinfo;
-           ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
+            ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "FullName");
+            ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "Name");
             return Page();
         }
 
