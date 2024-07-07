@@ -27,11 +27,11 @@
                 <span asp-validation-for="InterviewsInfo.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InterviewsInfo.Mentor" class="control-label">Interviewer</label>
+                <label asp-for="InterviewsInfo.MentorId" class="control-label">Interviewer</label>
                 <select asp-for="InterviewsInfo.MentorId" class="form-control" asp-items="mentorList"></select>
             </div>
             <div class="form-group">
-                <label asp-for="InterviewsInfo.Intern" class="control-label">Intern</label>
+                <label asp-for="InterviewsInfo.InternId" class="control-label">Intern</label>
                 <select asp-for="InterviewsInfo.InternId" class="form-control" asp-items="internList"></select>
             </div>
             <div class="form-group">

@@ -48,11 +48,6 @@ namespace IMS.RazorWebApp.Pages.Interviews
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-
             _context.Attach(InterviewsInfo).State = EntityState.Modified;
 
             try

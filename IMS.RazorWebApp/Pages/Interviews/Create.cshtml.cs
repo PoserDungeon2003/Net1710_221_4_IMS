@@ -10,18 +10,21 @@ using IMS.Data.Repository;
 using IMS.Business.Business;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Diagnostics;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class CreateModel : PageModel
     {
-        private readonly MentorBusiness _mentorBusiness;
-        private readonly InternBusiness _internBusiness;
+        private readonly IMentorBusiness _mentorBusiness;
+        private readonly IInternBusiness _internBusiness;
+        private readonly IinterviewsInfoBusiness _interviewBusiness;
 
         public CreateModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
             _mentorBusiness ??= new MentorBusiness();
             _internBusiness ??= new InternBusiness();
+            _interviewBusiness ??= new InterviewsInfoBusiness();
         }
 
         public IActionResult OnGet()
@@ -41,16 +44,14 @@ namespace IMS.RazorWebApp.Pages.Interviews
         [BindProperty]
         public InterviewsInfo InterviewsInfo { get; set; } = default!;
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-        if (!ModelState.IsValid)
+            var result = await _interviewBusiness.AddAsync(InterviewsInfo);
+            if (result.Status != Const.SUCCESS_CREATE_CODE)
             {
+                OnGet();
                 return Page();
             }
-
-            // _context.WorkingResults.Add(WorkingResult);
-            // await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

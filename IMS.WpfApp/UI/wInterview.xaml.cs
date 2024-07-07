@@ -1,5 +1,6 @@
 ﻿using IMS.Business.Business;
 using IMS.Data.Models;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -52,7 +53,7 @@ namespace IMS.WpfApp.UI
                         Status = txtStatus.Text,
                         Content = txtContent.Text,
                         MentorId = int.Parse(txtInterviewer.Text),
-                        InternId = int.Parse(txtIntern.Text),  
+                        InternId = int.Parse(txtIntern.Text),
                         InterviewMode = txtMode.Text,
                         Feedback = txtFeedback.Text,
                     };
@@ -80,13 +81,13 @@ namespace IMS.WpfApp.UI
                 }
                 txtInterviewCode.Text = string.Empty;
                 txtTime.Text = string.Empty;
-                txtLocation.Text = string.Empty ;
+                txtLocation.Text = string.Empty;
                 txtResult.Text = string.Empty;
                 txtPosition.Text = string.Empty;
                 txtStatus.Text = string.Empty;
                 txtContent.Text = string.Empty;
                 txtInterviewer.Text = string.Empty;
-                txtIntern.Text = string.Empty; 
+                txtIntern.Text = string.Empty;
                 txtMode.Text = string.Empty;
                 txtFeedback.Text = string.Empty;
                 this.LoadGrdInterview();
@@ -133,7 +134,7 @@ namespace IMS.WpfApp.UI
                             txtInterviewCode.Text = item.InterviewinfoId.ToString();
                             txtTime.Text = item.Time.ToString();
                             txtLocation.Text = item.Location;
-                            txtResult.Text = item.Result;    
+                            txtResult.Text = item.Result;
                             txtPosition.Text = item.Position;
                             txtStatus.Text = item.Status;
                             txtContent.Text = item.Content;
@@ -144,7 +145,7 @@ namespace IMS.WpfApp.UI
                             txtInternId.Text = item.InternId.ToString();
                             txtMode.Text = item.InterviewMode;
                             txtFeedback.Text = item.Feedback;
-                     
+
                         }
                     }
                 }

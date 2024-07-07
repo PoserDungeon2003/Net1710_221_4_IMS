@@ -30,11 +30,11 @@ namespace IMS.Business.Business
             _unitOfWork ??= new UnitOfWork();
         }
 
-        public async Task<IIMSResult> AddAsync(InterviewsInfo interviewsInfo)
+        public async Task<IIMSResult> AddAsync(InterviewsInfo interview)
         {
             try
             {
-                var result = await _unitOfWork.InterviewsInfoRepository.CreateAsync(interviewsInfo);
+                var result = await _unitOfWork.InterviewsInfoRepository.CreateAsync(interview);
                 if (result > 0)
                 {
                     return new BusinessResult(Const.SUCCESS_CREATE_CODE, Const.SUCCESS_CREATE_MSG);
@@ -67,14 +67,14 @@ namespace IMS.Business.Business
 
         public async Task<IIMSResult> GetAllAsync()
         {
-            var mentor = await _unitOfWork.InterviewsInfoRepository.GetAllAsync();
+            var interview = await _unitOfWork.InterviewsInfoRepository.GetAllAsync();
             try
             {
-                if (mentor == null)
+                if (interview == null)
                 {
                     return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
                 }
-                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, interview);
             }
             catch (Exception ex)
             {
