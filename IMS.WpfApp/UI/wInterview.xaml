@@ -86,7 +86,7 @@
                         <DataGridTextColumn Header="Location" Binding="{Binding Path=Location}" Width="100"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" Width="100"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Content" Binding="{Binding Path=Content}" Width="120"  IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}" Width="70"  IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Path=InterviewStatus}" Width="70"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Feedback" Binding="{Binding Path=Feedback}" Width="70"  IsReadOnly="True"/>
                         <DataGridTextColumn Header="Result" Binding="{Binding Path=Result}" Width="70"  IsReadOnly="True"/>
                         <DataGridTemplateColumn Width="80">
