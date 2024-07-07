@@ -106,25 +106,32 @@ public partial class Net17102214ImsContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("feedback");
             entity.Property(e => e.InternId).HasColumnName("intern_id");
+            entity.Property(e => e.MentorId).HasColumnName("mentor_id");
             entity.Property(e => e.InterviewMode)
                 .HasMaxLength(20)
                 .HasColumnName("interview_mode");
-            entity.Property(e => e.InterviewerId).HasColumnName("interviewerId");
             entity.Property(e => e.Location).HasColumnName("location");
-            entity.Property(e => e.Name)
+            entity.Property(e => e.Position)
                 .HasMaxLength(50)
-                .HasColumnName("name");
+                .HasColumnName("position");
+            entity.Property(e => e.Status)
+               .HasMaxLength(20)
+               .HasColumnName("interview_status");
             entity.Property(e => e.Result)
                 .HasMaxLength(20)
+                .IsRequired(false)
                 .HasColumnName("result");
             entity.Property(e => e.Time)
                 .HasColumnType("datetime")
                 .HasColumnName("time");
-
             entity.HasOne(d => d.Intern).WithMany(p => p.InterviewsInfos)
                 .HasForeignKey(d => d.InternId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_interviews_info_Intern2");
+                .HasConstraintName("FK_interviews_info_Intern");
+            entity.HasOne(d => d.Mentor).WithMany(p => p.InterviewsInfos)
+                .HasForeignKey(d => d.MentorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_interviews_info_Mentor");
         });
 
         modelBuilder.Entity<Mentor>(entity =>

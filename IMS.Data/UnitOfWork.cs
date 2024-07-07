@@ -16,8 +16,7 @@ namespace IMS.Data
         private CompanyRepository _company;
         private WorkingResultRepository _workingResult;
         private InternRepository _intern;
-        private TaskRepository _task;
-
+        private InterviewsInfoRepository _interviewsInfo;
         public UnitOfWork()
         {
             _unitOfWorkContext ??= new Net17102214ImsContext();
@@ -61,6 +60,14 @@ namespace IMS.Data
                 return _task ?? new TaskRepository(_unitOfWorkContext);
             }
         }
+        public InterviewsInfoRepository InterviewsInfoRepository
+        {
+            get
+            {
+                return _interviewsInfo ?? new InterviewsInfoRepository(_unitOfWorkContext);
+            }
+        }
+
 
         ////TO-DO CODE HERE/////////////////
 

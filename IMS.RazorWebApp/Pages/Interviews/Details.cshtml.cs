@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Common;
+using IMS.Business.Business;
 
 namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class DetailsModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net17102214ImsContext _context;
+        private readonly IinterviewsInfoBusiness _interview;
 
         public DetailsModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
-            _context = context;
+            _interview = new InterviewsInfoBusiness();
         }
 
         public InterviewsInfo InterviewsInfo { get; set; } = default!;
@@ -28,14 +30,14 @@ namespace IMS.RazorWebApp.Pages.Interviews
                 return NotFound();
             }
 
-            var interviewsinfo = await _context.InterviewsInfos.FirstOrDefaultAsync(m => m.InterviewinfoId == id);
-            if (interviewsinfo == null)
+            var interview = await _interview.FindInterviewAsync(id);
+            if (interview == null)
             {
                 return NotFound();
             }
             else
             {
-                InterviewsInfo = interviewsinfo;
+                InterviewsInfo = (InterviewsInfo)interview.Data;
             }
             return Page();
         }

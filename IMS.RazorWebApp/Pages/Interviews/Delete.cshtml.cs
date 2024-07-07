@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class DeleteModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net17102214ImsContext _context;
+        private readonly IinterviewsInfoBusiness _interviewBussiness;
 
         public DeleteModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
-            _context = context;
+            _interviewBussiness = new InterviewsInfoBusiness();
         }
 
         [BindProperty]
@@ -29,15 +31,15 @@ namespace IMS.RazorWebApp.Pages.Interviews
                 return NotFound();
             }
 
-            var interviewsinfo = await _context.InterviewsInfos.FirstOrDefaultAsync(m => m.InterviewinfoId == id);
+            var interview = await _interviewBussiness.FindInterviewAsync(id);
 
-            if (interviewsinfo == null)
+            if (interview == null)
             {
                 return NotFound();
             }
             else
             {
-                InterviewsInfo = interviewsinfo;
+                InterviewsInfo = (InterviewsInfo)interview.Data;
             }
             return Page();
         }
@@ -49,12 +51,16 @@ namespace IMS.RazorWebApp.Pages.Interviews
                 return NotFound();
             }
 
-            var interviewsinfo = await _context.InterviewsInfos.FindAsync(id);
-            if (interviewsinfo != null)
+            var interview = await _interviewBussiness.FindAsync(id);
+            if (interview != null)
             {
-                InterviewsInfo = interviewsinfo;
-                _context.InterviewsInfos.Remove(InterviewsInfo);
-                await _context.SaveChangesAsync();
+                InterviewsInfo = (InterviewsInfo)interview.Data;
+                var result = await _interviewBussiness.DeleteAsync(InterviewsInfo);
+
+                if (result.Status != Const.SUCCESS_DELETE_CODE)
+                {
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

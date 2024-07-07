@@ -31,5 +31,7 @@ public partial class Mentor
 
     public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
+    public virtual ICollection<InterviewsInfo> InterviewsInfos { get; set; } = new List<InterviewsInfo>();
+
     public virtual ICollection<WorkingResult> WorkingResults { get; set; } = new List<WorkingResult>();
 }

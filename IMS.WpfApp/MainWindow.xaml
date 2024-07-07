@@ -22,7 +22,11 @@
                       Visibility="Visible">
 
             </MenuItem>
-
+            <MenuItem Header="Interview" 
+                      IsCheckable="False" 
+                      FontSize="12" 
+                      Click="Open_wInterview_Click">
+            </MenuItem>
             <MenuItem Header="Mentor"
                       IsCheckable="False"
                       FontSize="12"

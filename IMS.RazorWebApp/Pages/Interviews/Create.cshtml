@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Create";
+
+    var mentorList = ViewData["MentorId"] as SelectList;
+    var internList = ViewData["InternId"] as SelectList;
 }
 
 <h1>Create</h1>
@@ -14,24 +17,9 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="InterviewsInfo.Time" class="control-label"></label>
-                <input asp-for="InterviewsInfo.Time" class="form-control" />
-                <span asp-validation-for="InterviewsInfo.Time" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InterviewsInfo.Location" class="control-label"></label>
-                <input asp-for="InterviewsInfo.Location" class="form-control" />
-                <span asp-validation-for="InterviewsInfo.Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InterviewsInfo.Result" class="control-label"></label>
-                <input asp-for="InterviewsInfo.Result" class="form-control" />
-                <span asp-validation-for="InterviewsInfo.Result" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InterviewsInfo.Name" class="control-label"></label>
-                <input asp-for="InterviewsInfo.Name" class="form-control" />
-                <span asp-validation-for="InterviewsInfo.Name" class="text-danger"></span>
+                <label asp-for="InterviewsInfo.InterviewMode" class="control-label"></label>
+                <input asp-for="InterviewsInfo.InterviewMode" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.InterviewMode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="InterviewsInfo.Content" class="control-label"></label>
@@ -39,10 +27,45 @@
                 <span asp-validation-for="InterviewsInfo.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InterviewsInfo.InternId" class="control-label"></label>
-                <select asp-for="InterviewsInfo.InternId" class ="form-control" asp-items="ViewBag.InternId"></select>
+                <label asp-for="InterviewsInfo.MentorId" class="control-label">Interviewer</label>
+                <select asp-for="InterviewsInfo.MentorId" class="form-control" asp-items="mentorList"></select>
             </div>
             <div class="form-group">
+                <label asp-for="InterviewsInfo.InternId" class="control-label">Intern</label>
+                <select asp-for="InterviewsInfo.InternId" class="form-control" asp-items="internList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Position" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Position" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Position" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Location" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Location" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Time" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Time" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Status" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Status" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Feedback" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Feedback" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Feedback" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewsInfo.Result" class="control-label"></label>
+                <input asp-for="InterviewsInfo.Result" class="form-control" />
+                <span asp-validation-for="InterviewsInfo.Result" class="text-danger"></span>
+            </div>
+         
+            <div class="form-group" style="margin-top 10px ">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
