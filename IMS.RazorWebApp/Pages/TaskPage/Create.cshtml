@@ -19,7 +19,7 @@
                 <span asp-validation-for="Task.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Task.InternId" class="control-label"></label>
+                <label asp-for="Task.Intern" class="control-label"></label>
                 <select asp-for="Task.InternId" class ="form-control" asp-items="ViewBag.InternId"></select>
             </div>
             <div class="form-group">
@@ -28,7 +28,7 @@
                 <span asp-validation-for="Task.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Task.MentorId" class="control-label"></label>
+                <label asp-for="Task.Mentor" class="control-label"></label>
                 <select asp-for="Task.MentorId" class="form-control" asp-items="ViewBag.MentorId"></select>
             </div>
             <div class="form-group">

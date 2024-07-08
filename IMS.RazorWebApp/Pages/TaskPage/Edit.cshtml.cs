@@ -49,7 +49,7 @@ namespace IMS.RazorWebApp.Pages.Task
             }
             Task = (IMS.Data.Models.Task)task.Data;
             ViewData["InternId"] = new SelectList((System.Collections.IEnumerable)intern.Data, "InternId", "Name");
-            ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "Name");
+            ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "FullName");
 
             //Currency = currency.Data as Currency
 
