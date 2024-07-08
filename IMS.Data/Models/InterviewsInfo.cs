@@ -25,5 +25,13 @@ public partial class InterviewsInfo
 
     public int InternId { get; set; }
 
+    public int MentorId { get; set; }
+
+    public string Position { get; set; } = null!;
+
+    public string InterviewStatus { get; set; } = null!;
+
     public virtual Intern Intern { get; set; } = null!;
+
+    public virtual Mentor Mentor { get; set; } = null!;
 }

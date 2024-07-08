@@ -1,4 +1,4 @@
-﻿using IMS.Data.Base;
+using IMS.Data.Base;
 using Models = IMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

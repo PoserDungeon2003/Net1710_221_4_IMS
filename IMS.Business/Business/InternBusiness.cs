@@ -24,7 +24,6 @@ namespace IMS.Business.Business
     }
     public class InternBusiness : IInternBusiness
     {
-        //private readonly InternDAO _DAO;
         private readonly UnitOfWork _unitOfWork;
         public InternBusiness()
         {
@@ -102,6 +101,22 @@ namespace IMS.Business.Business
             }
         }
 
+        public async Task<BusinessResult> GetAllAsync()
+        {
+            var result = await _unitOfWork.InternRepository.GetAllAsync();
+            try
+            {
+                if (result.Count() == 0)
+                {
+                    return new BusinessResult(Const.WARNING_NO_DATA_CODE, Const.WARNING_NO_DATA__MSG);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, result);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
         public async Task<IIMSResult> Update(Intern intern)
         {
             try

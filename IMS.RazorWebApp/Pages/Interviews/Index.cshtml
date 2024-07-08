@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    var mentorList = ViewData["MentorId"] as SelectList;
+    var internList = ViewData["InternId"] as SelectList;
 }
 
 <h1>Index</h1>
@@ -13,24 +15,45 @@
 <table class="table">
     <thead>
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Result)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Name)
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].InterviewMode)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.InterviewsInfo[0].Content)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Mentor)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.InterviewsInfo[0].Intern)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].InterviewStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Feedback)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewsInfo[0].Result)
+            </th>
+          
+         
+          
+          
+         
+            
+
+
             <th></th>
         </tr>
     </thead>
@@ -38,23 +61,35 @@
 @foreach (var item in Model.InterviewsInfo) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Result)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.InterviewMode)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Intern.JobPosition)
+                @Html.DisplayFor(modelItem => item.Mentor.FullName)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Intern.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterviewStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Feedback)
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.Result)
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.InterviewinfoId">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.InterviewinfoId">Details</a> |
