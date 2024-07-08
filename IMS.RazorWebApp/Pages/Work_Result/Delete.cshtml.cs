@@ -23,6 +23,7 @@ namespace IMS.RazorWebApp.Pages.Work_Result
 
         [BindProperty]
         public WorkingResult WorkingResult { get; set; } = default!;
+        public string Message { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,12 +38,9 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             var workingresult = await _workingResultBusiness.GetByIdAsync(id);
-            if (workingresult.Data is not null)
-            {
-                WorkingResult = (workingresult.Data as WorkingResult)!;
-
-            }
+            WorkingResult = (workingresult.Data as WorkingResult)!;
             var result = await _workingResultBusiness.Delete(WorkingResult);
+            Message = result.Message ?? "Unknow error";
             if (result.Status != Const.SUCCESS_DELETE_CODE)
             {
                 return Page();

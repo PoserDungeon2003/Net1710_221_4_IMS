@@ -1,9 +1,11 @@
-﻿using IMS.Data.Repository;
+﻿using IMS.Data.Models;
+using IMS.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IMS.Data;
 
 namespace IMS.Data
 {
@@ -14,6 +16,8 @@ namespace IMS.Data
         private CompanyRepository _company;
         private WorkingResultRepository _workingResult;
         private InternRepository _intern;
+        private InterviewsInfoRepository _interviewsInfo;
+        private TaskRepository _task;
         public UnitOfWork()
         {
             _unitOfWorkContext ??= new Net17102214ImsContext();
@@ -26,8 +30,8 @@ namespace IMS.Data
             }
         }
 
-        public MentorRepository MentorRepository 
-        { 
+        public MentorRepository MentorRepository
+        {
             get
             {
                 return _mentor ?? new MentorRepository(_unitOfWorkContext);
@@ -46,9 +50,25 @@ namespace IMS.Data
         {
             get
             {
-                return _workingResult ?? new WorkingResultRepository();
+                return _workingResult ?? new WorkingResultRepository(_unitOfWorkContext);
             }
         }
+
+        public TaskRepository TaskRepository
+        {
+            get
+            {
+                return _task ?? new TaskRepository(_unitOfWorkContext);
+            }
+        }
+        public InterviewsInfoRepository InterviewsInfoRepository
+        {
+            get
+            {
+                return _interviewsInfo ?? new InterviewsInfoRepository(_unitOfWorkContext);
+            }
+        }
+
 
         ////TO-DO CODE HERE/////////////////
 

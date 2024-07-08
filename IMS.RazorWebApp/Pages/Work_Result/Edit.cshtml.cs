@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IMS.Data.Models;
 using IMS.Data.Repository;
+using IMS.Business.Business;
+using System.Collections;
+using IMS.Common;
 
 namespace IMS.RazorWebApp.Pages.Work_Result
 {
@@ -30,15 +33,15 @@ namespace IMS.RazorWebApp.Pages.Work_Result
                 return NotFound();
             }
 
-            var workingresult =  await _context.WorkingResults.FirstOrDefaultAsync(m => m.ResultId == id);
+            var workingresult = await _context.WorkingResults.FirstOrDefaultAsync(m => m.ResultId == id);
             if (workingresult == null)
             {
                 return NotFound();
             }
             WorkingResult = workingresult;
-           ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
-           ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
-           ViewData["TaskId"] = new SelectList(_context.Tasks, "TaskId", "Description");
+            ViewData["InternId"] = new SelectList(_context.Interns, "InternId", "JobPosition");
+            ViewData["MentorId"] = new SelectList(_context.Mentors, "MentorId", "Email");
+            ViewData["TaskId"] = new SelectList(_context.Tasks, "TaskId", "Description");
             return Page();
         }
 

@@ -3,6 +3,7 @@ using IMS.Common;
 using IMS.Data;
 using IMS.Data.DAO;
 using IMS.Data.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace IMS.Business.Business
         Task<IIMSResult> DeleteAsync(Mentor mentor);
         Task<IIMSResult> DeleteByIdAsync(int? id);
         IIMSResult MentorExisted(int id);
+        Task<IIMSResult> SearchMentors(string value, int? pageIndex, int pageSize);
+        Task<IIMSResult> GetAllMentorsPagingAsync(int? pageIndex, int pageSize);
     }
     public class MentorBusiness : IMentorBusiness
     {
@@ -195,6 +198,40 @@ namespace IMS.Business.Business
         public async System.Threading.Tasks.Task AddAsync(Intern intern)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IIMSResult> SearchMentors(string value, int? pageIndex, int pageSize)
+        {
+            var mentor = await _unitOfWork.MentorRepository.SearchMentor(value, pageIndex, pageSize);
+            try
+            {
+                if (mentor == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> GetAllMentorsPagingAsync(int? pageIndex, int pageSize)
+        {
+            var mentor = await _unitOfWork.MentorRepository.GetMentorsPagingAsync(pageIndex, pageSize);
+            try
+            {
+                if (mentor == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, mentor);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
         }
     }
 }

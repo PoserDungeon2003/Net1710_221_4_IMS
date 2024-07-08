@@ -11,9 +11,9 @@ namespace IMS.Data.Repository
     public class WorkingResultRepository : GenericRepository<WorkingResult>
     {
         private readonly Net17102214ImsContext _context;
-        public WorkingResultRepository()
+        public WorkingResultRepository(Net17102214ImsContext context)
         {
-            _context = new Net17102214ImsContext();
+            _context = context;
         }
         public new async Task<IEnumerable<WorkingResult>> GetAllAsync()
         {

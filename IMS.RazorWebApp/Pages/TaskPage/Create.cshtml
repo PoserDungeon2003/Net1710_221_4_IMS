@@ -1,0 +1,72 @@
+﻿@page
+@model IMS.RazorWebApp.Pages.Task.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Task</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Task.Description" class="control-label"></label>
+                <input asp-for="Task.Description" class="form-control" />
+                <span asp-validation-for="Task.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.InternId" class="control-label"></label>
+                <select asp-for="Task.InternId" class ="form-control" asp-items="ViewBag.InternId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.Name" class="control-label"></label>
+                <input asp-for="Task.Name" class="form-control" />
+                <span asp-validation-for="Task.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.MentorId" class="control-label"></label>
+                <select asp-for="Task.MentorId" class="form-control" asp-items="ViewBag.MentorId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.Priority" class="control-label"></label>
+                <input asp-for="Task.Priority" class="form-control" />
+                <span asp-validation-for="Task.Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.Status" class="control-label"></label>
+                <input asp-for="Task.Status" class="form-control" />
+                <span asp-validation-for="Task.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.CreateDate" class="control-label"></label>
+                <input asp-for="Task.CreateDate" class="form-control" />
+                <span asp-validation-for="Task.CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.DueDate" class="control-label"></label>
+                <input asp-for="Task.DueDate" class="form-control" />
+                <span asp-validation-for="Task.DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.CompletionPercentage" class="control-label"></label>
+                <input asp-for="Task.CompletionPercentage" class="form-control" />
+                <span asp-validation-for="Task.CompletionPercentage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

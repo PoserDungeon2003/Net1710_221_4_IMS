@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Tasks = System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +28,7 @@ namespace IMS.RazorWebApp.Pages.Intern
         public IList<Models.Intern> Intern { get;set; } = default!;
         public string SearchString { get; private set; }
 
-        public async Task OnGetAsync()
+        public async Tasks.Task OnGetAsync()
         {
             //var result = await business.Getall();
             //if(result != null && result.Status >0 && result.Data != null)

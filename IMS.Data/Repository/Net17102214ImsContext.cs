@@ -122,11 +122,18 @@ public partial class Net17102214ImsContext : DbContext
             entity.Property(e => e.InterviewMode)
                 .HasMaxLength(20)
                 .HasColumnName("interview_mode");
+            entity.Property(e => e.InterviewStatus)
+                .HasMaxLength(20)
+                .HasColumnName("interview_status");
             entity.Property(e => e.InterviewerId).HasColumnName("interviewerId");
             entity.Property(e => e.Location).HasColumnName("location");
+            entity.Property(e => e.MentorId).HasColumnName("mentor_id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.Position)
+                .HasMaxLength(50)
+                .HasColumnName("position");
             entity.Property(e => e.Result)
                 .HasMaxLength(20)
                 .HasColumnName("result");
@@ -138,6 +145,11 @@ public partial class Net17102214ImsContext : DbContext
                 .HasForeignKey(d => d.InternId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_interviews_info_Intern2");
+
+            entity.HasOne(d => d.Mentor).WithMany(p => p.InterviewsInfos)
+                .HasForeignKey(d => d.MentorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_interviews_info_Mentor");
         });
 
         modelBuilder.Entity<Mentor>(entity =>
@@ -185,9 +197,7 @@ public partial class Net17102214ImsContext : DbContext
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
-            entity.Property(e => e.Description)
-                .HasMaxLength(50)
-                .HasColumnName("description");
+            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.DueDate)
                 .HasColumnType("datetime")
                 .HasColumnName("due_date");
