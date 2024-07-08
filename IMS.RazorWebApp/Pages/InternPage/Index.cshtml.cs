@@ -16,7 +16,6 @@ namespace IMS.RazorWebApp.Pages.Intern
     {
         private readonly IInternBusiness business;
         private readonly IMS.Data.Repository.Net17102214ImsContext _context;
-        public InternSearchCriteria SearchCriteria { get; set; }
         public IList<Models.Intern> Interns { get; set; }
 
         public IndexModel(IMS.Data.Repository.Net17102214ImsContext context)

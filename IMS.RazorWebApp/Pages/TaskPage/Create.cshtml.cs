@@ -30,7 +30,7 @@ namespace IMS.RazorWebApp.Pages.Task
             var intern = await _internBusiness.Getall();
             var mentor = await _mentorBusiness.GetAllAsync();
             ViewData["InternId"] = new SelectList((System.Collections.IEnumerable)intern.Data, "InternId", "Name");
-            ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "Name");
+            ViewData["MentorId"] = new SelectList((System.Collections.IEnumerable)mentor.Data, "MentorId", "FullName");
             return Page();
         }
 

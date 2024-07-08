@@ -17,6 +17,10 @@ using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using IMS.Data.Models;
+using System.IO;
+using System.Text.Json;
+using System.Xml.Serialization;
+using System.Globalization;
 
 namespace IMS.WpfApp.UI
 {
@@ -189,5 +193,119 @@ namespace IMS.WpfApp.UI
                 grdTask.ItemsSource = new List<Models.Task>();
             }
         }
+
+
+
+
+        //NEW FEATURE
+        private void ExportToXmlButton_Click(object sender, RoutedEventArgs e)
+        {
+            var task = new Models.Task
+            {
+                //Name = txtName.Text,
+                //Description = txtDescription.Text,
+                //Priority = int.Parse(txtPriority.Text),
+                //Status = txtStatus.Text,
+                //CreateDate = DateTime.Parse(txtCreateDate.Text),
+                //DueDate = DateTime.Parse(txtDueDate.Text),
+                //CompletionPercentage = int.Parse(txtCompletionPercentage.Text),
+                //InternId = int.Parse(txtInternId.Text),
+                //MentorId = int.Parse(txtMentorId.Text)
+                // Thiết lập các thuộc tính khác nếu cần
+                Name = txtName.Text,
+                Description = txtDescription.Text,
+                Priority = int.Parse(txtPriority.Text),
+                Status = txtStatus.Text,
+                CreateDate = DateTime.ParseExact(txtCreateDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                DueDate = DateTime.ParseExact(txtDueDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                CompletionPercentage = int.Parse(txtCompletionPercentage.Text),
+                InternId = int.Parse(txtInternId.Text),
+                MentorId = int.Parse(txtMentorId.Text),
+
+            };
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Models.Task));
+            using (TextWriter writer = new StreamWriter("task.xml"))
+            {
+                serializer.Serialize(writer, task);
+            }
+
+            MessageBox.Show("Công việc đã được xuất ra XML!");
+        }
+
+        private void ExportToJsonButton_Click(object sender, RoutedEventArgs e)
+        {
+            var task = new Models.Task
+            {
+                //Name = txtName.Text,
+                //Description = txtDescription.Text,
+                //Priority = int.Parse(txtPriority.Text),
+                //Status = txtStatus.Text,
+                //CreateDate = DateTime.Parse(txtCreateDate.Text),
+                //DueDate = DateTime.Parse(txtDueDate.Text),
+                //CompletionPercentage = int.Parse(txtCompletionPercentage.Text),
+                //InternId = int.Parse(txtInternId.Text),
+                //MentorId = int.Parse(txtMentorId.Text)
+                // Thiết lập các thuộc tính khác nếu cần
+                Name = txtName.Text,
+                Description = txtDescription.Text,
+                Priority = int.Parse(txtPriority.Text),
+                Status = txtStatus.Text,
+                CreateDate = DateTime.ParseExact(txtCreateDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                DueDate = DateTime.ParseExact(txtDueDate.Text, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                CompletionPercentage = int.Parse(txtCompletionPercentage.Text),
+                InternId = int.Parse(txtInternId.Text),
+                MentorId = int.Parse(txtMentorId.Text),
+            };
+
+            string jsonString = JsonSerializer.Serialize(task);
+            File.WriteAllText("task.json", jsonString);
+
+            MessageBox.Show("Công việc đã được xuất ra JSON!");
+        }
+
+        private void ImportFromXmlButton_Click(object sender, RoutedEventArgs e)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Models.Task));
+            using (TextReader reader = new StreamReader("task.xml"))
+            {
+                var task = (Models.Task)serializer.Deserialize(reader);
+                task.Name = txtName.Text;
+                task.Description = txtDescription.Text;
+                task.Priority = int.Parse(txtPriority.Text);
+                task.Status = txtStatus.Text;
+                task.CreateDate = DateTime.Parse(txtCreateDate.Text);
+                task.DueDate = DateTime.Parse(txtDueDate.Text);
+                task.CompletionPercentage = int.Parse(txtCompletionPercentage.Text);
+                task.InternId = int.Parse(txtInternId.Text);
+                task.MentorId = int.Parse(txtMentorId.Text);
+                // Thiết lập các thuộc tính khác nếu cần
+            }
+
+            MessageBox.Show("Công việc đã được nhập từ XML!");
+        }
+
+        private void ImportFromJsonButton_Click(object sender, RoutedEventArgs e)
+        {
+            string jsonString = File.ReadAllText("task.json");
+            var task = JsonSerializer.Deserialize<Models.Task>(jsonString);
+            task.Name = txtName.Text;
+            task.Description = txtDescription.Text;
+            task.Priority = int.Parse(txtPriority.Text);
+            task.Status = txtStatus.Text;
+            task.CreateDate = DateTime.Parse(txtCreateDate.Text);
+            task.DueDate = DateTime.Parse(txtDueDate.Text);
+            task.CompletionPercentage = int.Parse(txtCompletionPercentage.Text);
+            task.InternId = int.Parse(txtInternId.Text);
+            task.MentorId = int.Parse(txtMentorId.Text);
+            // Thiết lập các thuộc tính khác nếu cần
+
+            MessageBox.Show("Công việc đã được nhập từ JSON!");
+        }
+
+
+
+
+
     }
 }

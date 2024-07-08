@@ -24,7 +24,14 @@
                 <input asp-for="Task.Name" class="form-control" />
                 <span asp-validation-for="Task.Name" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="Task.Intern" class="control-label"></label>
+                <select asp-for="Task.InternId" class="form-control" asp-items="ViewBag.InternId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task.Mentor" class="control-label"></label>
+                <select asp-for="Task.MentorId" class="form-control" asp-items="ViewBag.MentorId"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="Task.Priority" class="control-label"></label>
                 <input asp-for="Task.Priority" class="form-control" />
