@@ -4,50 +4,20 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
+<div class="row">
+<div class="col-md-6">
+    <form class="d-flex">
+        <input name="searchString" class="form-control me-1" type="search" placeholder="Search" aria-label="Seach">
+        <button class="btn btn-dark" type="submit">Search</button>
+    </form>
+</div>
+    <div class="col-md-6">
+        <a asp-action="Index" class="text-dark">Back to full list</a>
+    </div>
+</div>
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<form method="get">
-    <div class="form-group">
-        <label asp-for="SearchCriteria.SearchTerm">Search:</label>
-        <input type="text" class="form-control" asp-for="SearchCriteria.SearchTerm">
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
-@if (Model.Intern != null && Model.Intern.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>University</th>
-                <th>Major</th>
-                <th>JobPosition</th
-                <th>WorkingTasks</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var intern in Model.Intern)
-            {
-                <tr>
-                    <td>@intern.University</td>
-                    <td>@intern.Major</td>
-                    <td>@intern.JobPosition</td>
-                    <td>@intern.WorkingTasks</td>
-                    <td>@intern.Name</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No interns found matching your search criteria.</p>
-}
 <table class="table">
     <thead>
         <tr>
@@ -68,6 +38,9 @@ else
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Intern[0].WorkingTasks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Intern[0].Skills)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Intern[0].Name)
@@ -102,6 +75,9 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.WorkingTasks)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skills)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

@@ -8,19 +8,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace IMS.Data.Repository
 {
-    public class Net1710_221_4_IMSContextFactory : IDesignTimeDbContextFactory<Net1710_221_4_IMSContext>
+    public class Net1710_221_4_IMSContextFactory : IDesignTimeDbContextFactory<Net17102214ImsContext>
     {
-        public Net1710_221_4_IMSContext CreateDbContext(string[] args)
+        public Net17102214ImsContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
-            var optionsBuilder = new DbContextOptionsBuilder<Net1710_221_4_IMSContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<Net17102214ImsContext>();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             
-            return new Net1710_221_4_IMSContext(optionsBuilder.Options);
+            return new Net17102214ImsContext(optionsBuilder.Options);
         }
     }
 }

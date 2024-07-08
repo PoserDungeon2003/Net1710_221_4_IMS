@@ -17,7 +17,7 @@ namespace IMS.RazorWebApp.Pages.Work_Result
         private readonly MentorBusiness _mentorBusiness;
         private readonly InternBusiness _internBusiness;
 
-        public CreateModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
+        public CreateModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
             _workingResultBusiness ??= new WorkingResultBusiness();
             _mentorBusiness ??= new MentorBusiness();

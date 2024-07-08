@@ -52,6 +52,7 @@ namespace IMS.WpfApp.UI
                         MentorId = int.Parse(txtMentorId.Text),
                         Name = txtName.Text,
                         CompanyId = int.Parse(txtCompanyId.Text),
+                        Skills = txtSkills.Text,
                     };
 
                     var result = await _business.Save(intern);
@@ -70,6 +71,7 @@ namespace IMS.WpfApp.UI
                     intern.MentorId = int.Parse(txtMentorId.Text);
                     intern.Name = txtName.Text;
                     intern.CompanyId = int.Parse(txtCompanyId.Text);
+                    intern.Skills = txtSkills.Text;
 
                     var result = await _business.Update(intern);
                     MessageBox.Show(result.Message, "Update");
@@ -85,6 +87,7 @@ namespace IMS.WpfApp.UI
                 txtMentorId.Text = string.Empty;
                 txtName.Text = string.Empty;
                 txtCompanyId.Text = string.Empty;
+                txtSkills.Text = string.Empty;
                 this.LoadGrdIntern();
             }
             catch (Exception ex)
@@ -123,6 +126,7 @@ namespace IMS.WpfApp.UI
                             txtMentorId.Text = item.MentorId.ToString();
                             txtName.Text = item.Name;
                             txtCompanyId.Text = item.CompanyId.ToString();
+                            txtSkills.Text = item.Skills;   
                         }
                     }
                 }

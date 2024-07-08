@@ -13,9 +13,9 @@ namespace IMS.RazorWebApp.Pages.Work_Result
 {
     public class EditModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net17102214ImsContext _context;
 
-        public EditModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
+        public EditModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
             _context = context;
         }

@@ -14,6 +14,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].MentorId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Mentor[0].FullName)
             </th>
             <th>
@@ -26,35 +29,63 @@
                 @Html.DisplayNameFor(model => model.Mentor[0].JobPosition)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mentor[0].Company.Name)
+                @Html.DisplayNameFor(model => model.Mentor[0].Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].DateJoined)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].LinkedinProfile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mentor[0].Company)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Mentor) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobPosition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.MentorId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.MentorId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.MentorId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Mentor)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MentorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobPosition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateJoined)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkedinProfile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Name)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.MentorId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.MentorId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.MentorId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

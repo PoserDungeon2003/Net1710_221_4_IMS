@@ -21,12 +21,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Mentor.Phone" class="control-label"></label>
-                <input asp-for="Mentor.Phone" class="form-control" />
+                <input asp-for="Mentor.Phone" type="tel" class="form-control" />
                 <span asp-validation-for="Mentor.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Mentor.Email" class="control-label"></label>
-                <input asp-for="Mentor.Email" class="form-control" />
+                <input asp-for="Mentor.Email" type="email" class="form-control" />
                 <span asp-validation-for="Mentor.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +35,27 @@
                 <span asp-validation-for="Mentor.JobPosition" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Mentor.CompanyId" class="control-label"></label>
+                <label asp-for="Mentor.Department" class="control-label"></label>
+                <input asp-for="Mentor.Department" class="form-control" />
+                <span asp-validation-for="Mentor.Department" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mentor.DateOfBirth" class="control-label"></label>
+                <input asp-for="Mentor.DateOfBirth" type="date" class="form-control" />
+                <span asp-validation-for="Mentor.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mentor.LinkedinProfile" class="control-label"></label>
+                <input asp-for="Mentor.LinkedinProfile" type="url" class="form-control" />
+                <span asp-validation-for="Mentor.LinkedinProfile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mentor.DateJoined" class="control-label"></label>
+                <input asp-for="Mentor.DateJoined" type="date" class="form-control" />
+                <span asp-validation-for="Mentor.DateJoined" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mentor.CompanyId" class="control-label">Company</label>
                 <select asp-for="Mentor.CompanyId" class="form-control" asp-items="ViewBag.CompanyId"></select>
                 <span asp-validation-for="Mentor.CompanyId" class="text-danger"></span>
             </div>

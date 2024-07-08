@@ -16,12 +16,14 @@ namespace IMS.RazorWebApp.Pages.Intern
 {
     public class EditModel : PageModel
     {
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+
+        private readonly IMS.Data.Repository.Net17102214ImsContext _context;
         private readonly InternBusiness business;
+
         private readonly MentorBusiness _mentorBusiness;
         private readonly CompanyBusiness _companyBusiness;
 
-        public EditModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
+        public EditModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
             business ??= new InternBusiness();
             _mentorBusiness ??= new MentorBusiness();

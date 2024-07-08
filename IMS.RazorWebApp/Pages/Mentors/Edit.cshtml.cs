@@ -34,14 +34,14 @@ namespace IMS.RazorWebApp.Pages.Mentors
                 return NotFound();
             }
 
-            var mentor =  await _mentorBusiness.GetByIdAsync(id);
+            var mentor =  await _mentorBusiness.FindAsync(id);
             var company = _companyBusiness.GetAllCompany();
             if (mentor == null)
             {
                 return NotFound();
             }
             Mentor = (Mentor)mentor.Data;
-           ViewData["CompanyId"] = new SelectList((System.Collections.IEnumerable)company.Data, "CompanyId", "Address");
+           ViewData["CompanyId"] = new SelectList((System.Collections.IEnumerable)company.Data, "CompanyId", "Name");
             return Page();
         }
 

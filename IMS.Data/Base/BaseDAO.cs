@@ -10,12 +10,12 @@ namespace IMS.Data.Base
 {
     public class BaseDAO<T> where T : class
     {
-        protected readonly Net1710_221_4_IMSContext _context;
+        protected readonly Net17102214ImsContext _context;
         protected readonly DbSet<T> _dbSet;
 
         public BaseDAO()
         {
-            _context = new Net1710_221_4_IMSContext();
+            _context = new Net17102214ImsContext();
             _dbSet = _context.Set<T>();
         }
 

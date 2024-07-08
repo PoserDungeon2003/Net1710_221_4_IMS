@@ -7,6 +7,8 @@ public partial class Intern
 {
     public int InternId { get; set; }
 
+    public string Name { get; set; } = null!;
+
     public string University { get; set; } = null!;
 
     public string Major { get; set; } = null!;
@@ -19,9 +21,9 @@ public partial class Intern
 
     public string WorkingTasks { get; set; } = null!;
 
-    public int MentorId { get; set; }
+    public string Skills { get; set; } = null!;
 
-    public string Name { get; set; } = null!;
+    public int MentorId { get; set; }
 
     public int CompanyId { get; set; }
 

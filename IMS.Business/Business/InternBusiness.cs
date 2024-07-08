@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IMS.Business.Result;
 using IMS.Data;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace IMS.Business.Business
 {
@@ -30,6 +31,14 @@ namespace IMS.Business.Business
         {
             _unitOfWork ??= new UnitOfWork();
         }
+        //public async Task<IIMSResult> Index(string searchString)
+        //{
+        //    var interns = await _unitOfWork.InternRepository.GetAllAsync();
+        //    if(!String.IsNullOrEmpty(searchString))
+        //    {
+        //        return View(intens);
+        //    }
+        //}
         public async Task<IIMSResult> Getall()
         {
             try

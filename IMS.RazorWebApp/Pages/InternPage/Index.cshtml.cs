@@ -15,20 +15,21 @@ namespace IMS.RazorWebApp.Pages.Intern
     public class IndexModel : PageModel
     {
         private readonly IInternBusiness business;
-        private readonly IMS.Data.Repository.Net1710_221_4_IMSContext _context;
+        private readonly IMS.Data.Repository.Net17102214ImsContext _context;
         public InternSearchCriteria SearchCriteria { get; set; }
         public IList<Models.Intern> Interns { get; set; }
 
-        public IndexModel(IMS.Data.Repository.Net1710_221_4_IMSContext context)
+        public IndexModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
             business ??= new InternBusiness();
             _context = context;
         }
 
         public IList<Models.Intern> Intern { get;set; } = default!;
+        public string SearchString { get; private set; }
 
         public async Task OnGetAsync()
-            {
+        {
             //var result = await business.Getall();
             //if(result != null && result.Status >0 && result.Data != null)
             //{
@@ -37,16 +38,6 @@ namespace IMS.RazorWebApp.Pages.Intern
             Intern = await _context.Interns
               .Include(i => i.Company)
               .Include(i => i.Mentor).ToListAsync();
-            if (SearchCriteria != null && !string.IsNullOrEmpty(SearchCriteria.SearchTerm))
-            {
-                var searchTerm = SearchCriteria.SearchTerm.ToLower();
-                Interns = Interns.Where(i =>
-                    i.Name.ToLower().Contains(searchTerm) ||
-                    i.University.ToLower().Contains(searchTerm) ||
-                    i.Major.ToLower().Contains(searchTerm) ||
-                    (i.JobPosition != null && i.JobPosition.ToLower().Contains(searchTerm)))
-                    .ToList();
-            }
         }
     }
 }
