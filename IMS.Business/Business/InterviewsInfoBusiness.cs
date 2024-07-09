@@ -21,6 +21,8 @@ namespace IMS.Business.Business
         Task<IIMSResult> DeleteAsync(InterviewsInfo interviewsInfo);
         Task<IIMSResult> DeleteByIdAsync(int? id);
         IIMSResult InterviewInfoExisted(int id);
+        Task<IIMSResult> SearchInterview(string value, int? pageIndex, int pageSize);
+        Task<IIMSResult> GetAllInterviewPagingAsync(int? pageIndex, int pageSize);
     }
     public class InterviewsInfoBusiness : IinterviewsInfoBusiness
     {
@@ -194,5 +196,40 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
             }
         }
+
+        public async Task<IIMSResult> SearchInterview(string value, int? pageIndex, int pageSize)
+        {
+            var interview = await _unitOfWork.InterviewsInfoRepository.SearchInterview(value, pageIndex, pageSize);
+            try
+            {
+                if (interview == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, interview);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> GetAllInterviewPagingAsync(int? pageIndex, int pageSize)
+        {
+            var interview = await _unitOfWork.InterviewsInfoRepository.GetInterviewPagingAsync(pageIndex, pageSize);
+            try
+            {
+                if (interview == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, interview);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
     }
 }

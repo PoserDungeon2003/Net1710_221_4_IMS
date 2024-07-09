@@ -12,39 +12,38 @@ using IMS.Business.Business;
 using IMS.Data.Models;
 using IMS.Common;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using System.Drawing.Printing;
 
 namespace IMS.RazorWebApp.Pages.Interviews
 {
     public class IndexModel : PageModel
     {
         private readonly InterviewsInfoBusiness _interviewBusiness;
-        private readonly MentorBusiness _mentorBusiness;
-        private readonly InternBusiness _internBusiness;
+        [BindProperty(SupportsGet = true)]
+
+        public string? SearchValue { get; set; }
+        public int? PageSize { get; set; } = 3;
 
         public IndexModel(IMS.Data.Repository.Net17102214ImsContext context)
         {
             _interviewBusiness ??= new InterviewsInfoBusiness();
-            _mentorBusiness ??= new MentorBusiness();
-            _internBusiness ??= new InternBusiness();
         }
 
-        public IList<Models.InterviewsInfo> InterviewsInfo { get;set; } = default!;
-        public string Message { get; set; } = string.Empty;
-        public async System.Threading.Tasks.Task OnGetAsync()
+        public PaginatedList<Models.InterviewsInfo> InterviewsInfo { get;set; } = default!;
+        public async Tasks.Task OnGetAsync(int? pageIndex, int pageSize = 3)
         {
-            var interview = await _interviewBusiness.GetAllAsync();
-            if (interview.Status == Const.SUCCESS_READ_CODE)
+            var paginated = await _interviewBusiness.GetAllInterviewPagingAsync(pageIndex, pageSize);
+            if (paginated != null)
             {
-                InterviewsInfo = (interview.Data as IList<InterviewsInfo>)!;
-                Message = interview.Message ?? "Get data success";
+                InterviewsInfo = (PaginatedList<Models.InterviewsInfo>)paginated.Data;
             }
-            if (interview.Status == Const.WARNING_NO_DATA_CODE)
+            if (!String.IsNullOrEmpty(SearchValue))
             {
-                Message = interview.Message ?? "No data";
-            }
-            else
-            {
-                Message = interview.Message ?? "Read data fail";
+                var searchResult = await _interviewBusiness.SearchInterview(SearchValue, pageIndex, pageSize);
+                if (searchResult != null)
+                {
+                    InterviewsInfo = (PaginatedList<Models.InterviewsInfo>)searchResult.Data;
+                }
             }
         }
     }

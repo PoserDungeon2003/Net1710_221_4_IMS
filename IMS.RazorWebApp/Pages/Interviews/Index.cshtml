@@ -3,15 +3,20 @@
 
 @{
     ViewData["Title"] = "Index";
-    var mentorList = ViewData["MentorId"] as SelectList;
-    var internList = ViewData["InternId"] as SelectList;
 }
 
 <h1>Index</h1>
-
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form method="get" class="form-inline mb-3">
+    <div class="input-group">
+        <input type="text" class="form-control" asp-for="SearchValue" placeholder="Search" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -46,14 +51,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.InterviewsInfo[0].Result)
             </th>
-          
-         
-          
-          
-         
-            
-
-
             <th></th>
         </tr>
     </thead>
@@ -99,3 +96,23 @@
 }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.InterviewsInfo.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.InterviewsInfo.HasNextPage ? "disabled" : "";
+}
+<div class="flex flex-row justify-content-evenly">
+    <div class="flex-column">
+        <a asp-page="./Index"
+           asp-route-pageIndex="@(Model.InterviewsInfo.PageIndex - 1)"
+           asp-route-pageSize="@(Model.PageSize)"
+           class="btn btn-primary @prevDisabled">
+            Previous
+        </a>
+        <a asp-page="./Index"
+           asp-route-pageIndex="@(Model.InterviewsInfo.PageIndex + 1)"
+           asp-route-pageSize="@(Model.PageSize)"
+           class="btn btn-primary @nextDisabled">
+            Next
+        </a>
+    </div>
+</div>

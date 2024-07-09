@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:IMS.WpfApp.UI"
         mc:Ignorable="d"
-        Title="wInterview" Height="450" Width="800">
+        Title="wInterview" Height="450" Width="1000">
     <Grid>
         <StackPanel Orientation="Vertical">
             <GroupBox Header="Interview Form" Margin="10">
