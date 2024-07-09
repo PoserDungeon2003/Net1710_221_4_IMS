@@ -112,12 +112,8 @@ public partial class Net17102214ImsContext : DbContext
             entity.Property(e => e.InterviewStatus)
                 .HasMaxLength(20)
                 .HasColumnName("interview_status");
-            entity.Property(e => e.InterviewerId).HasColumnName("interviewerId");
             entity.Property(e => e.Location).HasColumnName("location");
             entity.Property(e => e.MentorId).HasColumnName("mentor_id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
             entity.Property(e => e.Position)
                 .HasMaxLength(50)
                 .HasColumnName("position");

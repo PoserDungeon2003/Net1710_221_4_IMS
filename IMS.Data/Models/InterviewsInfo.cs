@@ -11,13 +11,9 @@ public partial class InterviewsInfo
 
     public string Location { get; set; } = null!;
 
-    public string Result { get; set; } = null!;
-
-    public string Name { get; set; } = null!;
+    public string? Result { get; set; }
 
     public string Content { get; set; } = null!;
-
-    public int InterviewerId { get; set; }
 
     public string? InterviewMode { get; set; }
 
