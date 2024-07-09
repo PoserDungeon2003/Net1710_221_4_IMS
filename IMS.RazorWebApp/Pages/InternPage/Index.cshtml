@@ -4,20 +4,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class="row">
-<div class="col-md-6">
-    <form class="d-flex">
-        <input name="searchString" class="form-control me-1" type="search" placeholder="Search" aria-label="Seach">
-        <button class="btn btn-dark" type="submit">Search</button>
-    </form>
-</div>
-    <div class="col-md-6">
-        <a asp-action="Index" class="text-dark">Back to full list</a>
-    </div>
-</div>
+
+<h1>Index</h1>
+
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -96,3 +89,23 @@
 }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.Intern.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Intern.HasNextPage ? "disabled" : "";
+}
+<div class="flex flex-row justify-content-evenly">
+    <div class="flex-column">
+        <a asp-page="./Index"
+           asp-route-pageIndex="@(Model.Intern.PageIndex - 1)"
+           asp-route-pageSize="@(Model.PageSize)"
+           class="btn btn-primary @prevDisabled">
+            Previous
+        </a>
+        <a asp-page="./Index"
+           asp-route-pageIndex="@(Model.Intern.PageIndex + 1)"
+           asp-route-pageSize="@(Model.PageSize)"
+           class="btn btn-primary @nextDisabled">
+            Next
+        </a>
+    </div>
+

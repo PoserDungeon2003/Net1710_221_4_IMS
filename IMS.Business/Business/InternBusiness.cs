@@ -22,6 +22,8 @@ namespace IMS.Business.Business
         Task<IIMSResult> Update(Intern intern);
         Task<IIMSResult> DeleteById(int? id);
         Task<IIMSResult> DeleteAsync(Intern intern);
+        Task<IIMSResult> SearchIntern(string value, int? pageIndex, int pageSize);
+        Task<IIMSResult> GetAllInternPagingAsync(int? pageIndex, int pageSize);
     }
     public class InternBusiness : IInternBusiness
     {
@@ -207,6 +209,40 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
             }
         }
-    }
-}
+
+        public async Task<IIMSResult> GetAllInternPagingAsync(int? pageIndex, int pageSize)
+        {
+            var intern = await _unitOfWork.InternRepository.GetInternPagingAsync(pageIndex, pageSize);
+            try
+            {
+                if (intern == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, intern);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+            public async Task<IIMSResult> SearchIntern(string value, int? pageIndex, int pageSize)
+            {
+                var intern = await _unitOfWork.InternRepository.SearchIntern(value, pageIndex, pageSize);
+                try
+                {
+                    if (intern == null)
+                    {
+                        return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                    }
+                    return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, intern);
+                }
+                catch (Exception ex)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+                }
+            }
+        }
+    } 
 
