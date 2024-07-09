@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 # Ignore appsettings.Development.json
 appsettings.Development.json
+Net1710_221_4_IMS_DB.sql
+IMS.Data/Migrations/

@@ -50,7 +50,7 @@ namespace IMS.WpfApp.UI
                         Location = txtLocation.Text,
                         Result = txtResult.Text,
                         Position = txtPosition.Text,
-                        Status = txtStatus.Text,
+                        InterviewStatus = txtStatus.Text,
                         Content = txtContent.Text,
                         MentorId = int.Parse(txtMentor.Text),
                         InternId = int.Parse(txtIntern.Text),
@@ -68,7 +68,7 @@ namespace IMS.WpfApp.UI
                     interview.Location = txtLocation.Text;
                     interview.Result = txtResult.Text;
                     interview.Position = txtPosition.Text;
-                    interview.Status = txtStatus.Text;
+                    interview.InterviewStatus = txtStatus.Text;
                     interview.Content = txtContent.Text;
                     interview.MentorId = int.Parse(txtMentor.Text);
                     interview.InternId = int.Parse(txtIntern.Text);
@@ -136,7 +136,7 @@ namespace IMS.WpfApp.UI
                             txtLocation.Text = item.Location;
                             txtResult.Text = item.Result;
                             txtPosition.Text = item.Position;
-                            txtStatus.Text = item.Status;
+                            txtStatus.Text = item.InterviewStatus;
                             txtContent.Text = item.Content;
                             txtMentor.Text = item.MentorId.ToString();
                             txtIntern.Text = item.InternId.ToString();
