@@ -15,12 +15,15 @@ namespace IMS.Business.Business
     {
         Task<IIMSResult> GetAllAsync();
         Task<IIMSResult> FindAsync(int? id);
+        Task<IIMSResult> FindTaskAsync(int? id);
         Task<IIMSResult> AddAsync(IMS.Data.Models.Task task);
         Task<IIMSResult> GetByIdAsync(int? id);
         Task<IIMSResult> UpdateAsync(IMS.Data.Models.Task task);
         Task<IIMSResult> DeleteAsync(IMS.Data.Models.Task task);
         IIMSResult TaskExisted(int id);
         Task<IIMSResult> DeleteByIdAsync(int? id);
+        Task<IIMSResult> SearchTasks(string value, int? pageIndex, int pageSize);
+        Task<IIMSResult> GetAllTasksPagingAsync(int? pageIndex, int pageSize);
     }
     public class TaskBusiness : ITaskBusiness
     {
@@ -174,6 +177,63 @@ namespace IMS.Business.Business
                 return new BusinessResult(Const.FAIL_DELETE_CODE, ex.ToString());
             }
         }
+
+        public async Task<IIMSResult> FindTaskAsync(int? id)
+        {
+            if (id == null)
+            {
+                return new BusinessResult();
+            }
+            var task = await _unitOfWork.TaskRepository.GetTaskById((int)id);
+            try
+            {
+                if (task == null)
+                {
+                    return new BusinessResult();
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, task);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+        public async Task<IIMSResult> SearchTasks(string value, int? pageIndex, int pageSize)
+        {
+            var task = await _unitOfWork.TaskRepository.SearchTask(value, pageIndex, pageSize);
+            try
+            {
+                if (task == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, task);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
+
+        public async Task<IIMSResult> GetAllTasksPagingAsync(int? pageIndex, int pageSize)
+        {
+            var task = await _unitOfWork.TaskRepository.GetTasksPagingAsync(pageIndex, pageSize);
+            try
+            {
+                if (task == null)
+                {
+                    return new BusinessResult(Const.FAIL_READ_CODE, Const.FAIL_READ_MSG, null);
+                }
+                return new BusinessResult(Const.SUCCESS_READ_CODE, Const.SUCCESS_READ_MSG, task);
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(Const.FAIL_READ_CODE, ex.ToString());
+            }
+        }
+
 
     }
 }

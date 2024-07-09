@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IMS.Data.Models;
 using System.Collections;
+using IMS.Common;
 
 namespace IMS.Data.Repository
 {
@@ -43,6 +44,31 @@ namespace IMS.Data.Repository
             }
         }
 
+
+        public async Task<List<Models.Task>> SearchTask(string value, int? pageIndex, int pageSize)
+        {
+            value = value.Trim().ToLower();
+            DateOnly dateValue;
+            bool isValidDate = DateOnly.TryParse(value, out dateValue);
+            var task = _context.Tasks
+                                .Include(c => c.WorkingResults)
+                                .OrderByDescending(m => m.TaskId)
+                                .Where(m =>
+                                    m.TaskId.ToString().Contains(value) ||
+                                    m.Name.ToLower().Contains(value) ||
+                                    m.Description.ToLower().Contains(value) ||
+                                    m.Priority.ToString().Contains(value) ||
+                                    m.Status.ToLower().Contains(value) ||
+                                   (isValidDate && m.CreateDate.Equals(dateValue)) ||
+                                   (isValidDate && m.DueDate.Equals(dateValue)) ||
+                                    m.CompletionPercentage.ToString().Contains(value) ||
+                                    m.InternId.ToString().Contains(value) ||
+                                    m.MentorId.ToString().Contains(value));
+
+            var paginatedTask = await PaginatedList<Models.Task>.CreateAsync(task.AsNoTracking(), pageIndex ?? 1, pageSize);
+            return paginatedTask;
+        }
+
         public async void DeleteByIdAsync()
         {
             //return await _context.Tasks.dele
@@ -55,6 +81,13 @@ namespace IMS.Data.Repository
         public IEnumerable GetAllTask()
         {
             return _context.Tasks;
+        }
+
+        public async Task<PaginatedList<Models.Task>> GetTasksPagingAsync(int? pageIndex, int pageSize)
+        {
+            var paginatedTask = await PaginatedList<Models.Task>.CreateAsync(
+                _context.Tasks.AsNoTracking().OrderByDescending(m => m.TaskId).Include(c => c.WorkingResults), pageIndex ?? 1, pageSize);
+            return paginatedTask;
         }
     }
 }
