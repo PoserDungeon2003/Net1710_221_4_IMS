@@ -16,6 +16,7 @@ public partial class InterviewsInfo
     public string Name { get; set; } = null!;
 
     public string Content { get; set; } = null!;
+    public string Status { get; set; } 
 
     public int InterviewerId { get; set; }
 
