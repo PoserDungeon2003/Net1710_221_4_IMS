@@ -125,22 +125,17 @@ public partial class Net17102214ImsContext : DbContext
             entity.Property(e => e.InterviewStatus)
                 .HasMaxLength(20)
                 .HasColumnName("interview_status");
-            entity.Property(e => e.InterviewerId).HasColumnName("interviewerId");
             entity.Property(e => e.Location).HasColumnName("location");
             entity.Property(e => e.MentorId).HasColumnName("mentor_id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
             entity.Property(e => e.Position)
                 .HasMaxLength(50)
-                .HasColumnName("position");
+                .HasColumnName("position"); 
             entity.Property(e => e.Result)
                 .HasMaxLength(20)
                 .HasColumnName("result");
             entity.Property(e => e.Time)
                 .HasColumnType("datetime")
                 .HasColumnName("time");
-
             entity.HasOne(d => d.Intern).WithMany(p => p.InterviewsInfos)
                 .HasForeignKey(d => d.InternId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
