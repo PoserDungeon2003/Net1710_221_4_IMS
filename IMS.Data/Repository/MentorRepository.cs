@@ -19,7 +19,7 @@ namespace IMS.Data.Repository
 
         public new async Task<List<Mentor>> GetAllAsync()
         {
-            return await _context.Mentors.AsNoTracking().Include(c => c.Company).ToListAsync();
+            return await _context.Mentors.AsNoTracking().Include(c => c.Company).OrderByDescending(m => m.MentorId).ToListAsync();
         }
         
         public async Task<Mentor> GetMentorById(int id)
@@ -48,6 +48,7 @@ namespace IMS.Data.Repository
             bool isValidDate = DateOnly.TryParse(value, out dateValue);
             var mentor = _context.Mentors
                                 .Include(c => c.Company)
+                                .OrderByDescending(m => m.MentorId)
                                 .Where(m => 
                                     m.Email.Contains(value) || 
                                     m.Department.Contains(value) || 
@@ -76,7 +77,7 @@ namespace IMS.Data.Repository
         public async Task<PaginatedList<Mentor>> GetMentorsPagingAsync(int? pageIndex, int pageSize)
         {
             var paginatedMentor = await PaginatedList<Mentor>.CreateAsync(
-                _context.Mentors.AsNoTracking().Include(c => c.Company), pageIndex ?? 1, pageSize);
+                _context.Mentors.AsNoTracking().OrderByDescending(m => m.MentorId).Include(c => c.Company), pageIndex ?? 1, pageSize);
             return paginatedMentor;
         }
     }

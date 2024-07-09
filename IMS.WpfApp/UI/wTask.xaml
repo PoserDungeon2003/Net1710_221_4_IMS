@@ -57,6 +57,12 @@
             <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="ButtonSave" Content="Save" Height="30" Width="80" Click="ButtonSave_Click"/>
                 <Button x:Name="ButtonCancel" Content="Cancel" Height="30" Width="80" Click="ButtonCancel_Click"/>
+
+                <Button Content="Xuất XML" Width="100" Margin="10" Click="ExportToXmlButton_Click"/>
+                <Button Content="Xuất JSON" Width="100" Margin="10" Click="ExportToJsonButton_Click"/>
+                <Button Content="Nhập XML" Width="100" Margin="10" Click="ImportFromXmlButton_Click"/>
+                <Button Content="Nhập JSON" Width="100" Margin="10" Click="ImportFromJsonButton_Click"/>
+
             </StackPanel>
             <StackPanel Height="298" Width="1240">
                 <DataGrid x:Name="grdTask" AutoGenerateColumns="False" ItemsSource="{Binding Tasks}" CanUserAddRows="False" Height="277" Margin="10" MouseDoubleClick="grdTask_MouseDouble_Click" SelectionMode="Single" SelectionUnit="FullRow" Width="1273">
