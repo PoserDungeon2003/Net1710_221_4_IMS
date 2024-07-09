@@ -59,7 +59,7 @@ namespace IMS.Data.Repository
                                     m.Content.Contains(value) ||
                                     m.Location.Contains(value) ||
                                     (isValidDate && m.Time.Date.Equals(dateValue)) ||
-                                    m.Status.Equals(value));
+                                    m.InterviewStatus.Equals(value));
             var paginated = await PaginatedList<InterviewsInfo>.CreateAsync(interview.AsNoTracking(), pageIndex ?? 1, pageSize);
             return paginated;
         }
