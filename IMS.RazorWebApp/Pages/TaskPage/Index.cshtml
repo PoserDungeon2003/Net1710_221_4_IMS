@@ -10,6 +10,16 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form method="get" class="form-inline mb-3">
+    <div class="input-group">
+        <input type="text" class="form-control" asp-for="Search" placeholder="Search" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -90,3 +100,23 @@
 }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.Task.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Task.HasNextPage ? "disabled" : "";
+}
+<div class="flex flex-row justify-content-evenly">
+    <div class="flex-column">
+        <a asp-page="./Index"
+           asp-route-pageIndex="@(Model.Task.PageIndex - 1)"
+           asp-route-pageSize="@(Model.PageSize)"
+           class="btn btn-primary @prevDisabled">
+            Previous
+        </a>
+        <a asp-page="./Index"
+           asp-route-pageIndex="@(Model.Task.PageIndex + 1)"
+           asp-route-pageSize="@(Model.PageSize)"
+           class="btn btn-primary @nextDisabled">
+            Next
+        </a>
+    </div>
+</div>
