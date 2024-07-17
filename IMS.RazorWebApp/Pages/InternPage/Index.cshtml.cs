@@ -19,6 +19,7 @@ namespace IMS.RazorWebApp.Pages.Intern
         private readonly IInternBusiness business;
         private readonly IMS.Data.Repository.Net17102214ImsContext _context;
         public IList<Models.Intern> Interns { get; set; }
+        [BindProperty(SupportsGet = true)]
         public string? Search { get; set; }
         public int? PageSize { get; set; } = 3;
 
@@ -30,7 +31,6 @@ namespace IMS.RazorWebApp.Pages.Intern
         public PaginatedList<Models.Intern> Intern { get; set; } = default!;
 
         //public IList<Models.Intern> Intern { get;set; } = default!;
-        public string SearchString { get; private set; }
 
         public async Tasks.Task OnGetAsync(int? pageIndex, int pageSize = 3)
         {
