@@ -36,7 +36,7 @@ namespace IMS.Data.Repository
             bool isValidDate = DateOnly.TryParse(value, out dateValue);
             var mentor = _context.Interns
                                 .Include(c => c.Company).Include(n => n.Mentor)
-                                .OrderByDescending(m => m.MentorId)
+                                .OrderByDescending(m => m.InternId)
                                 .Where(m =>
                                     m.University.Contains(value) ||
                                     m.Major.Contains(value) ||
